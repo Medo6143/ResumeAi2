@@ -1,0 +1,7 @@
+<div class="h-full bg-white shadow-2xl overflow-hidden rounded-lg border border-slate-300 transition-all duration-500"
+    [style.font-family]="config().fontFamily"
+    style="width: 210mm; min-height: 297mm; margin: 0 auto; background-color: white;">
+
+    <ng-container *ngComponentOutlet="activeComponent(); inputs: componentInputs()"></ng-container>
+
+</div>

@@ -1,0 +1,103 @@
+<section
+    class="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950 pt-32 pb-20 px-4 relative overflow-hidden animate-gradient-x">
+    <!-- Background Decor -->
+    <div class="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/10 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[120px]">
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto relative z-10">
+        <!-- Header Section -->
+        <div class="text-center mb-16 space-y-4">
+            <h1
+                class="text-5xl md:text-6xl font-black tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 text-transparent bg-clip-text">
+                Choose Your Design
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                Explore our collection of 20 premium layouts designed to make your resume stand out to both recruiters
+                and machines.
+            </p>
+        </div>
+
+        <!-- Templates Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <div *ngFor="let template of paginatedTemplates()"
+                class="group relative glass-panel rounded-[2.5rem] overflow-hidden hover:scale-[1.02] hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                (click)="selectTemplate(template.id)">
+
+                <!-- Scaled Preview -->
+                <div class="relative w-full aspect-[210/297] bg-slate-50 dark:bg-slate-900 overflow-hidden">
+                    <div class="absolute inset-0 overflow-hidden">
+                        <div class="origin-top-left transform scale-[0.4] w-[250%]"
+                            style="width: 210mm; min-height: 297mm;">
+                            <app-cv-preview [templateId]="template.id" [resumeData]="mockResume"
+                                class="pointer-events-none block"></app-cv-preview>
+                        </div>
+                    </div>
+
+                    <!-- Hover Overlay -->
+                    <div
+                        class="absolute inset-0 bg-indigo-900/0 group-hover:bg-indigo-900/10 transition-colors duration-300">
+                    </div>
+
+                    <!-- Floating Actions (Bottom) -->
+                    <div
+                        class="absolute bottom-4 left-0 right-0 flex justify-center gap-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 z-10 px-4">
+                        <button (click)="$event.stopPropagation(); openPreview(template)"
+                            class="px-5 py-2.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-800 dark:text-white rounded-xl shadow-xl font-bold text-sm hover:scale-105 active:scale-95 transition-all w-full border border-slate-200 dark:border-slate-700">
+                            Quick View
+                        </button>
+                    </div>
+
+                    <!-- ATS Badge (Top Right) -->
+                    <div *ngIf="template.isAtsOptimized" class="absolute top-3 right-3 z-10 animate-fade-in-down">
+                        <span
+                            class="px-3 py-1 bg-emerald-500/90 backdrop-blur-sm text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-lg border border-emerald-400/50">
+                            ATS Friendly
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Template Info -->
+                <div class="p-8">
+                    <h3 class="text-xl font-bold dark:text-white mb-2">{{ template.name }}</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{{ template.description }}</p>
+
+                    <div class="mt-6 flex items-center justify-between">
+                        <span
+                            class="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Select</span>
+                        <div class="w-4 h-4 rounded-full" [style.background]="template.primaryColor"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="flex justify-center items-center gap-6 mt-16">
+            <button (click)="prevPage()" [disabled]="currentPage() === 0"
+                class="p-5 glass-panel rounded-3xl text-slate-700 dark:text-slate-300 disabled:opacity-20 transition-all hover:scale-110 active:scale-95 shadow-xl">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <div class="flex gap-3">
+                <span *ngFor="let page of [].constructor(totalPages); let i = index" (click)="currentPage.set(i)"
+                    [class]="currentPage() === i ? 'w-10 bg-indigo-600 dark:bg-indigo-500 shadow-indigo-500/50' : 'w-3 bg-slate-300 dark:bg-slate-700'"
+                    class="h-3 rounded-full cursor-pointer transition-all duration-300 shadow-lg">
+                </span>
+            </div>
+            <button (click)="nextPage()" [disabled]="currentPage() === totalPages - 1"
+                class="p-5 glass-panel rounded-3xl text-slate-700 dark:text-slate-300 disabled:opacity-20 transition-all hover:scale-110 active:scale-95 shadow-xl">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Live Preview Modal -->
+    <app-preview-modal *ngIf="selectedTemplateForPreview()" [template]="selectedTemplateForPreview()"
+        (close)="closePreview()" (select)="selectTemplate($event)">
+    </app-preview-modal>
+</section>

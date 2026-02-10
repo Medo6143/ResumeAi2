@@ -1,0 +1,52 @@
+<div class="space-y-6 pt-6 border-t border-slate-200" [formGroup]="form">
+    <div class="flex items-center justify-between">
+        <h2 class="text-xl font-bold text-slate-800">Projects <span
+                class="text-sm font-normal text-slate-400">(Optional)</span></h2>
+        <button type="button" (click)="addProject()"
+            class="text-sm font-bold px-4 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Add Project
+        </button>
+    </div>
+
+    <div formArrayName="projects" class="space-y-6">
+        <div *ngFor="let proj of projectsControls; let i = index" [formGroupName]="i"
+            class="p-6 rounded-xl border border-slate-200 bg-white/50 shadow-sm hover:shadow-md transition-all group">
+
+            <div class="flex items-start justify-between mb-4">
+                <h3 class="text-lg font-bold text-slate-800">Project {{ i + 1 }}</h3>
+                <button type="button" (click)="removeProject(i)"
+                    class="text-slate-400 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Project Name</label>
+                    <input formControlName="name" type="text" placeholder="E-commerce Platform"
+                        class="w-full rounded-lg border border-slate-200/70 bg-white/90 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200/60 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Link <span
+                            class="text-slate-400">(Optional)</span></label>
+                    <input formControlName="link" type="text" placeholder="github.com/username/project"
+                        class="w-full rounded-lg border border-slate-200/70 bg-white/90 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200/60 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-2">Description</label>
+                <textarea formControlName="description" rows="3"
+                    class="w-full rounded-lg border border-slate-200/70 bg-white/90 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200/60 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none resize-y"
+                    placeholder="Built a full-stack e-commerce platform using React and Node.js..."></textarea>
+            </div>
+        </div>
+    </div>
+</div>

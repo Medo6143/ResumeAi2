@@ -1,0 +1,58 @@
+<div class="space-y-6 pt-6 border-t border-slate-200" [formGroup]="form">
+    <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-800">Additional Sections</h3>
+        <button type="button" (click)="addCustomSection()"
+            class="text-sm font-bold px-4 py-2 rounded-xl bg-gradient-to-r from-purple-50 to-pink-50 text-purple-600 hover:shadow-sm transition-all flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Add Section
+        </button>
+    </div>
+
+    <div formArrayName="customSections" class="space-y-4">
+        <div *ngFor="let section of customSectionsControls; let i = index" [formGroupName]="i"
+            class="p-4 rounded-xl border border-slate-200 bg-white/50 group hover:shadow-sm transition-all">
+
+            <div class="flex items-center justify-between mb-4">
+                <input formControlName="title" type="text" placeholder="Certifications, Languages, etc."
+                    class="text-lg font-bold bg-transparent border-b-2 border-slate-200/60 focus:border-indigo-500 dark:border-slate-700/60 dark:focus:border-indigo-400 focus:outline-none w-full py-2 text-slate-900 dark:text-slate-100 placeholder-slate-400">
+                <button type="button" (click)="removeCustomSection(i)" class="text-slate-400 hover:text-rose-500 ml-4">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <div formArrayName="items" class="space-y-3">
+                <div *ngFor="let item of getCustomSectionItems(i); let j = index" [formGroupName]="j"
+                    class="flex gap-3 items-start group/item p-3 rounded-lg bg-slate-50/50 hover:bg-white transition-colors">
+
+                    <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <input formControlName="name" type="text" placeholder="Item Name / Certification"
+                            class="w-full rounded-lg border border-slate-200/70 bg-white/90 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200/60 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none">
+                        <textarea formControlName="description" rows="1" placeholder="Description / Details"
+                            class="w-full rounded-lg border border-slate-200/70 bg-white/90 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200/60 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none resize-none"></textarea>
+                    </div>
+
+                    <button type="button" (click)="removeCustomItem(i, j)"
+                        class="text-slate-300 hover:text-rose-500 transition-colors opacity-0 group-hover/item:opacity-100">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <button type="button" (click)="addCustomItem(i)"
+                    class="text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors flex items-center gap-2 ml-1">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add Item
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

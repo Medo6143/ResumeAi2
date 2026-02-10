@@ -1,0 +1,95 @@
+import { Component, OnInit, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Meta, Title } from '@angular/platform-browser';
+import { ThemeService } from '../../core/services/theme.service';
+import { HeroComponent } from './components/hero/hero.component';
+import { FeaturesComponent } from './components/features/features.component';
+import { StatsComponent } from './components/stats/stats.component';
+import { CtaComponent } from './components/cta/cta.component';
+
+@Component({
+    selector: 'app-home',
+    standalone: true,
+    imports: [
+        CommonModule,
+        HeroComponent,
+        FeaturesComponent,
+        StatsComponent,
+        CtaComponent
+    ],
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss']
+})
+export class HomeComponent implements OnInit {
+    isBrowser: boolean;
+
+    particles = Array.from({ length: 30 }, (_, i) => ({
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 8 + 3,
+        delay: Math.random() * 5,
+        duration: Math.random() * 10 + 8,
+        type: i % 3 // Different particle types for different colors
+    }));
+
+    userAvatars = [
+        'https://api.dicebear.com/7.x/avataaars/svg?seed=Alex&backgroundColor=b6e3f4',
+        'https://api.dicebear.com/7.x/avataaars/svg?seed=Taylor&backgroundColor=c0aede',
+        'https://api.dicebear.com/7.x/avataaars/svg?seed=Jordan&backgroundColor=d1d4f9',
+        'https://api.dicebear.com/7.x/avataaars/svg?seed=Casey&backgroundColor=ffd5dc',
+        'https://api.dicebear.com/7.x/avataaars/svg?seed=Riley&backgroundColor=ffdfbf'
+    ];
+
+    stats = [
+        {
+            value: '25K+',
+            label: 'Active Users',
+            description: 'Professionals transformed'
+        },
+        {
+            value: '96%',
+            label: 'Success Rate',
+            description: 'Got more interviews'
+        },
+        {
+            value: '50+',
+            label: 'ATS Systems',
+            description: 'Fully compatible'
+        },
+        {
+            value: '3.2K',
+            label: '5★ Reviews',
+            description: 'Happy customers'
+        }
+    ];
+
+    constructor(
+        private titleService: Title,
+        private metaService: Meta,
+        @Inject(PLATFORM_ID) private platformId: Object,
+        public themeService: ThemeService
+    ) {
+        this.isBrowser = isPlatformBrowser(this.platformId);
+    }
+
+    ngOnInit() {
+        this.titleService.setTitle('ResumeAI - Land Your Dream Job with AI-Powered Resume Optimization');
+        this.metaService.updateTag({
+            name: 'description',
+            content: 'Transform your resume with AI. Get 96% ATS match scores, instant keyword optimization, and land interviews at top companies. Used by 25,000+ professionals. Free forever.'
+        });
+    }
+
+    getParticleClass(type: number): string {
+        const classes = [
+            'bg-gradient-to-r from-indigo-400/15 to-purple-400/15',
+            'bg-gradient-to-r from-pink-400/10 to-rose-400/10',
+            'bg-gradient-to-r from-cyan-400/12 to-blue-400/12'
+        ];
+        return classes[type] || classes[0];
+    }
+
+    trackByIndex(index: number): number {
+        return index;
+    }
+}

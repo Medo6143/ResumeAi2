@@ -1,0 +1,282 @@
+// Home specific styles
+:host {
+  display: block;
+}
+
+/* Advanced Animations */
+@keyframes float-complex {
+
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg) scale(1);
+  }
+
+  25% {
+    transform: translateY(-30px) translateX(15px) rotate(90deg) scale(1.1);
+  }
+
+  50% {
+    transform: translateY(-15px) translateX(-15px) rotate(180deg) scale(0.9);
+  }
+
+  75% {
+    transform: translateY(-25px) translateX(10px) rotate(270deg) scale(1.05);
+  }
+}
+
+@keyframes float-bob {
+
+  0%,
+  100% {
+    transform: translateY(0px) scale(1);
+  }
+
+  50% {
+    transform: translateY(-30px) scale(1.05);
+  }
+}
+
+@keyframes float-reverse {
+
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+  }
+
+  50% {
+    transform: translateY(30px) translateX(-20px) scale(0.95);
+  }
+}
+
+@keyframes gradient-flow {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes gradient-x {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: 400;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sparkle {
+
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+@keyframes highlight {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes fade-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-slow {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes pulse-slower {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulse-subtle {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  to {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes text-shimmer {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Animation Classes */
+.animate-float-complex {
+  animation: float-complex 8s ease-in-out infinite;
+}
+
+.animate-float-bob {
+  animation: float-bob 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 7s ease-in-out infinite;
+}
+
+.animate-gradient-flow {
+  background-size: 200% 200%;
+  animation: gradient-flow 4s ease infinite;
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 3s ease infinite;
+}
+
+.animate-draw-line {
+  stroke-dasharray: 400;
+  animation: draw-line 2s ease-in-out infinite;
+}
+
+.animate-sparkle {
+  animation: sparkle 3s ease-in-out infinite;
+}
+
+.animate-highlight {
+  animation: highlight 1.5s ease-out forwards;
+}
+
+.animate-fade-slide-down {
+  animation: fade-slide-down 0.8s ease-out forwards;
+}
+
+.animate-fade-slide-up {
+  animation: fade-slide-up 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.animate-pulse-slower {
+  animation: pulse-slower 6s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+.animate-progress {
+  animation: progress 1.5s ease-out forwards;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.animate-text-shimmer {
+  background-size: 200% auto;
+  animation: text-shimmer 3s linear infinite;
+}
+
+/* Utility Classes */
+.bg-size-200 {
+  background-size: 200% 200%;
+}
+
+.border-3 {
+  border-width: 3px;
+}
