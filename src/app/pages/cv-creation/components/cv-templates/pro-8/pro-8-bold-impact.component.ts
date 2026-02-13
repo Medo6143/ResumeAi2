@@ -20,12 +20,41 @@ import { CommonModule } from '@angular/common';
                             <div class="text-[9px] font-medium leading-tight opacity-60" [innerHTML]="job.description"></div>
                         </div>
                     </div>
+                    <div *ngIf="resume.projects && resume.projects.length" class="mt-12 space-y-8">
+                        <h3 class="text-xs font-black uppercase tracking-widest border-b-4 border-black pb-1 italic">Deliverables</h3>
+                        <div *ngFor="let p of resume.projects">
+                            <h4 class="text-[11px] font-black uppercase mb-1">{{ p.name }}</h4>
+                            <p class="text-[9px] font-medium leading-tight opacity-60">{{ p.description }}</p>
+                        </div>
+                    </div>
+                    <div *ngFor="let section of resume.customSections" class="mt-12 space-y-8">
+                        <h3 class="text-xs font-black uppercase tracking-widest border-b-4 border-black pb-1 italic">{{ section.title }}</h3>
+                        <div *ngFor="let item of section.items">
+                            <h4 class="text-[11px] font-black uppercase mb-1">{{ item.name }}</h4>
+                            <p class="text-[9px] font-medium leading-tight opacity-60">{{ item.description }}</p>
+                        </div>
+                    </div>
                 </section>
                 <section class="flex flex-col gap-12">
+                    <div class="p-8 bg-black text-white">
+                        <h4 class="text-xs font-black uppercase mb-4 tracking-tighter">Academic Records</h4>
+                        <div class="space-y-6">
+                            <div *ngFor="let edu of resume.education">
+                                <p class="text-sm font-black italic">{{ edu.degree }}</p>
+                                <p class="text-[10px] opacity-60 uppercase">{{ edu.school }}</p>
+                            </div>
+                        </div>
+                    </div>
                     <div class="p-8 bg-slate-100">
                         <h4 class="text-xs uppercase mb-4">Capabilities</h4>
                         <div class="flex flex-wrap gap-1">
                             <span *ngFor="let s of resume.skills" class="text-[10px]">• {{ s }}</span>
+                        </div>
+                        <div *ngIf="resume.languages && resume.languages.length" class="mt-8 border-t-2 border-black pt-4">
+                            <h4 class="text-xs uppercase mb-2">Dialects</h4>
+                            <div class="flex flex-wrap gap-1">
+                                <span *ngFor="let l of resume.languages" class="text-[10px]">• {{ l }}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="p-8 border-4 border-black flex-1">

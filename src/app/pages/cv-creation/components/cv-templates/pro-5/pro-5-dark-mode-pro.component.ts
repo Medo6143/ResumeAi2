@@ -46,8 +46,51 @@ import { CommonModule } from '@angular/common';
                             </div>
                         </div>
                     </section>
+                    <section *ngIf="resume.projects && resume.projects.length">
+                        <h2 class="text-white text-xs font-black mb-6 uppercase tracking-[0.2em] flex items-center gap-4">
+                            Run_Projects <span class="flex-1 h-px bg-slate-800"></span>
+                        </h2>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div *ngFor="let p of resume.projects" class="p-4 bg-slate-800/30 rounded-xl border border-slate-800">
+                                <h4 class="text-[11px] font-bold text-white mb-1">{{ p.name }}</h4>
+                                <p class="text-[10px] opacity-40 leading-tight">{{ p.description }}</p>
+                            </div>
+                        </div>
+                    </section>
+                    <div *ngFor="let section of resume.customSections">
+                        <section *ngIf="section.items && section.items.length">
+                            <h2 class="text-white text-xs font-black mb-6 uppercase tracking-[0.2em] flex items-center gap-4">
+                                {{ section.title.toUpperCase().replace(' ', '_') }} <span class="flex-1 h-px bg-slate-800"></span>
+                            </h2>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div *ngFor="let item of section.items" class="p-4 bg-slate-800/30 rounded-xl border border-slate-800">
+                                    <h4 class="text-[11px] font-bold text-white mb-1">{{ item.name }}</h4>
+                                    <p class="text-[10px] opacity-40 leading-tight">{{ item.description }}</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
                 <div class="col-span-4 space-y-10">
+                    <section class="bg-indigo-500/10 p-6 rounded-2xl border border-indigo-500/20">
+                        <h2 class="text-white text-xs font-black mb-6 uppercase tracking-[0.2em]">Build_Education</h2>
+                        <div class="space-y-6">
+                            <div *ngFor="let edu of resume.education">
+                                <p class="text-[10px] font-black text-indigo-300 uppercase">{{ edu.degree }}</p>
+                                <p class="text-[9px] text-white opacity-60">{{ edu.school }}</p>
+                                <p class="text-[8px] text-indigo-400 font-mono">{{ edu.startDate }} .. {{ edu.endDate }}</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="p-6 border-t border-slate-800">
+                        <h2 class="text-white text-xs font-black mb-6 uppercase tracking-[0.2em]">System_Languages</h2>
+                        <div class="flex flex-col gap-2">
+                            <div *ngFor="let l of resume.languages" class="flex items-center gap-2">
+                                <div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div>
+                                <span class="text-[10px] font-bold text-slate-400">{{ l }}</span>
+                            </div>
+                        </div>
+                    </section>
                     <section class="bg-slate-800/50 p-6 rounded-2xl border border-slate-800">
                         <h2 class="text-white text-xs font-black mb-6 uppercase tracking-[0.2em]">Core_Skills</h2>
                         <div class="flex flex-wrap gap-2">

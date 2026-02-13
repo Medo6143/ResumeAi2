@@ -22,13 +22,32 @@ export class PersonalInfoStepComponent implements OnInit {
             phone: [''],
             location: [''],
             linkedin: [''],
-            website: ['']
+            website: [''],
+            github: [''],
+            portfolio: [''],
+            photo: ['']
         });
 
         // Auto-save changes to State
         this.form.valueChanges.subscribe(value => {
             this.cvState.updatePersonalInfo(value);
         });
+    }
+
+    onFileSelected(event: Event) {
+        const file = (event.target as HTMLInputElement).files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const base64 = reader.result as string;
+                this.form.patchValue({ photo: base64 });
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    removePhoto() {
+        this.form.patchValue({ photo: '' });
     }
 
     ngOnInit() {

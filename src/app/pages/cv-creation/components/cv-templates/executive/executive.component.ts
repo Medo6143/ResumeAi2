@@ -18,9 +18,18 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
                     </div>
                 </div>
                 <div>
-                    <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4">Expertise</h3>
-                    <div class="flex flex-col gap-2">
-                        <span *ngFor="let s of resume.skills" class="text-[10px] font-bold">• {{ s }}</span>
+                    <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4">Education</h3>
+                    <div class="space-y-4">
+                        <div *ngFor="let edu of resume.education">
+                            <p class="text-[10px] font-bold">{{ edu.degree }}</p>
+                            <p class="text-[9px] opacity-60">{{ edu.school }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4">Languages</h3>
+                    <div class="flex flex-col gap-1">
+                        <span *ngFor="let lang of resume.languages" class="text-[10px] font-medium opacity-60">{{ lang }}</span>
                     </div>
                 </div>
             </div>
@@ -31,10 +40,28 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
             <section class="mb-10">
                 <p class="text-[11px] leading-relaxed opacity-60">{{ resume.summary }}</p>
             </section>
-            <section>
+            <section class="mb-10">
                 <h2 class="text-[10px] font-black uppercase mb-6 tracking-widest" [style.color]="config.primaryColor">Career Narrative</h2>
                 <app-experience-block [jobs]="resume.experience" [primaryColor]="config.primaryColor"></app-experience-block>
             </section>
+            <section *ngIf="resume.projects && resume.projects.length" class="mb-10">
+                <h2 class="text-[10px] font-black uppercase mb-6 tracking-widest" [style.color]="config.primaryColor">Featured Projects</h2>
+                <div class="space-y-6">
+                    <div *ngFor="let p of resume.projects">
+                        <h4 class="text-sm font-bold mb-1">{{ p.name }}</h4>
+                        <p class="text-[11px] opacity-60">{{ p.description }}</p>
+                    </div>
+                </div>
+            </section>
+            <div *ngFor="let section of resume.customSections" class="mb-10">
+                <h2 class="text-[10px] font-black uppercase mb-6 tracking-widest" [style.color]="config.primaryColor">{{ section.title }}</h2>
+                <div class="space-y-6">
+                    <div *ngFor="let item of section.items">
+                        <h4 class="text-sm font-bold mb-1">{{ item.name }}</h4>
+                        <p class="text-[11px] opacity-60">{{ item.description }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
   `

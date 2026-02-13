@@ -7,6 +7,9 @@ export interface Resume {
         linkedin?: string;
         website?: string;
         location?: string;
+        photo?: string; // Base64 or URL
+        github?: string;
+        portfolio?: string;
     };
     summary: string;
     experience: Experience[];

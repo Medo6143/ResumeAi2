@@ -1,4 +1,46 @@
-<div class="space-y-6" [formGroup]="form">
+<div class="space-y-8" [formGroup]="form">
+    <!-- Photo Upload Section -->
+    <div
+        class="flex flex-col items-center gap-4 p-6 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 border-dashed">
+        <input type="file" #fileInput hidden (change)="onFileSelected($event)" accept="image/*">
+
+        <div class="relative group cursor-pointer" (click)="fileInput.click()">
+            <div
+                class="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-lg dark:border-slate-700 bg-slate-200 flex items-center justify-center">
+                <img *ngIf="form.get('photo')?.value" [src]="form.get('photo')?.value"
+                    class="w-full h-full object-cover">
+                <div *ngIf="!form.get('photo')?.value" class="text-slate-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 opacity-50" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+            </div>
+            <div
+                class="absolute inset-0 bg-black/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <span class="text-white text-xs font-medium">Change</span>
+            </div>
+        </div>
+
+        <div class="flex gap-3">
+            <button type="button" (click)="fileInput.click()"
+                class="px-4 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition dark:bg-indigo-900/30 dark:text-indigo-400">
+                Upload Photo
+            </button>
+            <button *ngIf="form.get('photo')?.value" type="button" (click)="removePhoto()"
+                class="px-4 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition dark:bg-red-900/30 dark:text-red-400">
+                Remove
+            </button>
+        </div>
+        <p class="text-xs text-slate-500 text-center max-w-xs">
+            Recommended: Square JPG or PNG, at least 400x400px. <br>
+            This photo will only appear on templates that support it.
+        </p>
+    </div>
+
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Full Name -->
         <div>
@@ -48,12 +90,28 @@
                 placeholder="linkedin.com/in/johndoe">
         </div>
 
+        <!-- GitHub -->
+        <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">GitHub</label>
+            <input type="url" formControlName="github"
+                class="w-full rounded-xl border border-slate-200/70 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200/70 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none"
+                placeholder="github.com/johndoe">
+        </div>
+
+        <!-- Portfolio -->
+        <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Portfolio Status /
+                URL</label>
+            <input type="text" formControlName="portfolio"
+                class="w-full rounded-xl border border-slate-200/70 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200/70 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none"
+                placeholder="e.g. portfolio.com or 'Open for work'">
+        </div>
+
         <!-- Website -->
         <div class="md:col-span-2">
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Website / Portfolio</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Website / Other</label>
             <input type="url" formControlName="website"
                 class="w-full rounded-xl border border-slate-200/70 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200/70 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none"
                 placeholder="https://johndoe.dev">
         </div>
     </div>
-</div>

@@ -39,6 +39,59 @@ import { CommonModule } from '@angular/common';
                     </div>
                 </div>
             </section>
+            <div class="grid grid-cols-2 gap-12">
+                <section *ngIf="resume.education && resume.education.length">
+                    <h3 class="text-xs font-black uppercase mb-6 flex items-center gap-2">
+                        <span class="w-8 h-8 bg-slate-900 text-white flex items-center justify-center rounded">A</span>
+                        Academic
+                    </h3>
+                    <div class="space-y-4">
+                        <div *ngFor="let edu of resume.education">
+                            <h4 class="text-[11px] font-bold">{{ edu.degree }}</h4>
+                            <p class="text-[10px] opacity-40">{{ edu.school }}</p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <h3 class="text-xs font-black uppercase mb-6 flex items-center gap-2">
+                        <span class="w-8 h-8 bg-slate-900 text-white flex items-center justify-center rounded">S</span>
+                        Skills & Tools
+                    </h3>
+                    <div class="flex flex-wrap gap-1">
+                        <span *ngFor="let s of resume.skills" class="px-2 py-0.5 border border-slate-900 text-[9px] font-bold">{{ s }}</span>
+                    </div>
+                    <div *ngIf="resume.languages && resume.languages.length" class="mt-6">
+                        <h4 class="text-[10px] font-black uppercase mb-2">Languages</h4>
+                        <p class="text-[10px] opacity-60">{{ resume.languages.join(', ') }}</p>
+                    </div>
+                </section>
+            </div>
+            <section *ngIf="resume.projects && resume.projects.length">
+                <h3 class="text-xs font-black uppercase mb-6 flex items-center gap-2">
+                    <span class="w-8 h-8 bg-slate-900 text-white flex items-center justify-center rounded">P</span>
+                    Projects
+                </h3>
+                <div class="grid grid-cols-2 gap-8">
+                    <div *ngFor="let p of resume.projects">
+                        <h4 class="text-sm font-bold border-l-4 border-slate-900 pl-3">{{ p.name }}</h4>
+                        <p class="text-[10px] opacity-60 pl-4 mt-1">{{ p.description }}</p>
+                    </div>
+                </div>
+            </section>
+            <div *ngFor="let section of resume.customSections">
+                <section *ngIf="section.items && section.items.length">
+                    <h3 class="text-xs font-black uppercase mb-6 flex items-center gap-2">
+                        <span class="w-8 h-8 bg-slate-900 text-white flex items-center justify-center rounded">X</span>
+                        {{ section.title }}
+                    </h3>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div *ngFor="let item of section.items">
+                            <h4 class="text-sm font-bold border-l-4 border-slate-900 pl-3">{{ item.name }}</h4>
+                            <p class="text-[10px] opacity-60 pl-4 mt-1">{{ item.description }}</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
   `

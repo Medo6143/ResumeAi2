@@ -76,19 +76,7 @@ export class CvCreationComponent {
     ) {
         this.isBrowser = isPlatformBrowser(platformId);
 
-        // Auto-save handles by CvStateService logic implicitly if setup?
-        // Actually CvStateService doesn't auto-save to storage by itself in the snippet I saw.
-        // I should add auto-save logic here or inside the service.
-        // Ideally the service should handle it, but for now let's add it here to maintain feature parity.
         if (this.isBrowser) {
-            // Load state
-            const saved = sessionStorage.getItem('resumeState');
-            if (saved) {
-                try {
-                    this.cvState.setResume(JSON.parse(saved));
-                } catch (e) { console.error(e); }
-            }
-
             // Handle Template from query param
             this.route.queryParams.subscribe(params => {
                 if (params['template']) {
@@ -165,6 +153,7 @@ export class CvCreationComponent {
     }
 
     // PDF Download
+    // PDF Download
     async downloadPDF() {
         if (!this.isBrowser) return;
 
@@ -191,6 +180,16 @@ export class CvCreationComponent {
             tempWrapper.appendChild(pdfContainer);
             document.body.appendChild(tempWrapper);
 
+            // Wait for image loading
+            const images = Array.from(pdfContainer.querySelectorAll('img'));
+            await Promise.all(images.map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => {
+                    img.onload = resolve;
+                    img.onerror = resolve;
+                });
+            }));
+
             const canvas = await html2canvas(pdfContainer, {
                 scale: 2,
                 useCORS: true,
@@ -212,6 +211,45 @@ export class CvCreationComponent {
             let position = 0;
 
             pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+
+            // --- CLICKABLE LINKS LOGIC ---
+            // We need to calculate the PDF coordinates for each link in the DOM
+            // scale factor between DOM pixels and PDF mm
+            const scale = imgWidth / pdfContainer.offsetWidth;
+
+            const links = pdfContainer.querySelectorAll('a');
+            links.forEach((link: HTMLAnchorElement) => {
+                const rect = link.getBoundingClientRect();
+                const parentRect = pdfContainer.getBoundingClientRect();
+
+                // Calculate position relative to the container
+                const x = (rect.left - parentRect.left) * scale;
+                const y = (rect.top - parentRect.top) * scale;
+                const w = rect.width * scale;
+                const h = rect.height * scale;
+
+                // Add link annotation to PDF
+                // We assume single page for simplicity for links, or just add to first page if it fits
+                // For multi-page, we'd need to check if 'y' crosses page breaks. 
+                // Currently most templates are single page conceptual, but let's handle the first page for now.
+                // Or basic multi-page handling:
+
+                let linkPage = 1;
+                let linkY = y;
+
+                while (linkY > pageHeight) {
+                    linkY -= pageHeight;
+                    linkPage++;
+                }
+
+                if (linkPage === 1) { // Current PDF context is page 1 initially
+                    pdf.link(x, linkY, w, h, { url: link.href });
+                }
+                // (Advanced: switch pages for links on page 2+ not implemented for simplicity, 
+                //  requires adding pages explicitly and switching context)
+            });
+            // -----------------------------
+
             heightLeft -= pageHeight;
 
             while (heightLeft > 0) {

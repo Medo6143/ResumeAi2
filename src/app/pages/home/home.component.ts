@@ -6,6 +6,9 @@ import { HeroComponent } from './components/hero/hero.component';
 import { FeaturesComponent } from './components/features/features.component';
 import { StatsComponent } from './components/stats/stats.component';
 import { CtaComponent } from './components/cta/cta.component';
+import { AtsPreviewComponent } from './components/ats-preview/ats-preview.component';
+import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
+import { TemplatesPreviewComponent } from './components/templates-preview/templates-preview.component';
 
 @Component({
     selector: 'app-home',
@@ -15,7 +18,10 @@ import { CtaComponent } from './components/cta/cta.component';
         HeroComponent,
         FeaturesComponent,
         StatsComponent,
-        CtaComponent
+        CtaComponent,
+        AtsPreviewComponent,
+        HowItWorksComponent,
+        TemplatesPreviewComponent
     ],
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']

@@ -35,6 +35,52 @@ import { CommonModule } from '@angular/common';
                 </div>
                 <h2 class="text-xs font-bold text-slate-800 mt-2">{{ '}' }}</h2>
             </section>
+
+            <section *ngIf="resume.education && resume.education.length" class="mb-6">
+                <h2 class="text-xs font-bold text-slate-800 mb-2">class Education {{ '{' }}</h2>
+                <div class="pl-4 space-y-2 border-l-2 border-slate-200">
+                    <div *ngFor="let edu of resume.education">
+                        <div class="text-blue-600">new {{ edu.degree.replace(' ', '') }}() {{ '{' }}</div>
+                        <div class="pl-4 opacity-60">
+                            <span>school = "{{ edu.school }}";</span>
+                            <span>years = "{{ edu.startDate }}..{{ edu.endDate }}";</span>
+                        </div>
+                        <div>{{ '}' }}</div>
+                    </div>
+                </div>
+                <h2 class="text-xs font-bold text-slate-800 mt-2">{{ '}' }}</h2>
+            </section>
+
+            <div class="grid grid-cols-2 gap-8 mb-6">
+                <section *ngIf="resume.projects && resume.projects.length">
+                    <h2 class="text-xs font-bold text-slate-800 mb-2">enum Projects {{ '{' }}</h2>
+                    <div class="pl-4 text-[9px] opacity-60">
+                        <div *ngFor="let p of resume.projects">
+                            {{ p.name.toUpperCase().replace(' ', '_') }}, // {{ p.description }}
+                        </div>
+                    </div>
+                    <h2 class="text-xs font-bold text-slate-800 mt-1">{{ '}' }}</h2>
+                </section>
+                <section *ngIf="resume.languages && resume.languages.length">
+                    <h2 class="text-xs font-bold text-slate-800 mb-2">const LANGUAGES = [</h2>
+                    <div class="pl-4 text-[9px] opacity-60">
+                        <div *ngFor="let lang of resume.languages">"{{ lang }}",</div>
+                    </div>
+                    <h2 class="text-xs font-bold text-slate-800 mt-1">];</h2>
+                </section>
+            </div>
+
+            <div *ngFor="let section of resume.customSections">
+                <section *ngIf="section.items && section.items.length" class="mb-6">
+                    <h2 class="text-xs font-bold text-slate-800 mb-2">interface {{ section.title.replace(' ', '') }} {{ '{' }}</h2>
+                    <div class="pl-4 space-y-2 border-l-2 border-slate-200 opacity-60">
+                        <div *ngFor="let item of section.items">
+                            <span class="text-blue-600">readonly</span> {{ item.name.replace(' ', '') }}: "{{ item.description }}";
+                        </div>
+                    </div>
+                    <h2 class="text-xs font-bold text-slate-800 mt-2">{{ '}' }}</h2>
+                </section>
+            </div>
         </div>
     </div>
   `

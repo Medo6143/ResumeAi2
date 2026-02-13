@@ -28,7 +28,26 @@ export class TemplateService {
         { id: 'pro-14', name: 'Professor Serif', description: 'Academic focus with deep serif roots.', primaryColor: '#451a03', fontFamily: 'Lora', layoutType: 'classic' },
         { id: 'pro-15', name: 'Minimalist Dot', description: 'Punctuated sections for readability.', primaryColor: '#64748b', fontFamily: 'Inter', layoutType: 'minimal' },
         { id: 'pro-16', name: 'Vibrant Pulse', description: 'Energetic and modern color palette.', primaryColor: '#8b5cf6', fontFamily: 'Plus Jakarta Sans', layoutType: 'modern' },
-        { id: 'pro-17', name: 'Studio Artist', description: 'Visual-friendly arts and media layout.', primaryColor: '#db2777', fontFamily: 'Inter', layoutType: 'grid' }
+        { id: 'pro-17', name: 'Studio Artist', description: 'Visual-friendly arts and media layout.', primaryColor: '#db2777', fontFamily: 'Inter', layoutType: 'grid' },
+
+        // PHOTO TEMPLATES
+        { id: 'photo-1', name: 'Modern Circle', description: 'Clean layout with a circular profile photo.', primaryColor: '#4f46e5', fontFamily: 'Inter', layoutType: 'modern' },
+        { id: 'photo-2', name: 'Classic Square', description: 'Timeless design with a professional square photo.', primaryColor: '#059669', fontFamily: 'Merriweather', layoutType: 'standard' },
+        { id: 'photo-3', name: 'Sidebar Left', description: 'Distinctive sidebar with photo focus.', primaryColor: '#7c3aed', fontFamily: 'Inter', layoutType: 'sidebar' },
+        { id: 'photo-4', name: 'Header Banner', description: 'Bold header banner with overlay photo.', primaryColor: '#1e40af', fontFamily: 'Outfit', layoutType: 'modern' },
+        { id: 'photo-5', name: 'Minimalist', description: 'Ultra-clean design with subtle photo placement.', primaryColor: '#374151', fontFamily: 'Inter', layoutType: 'minimal' },
+        { id: 'photo-6', name: 'Bold Header', description: 'Impactful header with integrated photo.', primaryColor: '#312e81', fontFamily: 'Outfit', layoutType: 'modern' },
+        { id: 'photo-7', name: 'Left Accent', description: 'Distinctive left border with large photo.', primaryColor: '#be123c', fontFamily: 'Inter', layoutType: 'sidebar' },
+        { id: 'photo-8', name: 'Centered Minimal', description: 'Center-aligned photo for a clean look.', primaryColor: '#475569', fontFamily: 'Lato', layoutType: 'minimal' },
+        { id: 'photo-9', name: 'Split Contrast', description: 'High contrast split screen design.', primaryColor: '#0f172a', fontFamily: 'Montserrat', layoutType: 'modern' },
+        { id: 'photo-10', name: 'Floating Card', description: 'Modern card-based layout with shadow.', primaryColor: '#4f46e5', fontFamily: 'Inter', layoutType: 'modern' },
+
+        // ATS TEMPLATES
+        { id: 'ats-1', name: 'Standard Serif', description: 'Classic, parse-friendly serif layout.', primaryColor: '#000000', fontFamily: 'Merriweather', layoutType: 'ats', isAtsOptimized: true },
+        { id: 'ats-2', name: 'Clean Sans', description: 'Simple, legible sans-serif for ATS.', primaryColor: '#000000', fontFamily: 'Arial', layoutType: 'ats', isAtsOptimized: true },
+        { id: 'ats-3', name: 'Compact Tech', description: 'Dense, monospaced layout for technical roles.', primaryColor: '#000000', fontFamily: 'Roboto Mono', layoutType: 'ats', isAtsOptimized: true },
+        { id: 'ats-4', name: 'Executive Simple', description: 'Sophisticated, no-frills executive style.', primaryColor: '#1e293b', fontFamily: 'Inter', layoutType: 'ats', isAtsOptimized: true },
+        { id: 'ats-5', name: 'Academic Plain', description: 'Traditional academic CV format.', primaryColor: '#000000', fontFamily: 'Times New Roman', layoutType: 'ats', isAtsOptimized: true }
     ];
 
     getTemplates(): TemplateConfig[] {

@@ -16,16 +16,57 @@ import { CommonModule } from '@angular/common';
             <div *ngIf="resume.summary" class="text-xs text-center max-w-lg mx-auto leading-relaxed text-slate-600">
                 {{ resume.summary }}
             </div>
-            <section class="space-y-10">
-                <div *ngFor="let job of resume.experience" class="grid grid-cols-4 gap-4">
-                    <div class="text-[9px] font-bold text-emerald-600 uppercase pt-1">{{ job.startDate }}—{{ job.endDate }}</div>
-                    <div class="col-span-3">
-                        <h3 class="text-xs font-bold mb-1">{{ job.jobTitle }}</h3>
-                        <p class="text-[10px] font-bold opacity-40 mb-3 italic">{{ job.company }}</p>
-                        <div class="text-[10px] leading-relaxed text-slate-500" [innerHTML]="job.description"></div>
+                <div *ngIf="resume.skills && resume.skills.length">
+                    <h2 class="text-[10px] uppercase font-bold text-center tracking-[0.2em] mb-4 text-emerald-600">Skills</h2>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <span *ngFor="let s of resume.skills" class="text-[10px] font-medium text-slate-500">{{ s }}</span>
                     </div>
                 </div>
-            </section>
+                <div *ngIf="resume.education && resume.education.length" class="space-y-10">
+                    <h2 class="text-[10px] uppercase font-bold text-center tracking-[0.2em] mb-8 text-emerald-600">Education</h2>
+                    <div *ngFor="let edu of resume.education" class="grid grid-cols-4 gap-4">
+                        <div class="text-[9px] font-bold text-slate-400 uppercase pt-1">{{ edu.startDate }}—{{ edu.endDate }}</div>
+                        <div class="col-span-3">
+                            <h3 class="text-xs font-bold mb-1">{{ edu.degree }}</h3>
+                            <p class="text-[10px] italic text-slate-500">{{ edu.school }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="resume.experience && resume.experience.length" class="space-y-10">
+                    <h2 class="text-[10px] uppercase font-bold text-center tracking-[0.2em] mb-8 text-emerald-600">Experience</h2>
+                    <div *ngFor="let job of resume.experience" class="grid grid-cols-4 gap-4">
+                        <div class="text-[9px] font-bold text-emerald-600 uppercase pt-1">{{ job.startDate }}—{{ job.endDate }}</div>
+                        <div class="col-span-3">
+                            <h3 class="text-xs font-bold mb-1">{{ job.jobTitle }}</h3>
+                            <p class="text-[10px] font-bold opacity-40 mb-3 italic">{{ job.company }}</p>
+                            <div class="text-[10px] leading-relaxed text-slate-500" [innerHTML]="job.description"></div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="resume.projects && resume.projects.length" class="space-y-10">
+                    <h2 class="text-[10px] uppercase font-bold text-center tracking-[0.2em] mb-8 text-emerald-600">Projects</h2>
+                    <div *ngFor="let p of resume.projects" class="grid grid-cols-4 gap-4">
+                        <div class="col-span-4 border-l-2 border-emerald-100 pl-4">
+                            <h3 class="text-xs font-bold mb-1">{{ p.name }}</h3>
+                            <p class="text-[10px] leading-relaxed text-slate-500">{{ p.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="resume.languages && resume.languages.length">
+                    <h2 class="text-[10px] uppercase font-bold text-center tracking-[0.2em] mb-4 text-emerald-600">Languages</h2>
+                    <div class="flex justify-center gap-6">
+                        <span *ngFor="let l of resume.languages" class="text-[10px] font-bold italic">{{ l }}</span>
+                    </div>
+                </div>
+                <div *ngFor="let section of resume.customSections" class="space-y-10">
+                    <h2 class="text-[10px] uppercase font-bold text-center tracking-[0.2em] mb-8 text-emerald-600">{{ section.title }}</h2>
+                    <div *ngFor="let item of section.items" class="grid grid-cols-4 gap-4">
+                        <div class="col-span-4 border-l-2 border-emerald-100 pl-4">
+                            <h3 class="text-xs font-bold mb-1">{{ item.name }}</h3>
+                            <p class="text-[10px] leading-relaxed text-slate-500">{{ item.description }}</p>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
   `

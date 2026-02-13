@@ -26,12 +26,42 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
                     <h3 class="text-xs font-bold uppercase tracking-wider border-b-2 pb-1 mb-3" [style.border-color]="config.primaryColor">Experience</h3>
                     <app-experience-block [jobs]="resume.experience" [primaryColor]="config.primaryColor"></app-experience-block>
                 </section>
+                <section *ngIf="resume.projects && resume.projects.length">
+                    <h3 class="text-xs font-bold uppercase tracking-wider border-b-2 pb-1 mb-3" [style.border-color]="config.primaryColor">Projects</h3>
+                    <div class="space-y-4">
+                        <div *ngFor="let project of resume.projects">
+                            <h4 class="text-[11px] font-bold">{{ project.name }}</h4>
+                            <p class="text-[10px] opacity-70">{{ project.description }}</p>
+                        </div>
+                    </div>
+                </section>
+                <div *ngFor="let section of resume.customSections">
+                    <section *ngIf="section.items && section.items.length">
+                        <h3 class="text-xs font-bold uppercase tracking-wider border-b-2 pb-1 mb-3" [style.border-color]="config.primaryColor">{{ section.title }}</h3>
+                        <div class="space-y-3">
+                            <div *ngFor="let item of section.items">
+                                <h4 class="text-[11px] font-bold">{{ item.name }}</h4>
+                                <p class="text-[10px] opacity-70">{{ item.description }}</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
             </div>
             <div class="col-span-4 space-y-6">
-                <section>
-                    <h3 class="text-xs font-bold uppercase tracking-wider border-b-2 border-slate-200 pb-1 mb-2">Skills</h3>
-                    <div class="flex flex-wrap gap-1">
-                        <span *ngFor="let s of resume.skills" class="px-2 py-0.5 bg-slate-100 text-[9px] rounded">{{ s }}</span>
+                <section *ngIf="resume.education && resume.education.length">
+                    <h3 class="text-xs font-bold uppercase tracking-wider border-b-2 border-slate-200 pb-1 mb-2">Education</h3>
+                    <div class="space-y-4">
+                        <div *ngFor="let edu of resume.education">
+                            <p class="text-[10px] font-bold">{{ edu.degree }}</p>
+                            <p class="text-[9px] opacity-60">{{ edu.school }}</p>
+                            <p class="text-[8px] opacity-40">{{ edu.startDate }} - {{ edu.endDate }}</p>
+                        </div>
+                    </div>
+                </section>
+                <section *ngIf="resume.languages && resume.languages.length">
+                    <h3 class="text-xs font-bold uppercase tracking-wider border-b-2 border-slate-200 pb-1 mb-2">Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span *ngFor="let lang of resume.languages" class="text-[10px] opacity-70">{{ lang }}</span>
                     </div>
                 </section>
             </div>

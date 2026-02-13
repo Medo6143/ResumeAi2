@@ -25,6 +25,21 @@ import { Pro14ProfessorSerifComponent } from '../cv-templates/pro-14/pro-14-prof
 import { Pro15MinimalistDotComponent } from '../cv-templates/pro-15/pro-15-minimalist-dot.component';
 import { Pro16VibrantPulseComponent } from '../cv-templates/pro-16/pro-16-vibrant-pulse.component';
 import { Pro17StudioArtistComponent } from '../cv-templates/pro-17/pro-17-studio-artist.component';
+import { Photo1ModernCircleComponent } from '../cv-templates/photo-1/photo-1-modern-circle.component';
+import { Photo2ClassicSquareComponent } from '../cv-templates/photo-2/photo-2-classic-square.component';
+import { Photo3SidebarLeftComponent } from '../cv-templates/photo-3/photo-3-sidebar-left.component';
+import { Photo4HeaderBannerComponent } from '../cv-templates/photo-4/photo-4-header-banner.component';
+import { Photo5MinimalistComponent } from '../cv-templates/photo-5/photo-5-minimalist.component';
+import { Photo6BoldHeaderComponent } from '../cv-templates/photo-6/photo-6-bold-header.component';
+import { Photo7LeftAccentComponent } from '../cv-templates/photo-7/photo-7-left-accent.component';
+import { Photo8CenteredMinimalComponent } from '../cv-templates/photo-8/photo-8-centered-minimal.component';
+import { Photo9SplitContrastComponent } from '../cv-templates/photo-9/photo-9-split-contrast.component';
+import { Photo10FloatingCardComponent } from '../cv-templates/photo-10/photo-10-floating-card.component';
+import { Ats1StandardSerifComponent } from '../cv-templates/ats-1/ats-1-standard-serif.component';
+import { Ats2CleanSansComponent } from '../cv-templates/ats-2/ats-2-clean-sans.component';
+import { Ats3CompactTechComponent } from '../cv-templates/ats-3/ats-3-compact-tech.component';
+import { Ats4ExecutiveSimpleComponent } from '../cv-templates/ats-4/ats-4-executive-simple.component';
+import { Ats5AcademicPlainComponent } from '../cv-templates/ats-5/ats-5-academic-plain.component';
 
 @Component({
     selector: 'app-cv-preview',
@@ -60,7 +75,22 @@ export class CvPreviewComponent {
         'pro-14': Pro14ProfessorSerifComponent,
         'pro-15': Pro15MinimalistDotComponent,
         'pro-16': Pro16VibrantPulseComponent,
-        'pro-17': Pro17StudioArtistComponent
+        'pro-17': Pro17StudioArtistComponent,
+        'photo-1': Photo1ModernCircleComponent,
+        'photo-2': Photo2ClassicSquareComponent,
+        'photo-3': Photo3SidebarLeftComponent,
+        'photo-4': Photo4HeaderBannerComponent,
+        'photo-5': Photo5MinimalistComponent,
+        'photo-6': Photo6BoldHeaderComponent,
+        'photo-7': Photo7LeftAccentComponent,
+        'photo-8': Photo8CenteredMinimalComponent,
+        'photo-9': Photo9SplitContrastComponent,
+        'photo-10': Photo10FloatingCardComponent,
+        'ats-1': Ats1StandardSerifComponent,
+        'ats-2': Ats2CleanSansComponent,
+        'ats-3': Ats3CompactTechComponent,
+        'ats-4': Ats4ExecutiveSimpleComponent,
+        'ats-5': Ats5AcademicPlainComponent
     };
 
     activeComponent = computed(() => {

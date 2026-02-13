@@ -1,4 +1,5 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, effect, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Resume, INITIAL_RESUME } from '../models/resume.model';
 
 @Injectable({ providedIn: 'root' })
@@ -8,6 +9,24 @@ export class CvStateService {
 
     // Read-only signal for consumers
     resume = computed(() => this.resumeState());
+
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+        if (isPlatformBrowser(this.platformId)) {
+            // Load state
+            const saved = sessionStorage.getItem('resumeState');
+            if (saved) {
+                try {
+                    this.resumeState.set(JSON.parse(saved));
+                } catch (e) { console.error('Failed to load resume state', e); }
+            }
+
+            // Auto-save effect
+            effect(() => {
+                const state = this.resumeState();
+                sessionStorage.setItem('resumeState', JSON.stringify(state));
+            });
+        }
+    }
 
     updatePersonalInfo(info: Partial<Resume['personalInfo']>) {
         this.resumeState.update(current => ({

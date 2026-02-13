@@ -17,11 +17,25 @@ import { CommonModule } from '@angular/common';
                 <h2 class="text-[12px] font-bold border-b mb-1 pb-0.5 uppercase">Professional Summary</h2>
                 <p class="text-[10px]">{{ resume.summary }}</p>
             </section>
-            <section>
+            <section *ngIf="resume.skills && resume.skills.length">
                 <h2 class="text-[12px] font-bold border-b mb-2 pb-0.5 uppercase">Core Competencies</h2>
                 <p class="text-[10px]">{{ resume.skills.join(' • ') }}</p>
             </section>
-            <section>
+            <section *ngIf="resume.education && resume.education.length">
+                <h2 class="text-[12px] font-bold border-b mb-2 pb-0.5 uppercase">Education</h2>
+                <div *ngFor="let edu of resume.education" class="mb-2">
+                    <div class="flex justify-between font-bold text-[10px]">
+                        <span>{{ edu.degree }}</span>
+                        <span>{{ edu.startDate }} - {{ edu.endDate }}</span>
+                    </div>
+                    <div class="text-[10px] opacity-70">{{ edu.school }}</div>
+                </div>
+            </section>
+            <section *ngIf="resume.languages && resume.languages.length">
+                <h2 class="text-[12px] font-bold border-b mb-2 pb-0.5 uppercase">Languages</h2>
+                <p class="text-[10px]">{{ resume.languages.join(' | ') }}</p>
+            </section>
+            <section *ngIf="resume.experience && resume.experience.length">
                 <h2 class="text-[12px] font-bold border-b mb-2 pb-0.5 uppercase">Experience</h2>
                 <div *ngFor="let job of resume.experience" class="mb-3">
                     <div class="flex justify-between font-bold text-[10px]">
@@ -32,6 +46,22 @@ import { CommonModule } from '@angular/common';
                     <div class="text-[10px] mt-0.5" [innerHTML]="job.description"></div>
                 </div>
             </section>
+            <section *ngIf="resume.projects && resume.projects.length">
+                <h2 class="text-[12px] font-bold border-b mb-2 pb-0.5 uppercase">Projects</h2>
+                <div *ngFor="let p of resume.projects" class="mb-2">
+                    <div class="font-bold text-[10px]">{{ p.name }}</div>
+                    <div class="text-[10px] mt-0.5 opacity-80">{{ p.description }}</div>
+                </div>
+            </section>
+            <div *ngFor="let section of resume.customSections">
+                <section *ngIf="section.items && section.items.length">
+                    <h2 class="text-[12px] font-bold border-b mb-2 pb-0.5 uppercase">{{ section.title }}</h2>
+                    <div *ngFor="let item of section.items" class="mb-2">
+                        <div class="font-bold text-[10px]">{{ item.name }}</div>
+                        <div class="text-[10px] mt-0.5 opacity-80">{{ item.description }}</div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
   `

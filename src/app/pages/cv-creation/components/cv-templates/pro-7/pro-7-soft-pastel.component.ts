@@ -28,15 +28,52 @@ import { CommonModule } from '@angular/common';
                             <span *ngFor="let s of resume.skills" class="px-3 py-1 bg-slate-50 text-[10px] rounded-full border border-slate-100">{{ s }}</span>
                         </div>
                     </section>
+                    <section *ngIf="resume.education && resume.education.length">
+                        <h4 class="text-[10px] font-black uppercase text-indigo-300 mb-6 tracking-widest">Education</h4>
+                        <div class="space-y-4">
+                            <div *ngFor="let edu of resume.education">
+                                <p class="text-[11px] font-bold">{{ edu.degree }}</p>
+                                <p class="text-[10px] opacity-40 italic">{{ edu.school }}</p>
+                            </div>
+                        </div>
+                    </section>
+                    <section *ngIf="resume.languages && resume.languages.length">
+                        <h4 class="text-[10px] font-black uppercase text-indigo-300 mb-6 tracking-widest">Languages</h4>
+                        <p class="text-[11px] font-medium">{{ resume.languages.join(', ') }}</p>
+                    </section>
                 </div>
                 <div class="col-span-7 border-l border-slate-50 pl-12">
-                    <h4 class="text-[10px] font-black uppercase text-indigo-300 mb-8 tracking-widest">Experience</h4>
-                    <div class="space-y-10">
-                        <div *ngFor="let job of resume.experience">
-                            <p class="text-[9px] font-bold text-indigo-400 mb-1">{{ job.startDate }} - {{ job.endDate }}</p>
-                            <h5 class="text-sm font-bold text-slate-800">{{ job.jobTitle }}</h5>
-                            <p class="text-[10px] opacity-40 font-bold mb-3 italic">{{ job.company }}</p>
-                            <div class="text-[10px] leading-relaxed opacity-60" [innerHTML]="job.description"></div>
+                    <div class="space-y-12">
+                        <section *ngIf="resume.experience && resume.experience.length">
+                            <h4 class="text-[10px] font-black uppercase text-indigo-300 mb-8 tracking-widest">Experience</h4>
+                            <div class="space-y-10">
+                                <div *ngFor="let job of resume.experience">
+                                    <p class="text-[9px] font-bold text-indigo-400 mb-1">{{ job.startDate }} - {{ job.endDate }}</p>
+                                    <h5 class="text-sm font-bold text-slate-800">{{ job.jobTitle }}</h5>
+                                    <p class="text-[10px] opacity-40 font-bold mb-3 italic">{{ job.company }}</p>
+                                    <div class="text-[10px] leading-relaxed opacity-60" [innerHTML]="job.description"></div>
+                                </div>
+                            </div>
+                        </section>
+                        <section *ngIf="resume.projects && resume.projects.length">
+                            <h4 class="text-[10px] font-black uppercase text-indigo-300 mb-8 tracking-widest">Key Projects</h4>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div *ngFor="let p of resume.projects">
+                                    <h5 class="text-sm font-bold text-slate-800">{{ p.name }}</h5>
+                                    <p class="text-[10px] leading-relaxed opacity-60 mt-1">{{ p.description }}</p>
+                                </div>
+                            </div>
+                        </section>
+                        <div *ngFor="let section of resume.customSections">
+                            <section *ngIf="section.items && section.items.length">
+                                <h4 class="text-[10px] font-black uppercase text-indigo-300 mb-8 tracking-widest">{{ section.title }}</h4>
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div *ngFor="let item of section.items">
+                                        <h5 class="text-sm font-bold text-slate-800">{{ item.name }}</h5>
+                                        <p class="text-[10px] leading-relaxed opacity-60 mt-1">{{ item.description }}</p>
+                                    </div>
+                                </div>
+                            </section>
                         </div>
                     </div>
                 </div>

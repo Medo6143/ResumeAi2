@@ -13,40 +13,61 @@ export const MOCK_RESUME: Resume = {
     experience: [
         {
             id: '1',
-            jobTitle: 'Principal Engineer',
-            company: 'TechFlow Systems',
+            jobTitle: 'Principal Software Architect',
+            company: 'TechFlow Global Solutions',
             startDate: '2020-01',
             endDate: 'Present',
             current: true,
-            description: 'Directed the architectural redesign of the core payment processing engine, improving throughput by 40%. Mentored a team of 15 senior developers across three time zones.'
+            description: 'Directed the architectural redesign of the core payment processing engine, improving throughput by 40%. Mentored a team of 15 senior developers and implemented CI/CD best practices.'
         },
         {
             id: '2',
-            jobTitle: 'Senior Software Engineer',
-            company: 'DataStream Inc.',
-            startDate: '2015-06',
+            jobTitle: 'Senior Full Stack Engineer',
+            company: 'Nexus Digital Systems',
+            startDate: '2016-06',
             endDate: '2019-12',
             current: false,
-            description: 'Developed high-performance ETL pipelines processing 10TB+ of data daily. Reduced infrastructure costs by 25% through strategic migration to Kubernetes.'
+            description: 'Developed high-performance microservices processing 10TB+ of data daily. Reduced infrastructure costs by 25% through strategic migration to Kubernetes and AWS.'
         }
     ],
     education: [
         {
             id: '1',
             school: 'Stanford University',
-            degree: 'M.S. in Computer Science',
-            startDate: '2013-09',
-            endDate: '2015-05'
+            degree: 'Master of Science in Computer Science',
+            startDate: '2014-09',
+            endDate: '2016-05'
+        },
+        {
+            id: '2',
+            school: 'Massachusetts Institute of Technology (MIT)',
+            degree: 'Bachelor of Science in Software Engineering',
+            startDate: '2010-09',
+            endDate: '2014-05'
         }
     ],
-    skills: ['System Design', 'Cloud Architecture', 'Distributed Systems', 'Python', 'Go', 'Kubernetes', 'AWS/Azure', 'Team Leadership'],
-    languages: ['English (Native)', 'German (Professional)'],
+    skills: ['System Design', 'Cloud Architecture', 'TypeScript/Angular', 'Python', 'Go', 'Kubernetes', 'AWS/Azure', 'Team Leadership', 'Agile Methodologies'],
+    languages: ['English (Native)', 'German (Professional)', 'Spanish (Conversational)'],
     projects: [
         {
             id: '1',
-            name: 'OpenSource ML Framework',
-            description: 'A lightweight machine learning library with over 5k stars on GitHub.'
+            name: 'OpenSource Distributed Engine',
+            description: 'A lightweight distributed queuing system with over 10k stars on GitHub.'
+        },
+        {
+            id: '2',
+            name: 'AI-Powered Resume Optimizer',
+            description: 'Intelligent tool helping applicants boost ATS scores using NLP.'
         }
     ],
-    customSections: []
+    customSections: [
+        {
+            id: '1',
+            title: 'Certifications',
+            items: [
+                { name: 'AWS Certified Solutions Architect', description: 'Professional level cloud certification.' },
+                { name: 'Google Professional Data Engineer', description: 'Advanced data processing certification.' }
+            ]
+        }
+    ]
 };

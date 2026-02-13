@@ -9,7 +9,7 @@
                     Choose from our collection of ATS-friendly templates designed to get you hired.
                 </p>
             </div>
-            <button
+            <button routerLink="/templates"
                 class="px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-white dark:hover:bg-gray-800 transition-colors">
                 View All Templates
                 <span class="ml-2">→</span>
@@ -37,7 +37,7 @@
                     <!-- Overlay -->
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-8 p-4">
-                        <button
+                        <button [routerLink]="['/create']" [queryParams]="{template: template.id.toLowerCase()}"
                             class="w-full py-3 bg-white text-black font-semibold rounded-xl shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                             Use {{ template.name }}
                         </button>

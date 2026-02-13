@@ -18,8 +18,6 @@ import { CommonModule } from '@angular/common';
             <p class="text-sm font-medium text-slate-600 leading-relaxed indent-8">{{ resume.summary }}</p>
         </div>
 
-        <div class="flex-1 flex gap-12">
-            <div class="w-12 flex flex-col items-center py-4 text-slate-100"><div class="flex-1 w-1 bg-current"></div></div>
             <div class="flex-1 space-y-12">
                 <section *ngFor="let job of resume.experience" class="relative">
                     <div class="absolute -left-[56px] top-1 w-2 h-2 rounded-full bg-white border-2 border-slate-900 z-10"></div>
@@ -35,7 +33,76 @@ import { CommonModule } from '@angular/common';
                         </div>
                     </div>
                 </section>
-            </div>
+                <section *ngIf="resume.education && resume.education.length" class="relative">
+                    <div class="absolute -left-[56px] top-1 w-2 h-2 rounded-full bg-white border-2 border-slate-900 z-10"></div>
+                    <div class="flex gap-8">
+                        <div class="w-32 shrink-0">
+                            <h4 class="text-[10px] font-black uppercase opacity-20">Learning</h4>
+                        </div>
+                        <div class="flex-1 space-y-6">
+                            <div *ngFor="let edu of resume.education">
+                                <h4 class="text-xl font-black mb-1 uppercase italic tracking-tighter">{{ edu.degree }}</h4>
+                                <p class="text-xs font-bold text-indigo-600 mb-1">{{ edu.school }}</p>
+                                <p class="text-[10px] font-black uppercase opacity-40">{{ edu.startDate }} — {{ edu.endDate }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="relative">
+                    <div class="absolute -left-[56px] top-1 w-2 h-2 rounded-full bg-white border-2 border-slate-900 z-10"></div>
+                    <div class="flex gap-8">
+                        <div class="w-32 shrink-0">
+                            <h4 class="text-[10px] font-black uppercase opacity-20">Arsenal</h4>
+                        </div>
+                        <div class="flex-1 grid grid-cols-2 gap-8">
+                            <div *ngIf="resume.skills && resume.skills.length">
+                                <h4 class="text-sm font-black mb-3 uppercase italic tracking-tighter">Skills</h4>
+                                <div class="flex flex-wrap gap-1">
+                                    <span *ngFor="let s of resume.skills" class="text-[10px] font-bold px-2 py-0.5 bg-slate-100 rounded">{{ s }}</span>
+                                </div>
+                            </div>
+                            <div *ngIf="resume.languages && resume.languages.length">
+                                <h4 class="text-sm font-black mb-3 uppercase italic tracking-tighter">Languages</h4>
+                                <div class="space-y-1">
+                                    <p *ngFor="let l of resume.languages" class="text-[10px] font-bold">{{ l }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section *ngIf="resume.projects && resume.projects.length" class="relative">
+                    <div class="absolute -left-[56px] top-1 w-2 h-2 rounded-full bg-white border-2 border-slate-900 z-10"></div>
+                    <div class="flex gap-8">
+                        <div class="w-32 shrink-0">
+                            <h4 class="text-[10px] font-black uppercase opacity-20">Labor</h4>
+                        </div>
+                        <div class="flex-1 space-y-6">
+                            <div *ngFor="let p of resume.projects">
+                                <h4 class="text-xl font-black mb-1 uppercase italic tracking-tighter">{{ p.name }}</h4>
+                                <p class="text-xs leading-relaxed text-slate-500">{{ p.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div *ngFor="let section of resume.customSections">
+                    <section *ngIf="section.items && section.items.length" class="relative">
+                        <div class="absolute -left-[56px] top-1 w-2 h-2 rounded-full bg-white border-2 border-slate-900 z-10"></div>
+                        <div class="flex gap-8">
+                            <div class="w-32 shrink-0">
+                                <h4 class="text-[10px] font-black uppercase opacity-20">Extra</h4>
+                            </div>
+                            <div class="flex-1 space-y-6">
+                                <h4 class="text-xl font-black mb-1 uppercase italic tracking-tighter">{{ section.title }}</h4>
+                                <div class="space-y-4">
+                                    <div *ngFor="let item of section.items">
+                                        <h5 class="text-sm font-bold">{{ item.name }}</h5>
+                                        <p class="text-xs leading-relaxed text-slate-500">{{ item.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
         </div>
     </div>
   `

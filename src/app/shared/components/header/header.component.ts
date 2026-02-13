@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { ThemeService } from '../../../core/services/theme.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -15,8 +16,16 @@ export class HeaderComponent {
 
     constructor(
         public themeService: ThemeService,
+        public authService: AuthService,
         @Inject(Router) private router: Router
     ) { }
+
+    logout() {
+        this.authService.logout().subscribe(() => {
+            this.router.navigate(['/']);
+            this.closeMenu();
+        });
+    }
 
     toggleMenu() {
         this.isMenuOpen = !this.isMenuOpen;
