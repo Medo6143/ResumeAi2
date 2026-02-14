@@ -1,79 +1,90 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { CvStateService } from '../../../services/cv-state.service';
 
 @Component({
     selector: 'app-custom-section-step',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, TranslateModule],
     templateUrl: './custom-section-step.component.html'
 })
 export class CustomSectionStepComponent implements OnInit {
     form: FormGroup;
 
-    constructor(private fb: FormBuilder, private cvState: CvStateService) {
+    constructor(
+        private fb: FormBuilder,
+        private cvState: CvStateService
+    ) {
         this.form = this.fb.group({
             customSections: this.fb.array([])
-        });
-
-        this.form.valueChanges.subscribe(val => {
-            this.cvState.updateCustomSections(val.customSections);
         });
     }
 
     ngOnInit() {
-        const existing = this.cvState.resume().customSections;
-        if (existing && existing.length > 0) {
-            existing.forEach(s => this.addCustomSection(s));
+        // Load initial data from state
+        const resume = this.cvState.resume();
+        if (resume && resume.customSections) {
+            this.setCustomSections(resume.customSections);
         }
+
+        // Subscribe to form changes
+        this.form.valueChanges.subscribe(value => {
+            this.cvState.updateCustomSections(value.customSections);
+        });
     }
 
     get customSectionsControls() {
-        return (this.form.get('customSections') as FormArray).controls;
+        return (this.form.get('customSections') as FormArray).controls as FormGroup[];
     }
 
-    getCustomSectionItems(sectionIndex: number) {
-        return ((this.form.get('customSections') as FormArray).at(sectionIndex).get('items') as FormArray).controls;
-    }
-
-    addCustomSection(data?: any) {
-        const group = this.fb.group({
-            title: [data?.title || 'New Section'],
-            items: this.fb.array([])
-        });
-
-        if (data?.items && data.items.length > 0) {
-            data.items.forEach((item: any) => {
-                (group.get('items') as FormArray).push(this.createCustomItem(item));
+    private setCustomSections(sections: any[]) {
+        const sectionsArray = this.form.get('customSections') as FormArray;
+        sectionsArray.clear();
+        sections.forEach(section => {
+            const sectionGroup = this.fb.group({
+                title: [section.title],
+                items: this.fb.array(section.items.map((item: any) => this.fb.group({
+                    name: [item.name],
+                    description: [item.description]
+                })))
             });
-        } else {
-            (group.get('items') as FormArray).push(this.createCustomItem());
-        }
-
-        (this.form.get('customSections') as FormArray).push(group);
+            sectionsArray.push(sectionGroup);
+        });
     }
 
-    private createCustomItem(data?: any) {
+    addCustomSection() {
+        const sectionsArray = this.form.get('customSections') as FormArray;
+        sectionsArray.push(this.fb.group({
+            title: [''],
+            items: this.fb.array([this.createItem()])
+        }));
+    }
+
+    removeCustomSection(index: number) {
+        const sectionsArray = this.form.get('customSections') as FormArray;
+        sectionsArray.removeAt(index);
+    }
+
+    private createItem() {
         return this.fb.group({
-            name: [data?.name || ''],
-            description: [data?.description || '']
+            name: [''],
+            description: ['']
         });
     }
 
     addCustomItem(sectionIndex: number) {
-        const items = (this.form.get('customSections') as FormArray).at(sectionIndex).get('items') as FormArray;
-        items.push(this.createCustomItem());
-    }
-
-    removeCustomSection(index: number) {
-        (this.form.get('customSections') as FormArray).removeAt(index);
+        const itemsArray = this.customSectionsControls[sectionIndex].get('items') as FormArray;
+        itemsArray.push(this.createItem());
     }
 
     removeCustomItem(sectionIndex: number, itemIndex: number) {
-        const items = (this.form.get('customSections') as FormArray).at(sectionIndex).get('items') as FormArray;
-        if (items.length > 1) {
-            items.removeAt(itemIndex);
-        }
+        const itemsArray = this.customSectionsControls[sectionIndex].get('items') as FormArray;
+        itemsArray.removeAt(itemIndex);
+    }
+
+    getCustomSectionItems(sectionIndex: number) {
+        return (this.customSectionsControls[sectionIndex].get('items') as FormArray).controls as FormGroup[];
     }
 }

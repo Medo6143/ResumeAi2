@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { TemplateConfig } from '../../../../core/models/template.model';
 import { CvPreviewComponent } from '../../../cv-creation/components/cv-preview/cv-preview.component';
 import { MOCK_RESUME } from '../../../../core/constants/mock-resume';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-preview-modal',
-  standalone: true,
-  imports: [CommonModule, CvPreviewComponent],
-  template: `
+    selector: 'app-preview-modal',
+    standalone: true,
+    imports: [CommonModule, CvPreviewComponent, TranslateModule],
+    template: `
     <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 lg:p-8 animate-fade-in">
         <!-- Backdrop -->
         <div class="absolute inset-0 bg-slate-900/80 backdrop-blur-md" (click)="close.emit()"></div>
@@ -39,13 +40,13 @@ import { MOCK_RESUME } from '../../../../core/constants/mock-resume';
             <div class="p-6 border-t border-slate-100 dark:border-white/10 flex justify-center bg-white dark:bg-slate-900">
                 <button (click)="select.emit(template!.id)" 
                         class="px-12 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-2xl font-bold shadow-xl hover:shadow-indigo-500/50 hover:scale-105 active:scale-95 transition-all outline-none">
-                    Use This Template
+                    {{ 'TEMPLATES.USE_TEMPLATE' | translate }}
                 </button>
             </div>
         </div>
     </div>
   `,
-  styles: [`
+    styles: [`
     :host { display: block; }
     .animate-fade-in { animation: fadeIn 0.3s ease-out; }
     .animate-scale-in { animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -54,9 +55,9 @@ import { MOCK_RESUME } from '../../../../core/constants/mock-resume';
   `]
 })
 export class PreviewModalComponent {
-  @Input() template: TemplateConfig | null = null;
-  @Output() close = new EventEmitter<void>();
-  @Output() select = new EventEmitter<string>();
+    @Input() template: TemplateConfig | null = null;
+    @Output() close = new EventEmitter<void>();
+    @Output() select = new EventEmitter<string>();
 
-  mockData = MOCK_RESUME;
+    mockData = MOCK_RESUME;
 }

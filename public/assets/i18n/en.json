@@ -1,0 +1,611 @@
+{
+    "NAV": {
+        "HOME": "Home",
+        "FEATURES": "Features",
+        "TEMPLATES": "Templates",
+        "MOCK_INTERVIEW": "Mock Interview",
+        "PROFILE": "Profile",
+        "SIGN_IN": "Sign In",
+        "SIGN_OUT": "Sign out",
+        "GET_STARTED": "Get Started"
+    },
+    "HERO": {
+        "WELCOME_BACK": "Welcome back,",
+        "BADGE": "The Future of Resume Building is Here",
+        "TITLE_1": "Land Your",
+        "TITLE_2": "Dream Job.",
+        "SUBTITLE": "The most sophisticated AI-powered platform to analyze, optimize, and build resumes that bypass ATS and impress recruiters.",
+        "CTA_ANALYSIS_AUTH": "Go to Analysis",
+        "CTA_ANALYSIS_GUEST": "Start Free Analysis",
+        "CTA_RESUME_AUTH": "Create New Resume",
+        "CTA_RESUME_GUEST": "Build Resume Now",
+        "CTA_SIGN_IN": "Sign In",
+        "BADGE_NO_CARD": "No Credit Card",
+        "BADGE_FREE": "Free Forever",
+        "BADGE_INSTANT": "Instant Results",
+        "REVIEWS": "4.9/5 from 3,200+ reviews",
+        "TRUSTED": "Trusted worldwide"
+    },
+    "FEATURES": {
+        "BADGE": "POWERFUL AI FEATURES",
+        "TITLE_1": "Everything You Need to",
+        "TITLE_2": "Stand Out & Get Hired",
+        "SUBTITLE": "Cutting-edge AI tools designed to optimize every aspect of your job search journey",
+        "ATS": {
+            "TITLE": "AI Resume Analyzer",
+            "POPULAR": "MOST POPULAR",
+            "DESC": "Deep scan of 50+ ATS parameters with instant keyword optimization, formatting checks, and skill gap analysis",
+            "SCORE_LABEL": "Your ATS Score",
+            "KEYWORD_MATCH": "Keyword Match",
+            "FORMAT_SCORE": "Format Score"
+        },
+        "BUILDER": {
+            "TITLE": "Resume Builder",
+            "DESC": "Professional templates with live preview and AI-powered content generation",
+            "CTA": "Create Now"
+        },
+        "CHAT": {
+            "TITLE": "AI Chat Assistant",
+            "DESC": "Build your resume by chatting naturally with our AI",
+            "CTA": "Try Chat"
+        },
+        "PARSER": {
+            "TITLE": "Smart Parser",
+            "DESC": "Upload PDF, DOC, or DOCX - instant text extraction"
+        },
+        "TEMPLATES": {
+            "TITLE": "3 Pro Templates",
+            "DESC": "Modern, Minimal & Executive designs"
+        },
+        "PDF": {
+            "TITLE": "One-Click PDF Export",
+            "DESC": "Download perfectly formatted, ATS-optimized PDFs instantly"
+        }
+    },
+    "STATS": {
+        "TITLE_1": "Global Impact in",
+        "TITLE_2": "Real Numbers",
+        "SUBTITLE": "Empowering the next generation of top-tier talent.",
+        "ACTIVE_USERS": "Active Users",
+        "ACTIVE_USERS_DESC": "Professionals transformed",
+        "SUCCESS_RATE": "Success Rate",
+        "SUCCESS_RATE_DESC": "Got more interviews",
+        "ATS_SYSTEMS": "ATS Systems",
+        "ATS_SYSTEMS_DESC": "Fully compatible",
+        "REVIEWS": "5★ Reviews",
+        "REVIEWS_DESC": "Happy customers"
+    },
+    "ATS_PREVIEW": {
+        "BADGE": "ATS Optimized",
+        "TITLE_1": "See how you rank",
+        "TITLE_2": "before applying",
+        "DESC": "Our advanced ATS algorithm analyzes your resume against job descriptions to give you a match score and actionable feedback.",
+        "KEYWORD": "Keyword Matching",
+        "KEYWORD_DESC": "Identifies missing hard skills & soft skills.",
+        "FORMAT": "Format Check",
+        "FORMAT_DESC": "Ensures your resume is readable by bots.",
+        "JOB_TITLE": "Senior Frontend Developer",
+        "COMPANY": "Google • Remote",
+        "MATCH_SCORE": "Match Score",
+        "MATCHED_SKILLS": "Matched Skills"
+    },
+    "HOW_IT_WORKS": {
+        "TITLE_1": "How is it",
+        "TITLE_2": "so detailed",
+        "STEPS": {
+            "1": {
+                "TITLE": "Upload",
+                "DESC": "Drop your resume or paste the text"
+            },
+            "2": {
+                "TITLE": "Analyze",
+                "DESC": "AI scans 50+ ATS parameters"
+            },
+            "3": {
+                "TITLE": "Optimize",
+                "DESC": "Get personalized suggestions"
+            },
+            "4": {
+                "TITLE": "Succeed",
+                "DESC": "Land more interviews, guaranteed"
+            }
+        }
+    },
+    "TEMPLATES_PREVIEW": {
+        "TITLE": "Professional Templates",
+        "DESC": "Choose from our collection of ATS-friendly templates designed to get you hired.",
+        "VIEW_ALL": "View All Templates",
+        "USE_TEMPLATE": "Use"
+    },
+    "CTA": {
+        "BADGE_AUTH": "Dashboard Ready",
+        "BADGE_GUEST": "Limited Time Access",
+        "TITLE_AUTH_1": "Optimized.",
+        "TITLE_AUTH_2": "Now Lead.",
+        "TITLE_GUEST_1": "Ready to",
+        "TITLE_GUEST_2": "Elevate?",
+        "DESC_AUTH": "Continue perfecting your career with our world-class AI suite.",
+        "DESC_GUEST": "Join the elite 1% of professionals using AI to dominate their industry.",
+        "CTA_AUTH": "Analysis",
+        "CTA_GUEST": "Start Free",
+        "CTA2_AUTH": "Build",
+        "CTA2_GUEST": "Register",
+        "BADGE_FREE": "100% Free Forever",
+        "BADGE_INSTANT": "Instant Results"
+    },
+    "LOGIN": {
+        "HERO_TITLE_1": "Elevate Your",
+        "HERO_TITLE_2": "Career",
+        "HERO_TITLE_3": "with AI",
+        "HERO_DESC": "Join thousands of professionals using our AI-driven platform to craft world-class resumes and land their dream jobs at top-tier companies.",
+        "BADGE_ANALYSIS": "Instant Analysis",
+        "BADGE_ANALYSIS_DESC": "Real-time ATS scoring",
+        "BADGE_SECURE": "Secure & Private",
+        "BADGE_SECURE_DESC": "Your data is yours",
+        "TRUSTED_BY": "Trusted by 25k+ professionals",
+        "TITLE": "Welcome back",
+        "SUBTITLE": "Please enter your details to sign in.",
+        "GOOGLE_SIGNIN": "Sign in with Google",
+        "OR_EMAIL": "Or login with email",
+        "EMAIL_LABEL": "Email Address",
+        "EMAIL_PLACEHOLDER": "name@company.com",
+        "PASSWORD_LABEL": "Password",
+        "FORGOT_PASSWORD": "Forgot Password?",
+        "SIGNIN": "Sign In",
+        "SIGNING_IN": "Signing in...",
+        "NO_ACCOUNT": "New to ResumeAI?",
+        "CREATE_ACCOUNT": "Create an account"
+    },
+    "REGISTER": {
+        "HERO_TITLE_1": "Your Future",
+        "HERO_TITLE_2": "Starts",
+        "HERO_TITLE_3": "Here",
+        "HERO_DESC": "Create an account to unlock the full potential of AI. Analyze, optimize, and build professional resumes that stand out from the crowd.",
+        "FEATURE_FREE": "Free for individuals, forever",
+        "FEATURE_TEMPLATES": "Access to 20+ Premium Templates",
+        "NO_CREDIT_CARD": "No credit card required",
+        "TITLE": "Create Account",
+        "SUBTITLE": "Start your journey to a better career.",
+        "GOOGLE_SIGNUP": "Sign up with Google",
+        "OR_EMAIL": "Or register with email",
+        "NAME_LABEL": "Full Name",
+        "NAME_PLACEHOLDER": "John Doe",
+        "EMAIL_LABEL": "Email Address",
+        "EMAIL_PLACEHOLDER": "name@company.com",
+        "PASSWORD_LABEL": "Password",
+        "PASSWORD_HINT": "Must be at least 6 characters.",
+        "CREATE": "Create Account",
+        "CREATING": "Creating account...",
+        "HAS_ACCOUNT": "Already have an account?",
+        "SIGN_IN": "Sign In"
+    },
+    "TEMPLATES": {
+        "TITLE": "Choose Your Design",
+        "SUBTITLE": "Explore our collection of 20 premium layouts designed to make your resume stand out to both recruiters and machines.",
+        "QUICK_VIEW": "Quick View",
+        "ATS_FRIENDLY": "ATS Friendly",
+        "SELECT": "Select",
+        "USE_TEMPLATE": "Use This Template",
+        "PREV_PAGE": "Previous Page",
+        "NEXT_PAGE": "Next Page",
+        "VIEW_ALL": "Browse All"
+    },
+    "ATS": {
+        "AI_ACTIVE": "AI Engine Active",
+        "HIDE_LOGS": "Hide System Logs",
+        "VIEW_DIAGNOSTICS": "View Diagnostics",
+        "TITLE_1": "Precision",
+        "TITLE_2": "ATS Optimizer",
+        "SUBTITLE": "Decode recruiter algorithms with advanced neural analysis. Get deep insights to outrank 99% of applicants.",
+        "LOADING_DEFAULT": "Analyzing Resume Architecture...",
+        "LOADING_DESC": "Our neural models are evaluating keyword density and skill alignment.",
+        "RESET_TRY_AGAIN": "Reset & Try Again",
+        "DIAGNOSTICS_TITLE": "Neural Diagnostics",
+        "POLLING": "Polling Node...",
+        "TEST_CONNECTIVITY": "Test Global Connectivity",
+        "WAITING_STREAM": "Waiting for analysis stream...",
+        "STATUS": {
+            "PREPARING": "Preparing analysis...",
+            "REQUESTING": "Requesting AI Feedback...",
+            "INTERPRETING": "Interpreting Results...",
+            "SUCCESS": "Analysis Successful!"
+        },
+        "ERROR": {
+            "UNAVAILABLE": "AI service unavailable"
+        }
+    },
+    "ATS_FORM": {
+        "TITLE": "Analytical Input",
+        "SUBTITLE": "Feed the engine with job details and your professional blueprint.",
+        "TARGET_POSITION": "Target Position",
+        "REQUIRED": "Required",
+        "JOB_TITLE_PLACEHOLDER": "e.g. Senior Frontend Engineer",
+        "JOB_TITLE_ERROR": "Position title is mandatory",
+        "TARGET_SPECS": "Target Specs",
+        "JOB_DESC_PLACEHOLDER": "Paste the target job description... The more detail, the deeper the analysis.",
+        "JOB_DESC_ERROR": "Specs mapping required",
+        "RESUME_CORE": "Resume Core",
+        "PARSING": "Parsing Data...",
+        "INJECT_FILE": "Inject File",
+        "MANUAL_OVERRIDE": "Manual Override / Pasted Content",
+        "MANUAL_PLACEHOLDER": "Parsed content will appear here, or you can paste directly...",
+        "RESUME_ERROR": "Resume asset is required for mapping",
+        "LAUNCH": "Launch Analysis Engine",
+        "PROCESSING": "Processing...",
+        "RESET": "Reset",
+        "PROTOCOL": "Protocol",
+        "ENGINE": "Engine",
+        "LATENCY": "Latency",
+        "SAFETY": "Safety",
+        "VERIFIED": "Verified"
+    },
+    "ATS_RESULT": {
+        "GLOBAL_SCORE": "Global Score",
+        "MATCH_RATING": "Neural Match Rating",
+        "RESUME_IS": "Your resume is",
+        "OPTIMIZED": "Optimized",
+        "FOR_ROLE": "for this role",
+        "SUPERIOR": "Superior Alignment",
+        "STEADY": "Steady Progress",
+        "CRITICAL": "Critical Gaps",
+        "STRENGTHS_TITLE": "Core Strengths",
+        "STRENGTHS_SUB": "Top competitive advantages",
+        "GAPS_TITLE": "Identified Gaps",
+        "GAPS_SUB": "Missing high-impact skills",
+        "NO_GAPS": "No critical gaps identified. Excellent coverage!",
+        "ROADMAP_TITLE": "Execution Roadmap",
+        "ROADMAP_SUB": "Prioritized actions to maximize your conversion rate",
+        "ACTION_REQUIRED": "Action Required"
+    },
+    "CV_CREATE": {
+        "NAV": {
+            "BACK_DASHBOARD": "Back to Dashboard",
+            "SAVE_AS": "Save as",
+            "PDF": "PDF",
+            "WORD": "Word",
+            "EXPORTING": "Exporting...",
+            "AI_ASSISTANT": "AI Assistant"
+        },
+        "TITLE": "CV Creation",
+        "SIDEBAR_TITLE": "AI Tools",
+        "STEPS": {
+            "PERSONAL": "Personal Info",
+            "SUMMARY_EXP": "Summary & Experience",
+            "EDU_SKILLS": "Education & Skills"
+        },
+        "COMMON": {
+            "REMOVE": "Remove",
+            "IMPROVE_AI": "Improve with AI",
+            "RESET_CONFIRM": "Reset everything? This will clear all your data.",
+            "IMPORT_FAILED": "Failed to read file. Please try again.",
+            "PDF_FAILED": "Failed to generate PDF",
+            "UPDATED_AI": "I've updated your resume based on your request.",
+            "PROCESS_ERROR": "I could not process that request.",
+            "UNKNOWN_ERROR": "Sorry, I encountered an unknown error."
+        },
+        "CHAT": {
+            "WELCOME": "Hi! I can help you edit your resume. Try saying \"Change the summary to be more executive\" or \"Add a bullet point about leadership to my last job\".",
+            "USER_PROMPT_PREFIX": "I just uploaded my resume. Here is the content:\n\n",
+            "USER_PROMPT_SUFFIX": "\n\nCan you help me parse this into my profile?",
+            "THINKING": "Thinking...",
+            "ASSISTANT_NAME": "AI Resume Assistant",
+            "GET_HELP": "Get instant help",
+            "ASK_AI": "Ask to change something..."
+        },
+        "PERSONAL": {
+            "TITLE": "Personal Information",
+            "PHOTO": "Photo",
+            "UPLOAD": "Upload",
+            "CHANGE": "Change",
+            "NAME": "Full Name",
+            "JOB_TITLE": "Professional Title",
+            "EMAIL": "Email Address",
+            "EMAIL_PLACEHOLDER": "john@example.com",
+            "PHONE": "Phone Number",
+            "LOCATION": "Location (City, Country)",
+            "SOCIAL_LINKS": "Social Links",
+            "LINK_NAME": "Link Name (e.g. LinkedIn)",
+            "URL": "URL",
+            "ADD_SOCIAL": "Add social link",
+            "LINKEDIN": "LinkedIn",
+            "GITHUB": "GitHub",
+            "LINKEDIN_PLACEHOLDER": "linkedin.com/in/johndoe",
+            "GITHUB_PLACEHOLDER": "github.com/johndoe",
+            "WEBSITE_PLACEHOLDER": "https://johndoe.dev",
+            "PHOTO_RECOMMENDED": "Recommended: Square JPG or PNG, at least 400x400px.",
+            "PHOTO_SUPPORT_NOTE": "This photo will only appear on templates that support it.",
+            "NAME_PLACEHOLDER": "e.g. John Doe",
+            "PHONE_PLACEHOLDER": "e.g. +1 234 567 890",
+            "LOCATION_PLACEHOLDER": "City, Country",
+            "PORTFOLIO": "Portfolio Status / URL",
+            "PORTFOLIO_PLACEHOLDER": "e.g. portfolio.com or 'Open for work'",
+            "WEBSITE": "Website / Other"
+        },
+        "SUMMARY": {
+            "TITLE": "Professional Summary",
+            "DESC": "Briefly describe your career background and key achievements.",
+            "PLACEHOLDER": "Write a compelling summary of your professional journey...",
+            "TIP": "Tip: A strong summary should be 2-3 sentences highlighting your years of experience and top skills."
+        },
+        "EXPERIENCE": {
+            "TITLE": "Work Experience",
+            "ADD_POSITION": "Add Position",
+            "ITEM_TITLE": "Experience",
+            "ADD": "Add experience",
+            "JOB_TITLE": "Job Title",
+            "COMPANY": "Company",
+            "START_DATE": "Start Date",
+            "END_DATE": "End Date",
+            "CURRENT": "Currently working here",
+            "DESCRIPTION": "Description",
+            "DESC_PLACEHOLDER": "Describe your responsibilities and achievements...",
+            "DESC_ACHIEVEMENTS": "Description & Achievements",
+            "IMPROVING": "Improving..."
+        },
+        "CUSTOM": {
+            "TITLE": "Additional Sections",
+            "ADD": "Add Section",
+            "SECTION_PLACEHOLDER": "Certifications, Languages, etc.",
+            "ITEM_NAME": "Item Name / Certification",
+            "DETAIL": "Description / Details",
+            "ADD_ITEM": "Add Item"
+        },
+        "ATS": {
+            "TITLE": "ATS Analysis",
+            "METHOD": "Method",
+            "DEEP_SCAN": "AI Deep Scan",
+            "HEURISTICS": "Real-time Heuristics",
+            "RELIABILITY": "Reliability",
+            "TOOLTIP": "Based on action verbs, metrics, and role keywords",
+            "BREAKDOWN": {
+                "CONTACT": "Contact",
+                "CONTENT": "Content",
+                "KEYWORDS": "Keywords",
+                "FORMATTING": "Formatting"
+            },
+            "REFRESH": "Refresh AI Analysis",
+            "RUN": "Run Deep AI Scan",
+            "ACTION_ITEMS": "Action Items",
+            "MORE": "+{{count}} more improvements suggested",
+            "OPTIMIZED": "ATS Optimized",
+            "OPTIMIZED_DESC": "Your resume follows industry standards for readability and keyword density."
+        },
+        "JOB_MATCHER": {
+            "TITLE": "Job Description Matcher",
+            "DESC": "Paste a job description to see how well your resume matches.",
+            "PLACEHOLDER": "Paste job description here...",
+            "ANALYZE": "Analyze Match",
+            "ANALYZING": "Analyzing job description...",
+            "SCORE": "Match Score",
+            "REASON": "Based on keywords & skills",
+            "ANOTHER": "Analyze Another",
+            "KEYWORDS_TITLE": "Keywords Analysis",
+            "TIPS": "Recruiter Tips"
+        },
+        "PROFILES": {
+            "TITLE": "My Resumes",
+            "NEW": "New Resume",
+            "LABEL": "Current Resume",
+            "EDITED": "Edited",
+            "RENAME": "Rename",
+            "DUPLICATE": "Duplicate",
+            "DELETE": "Delete",
+            "DELETE_CONFIRM": "Are you sure you want to delete this resume? This cannot be undone."
+        },
+        "CV_TEMPLATES": {
+            "LABELS": {
+                "PROFILE": "Profile",
+                "EXPERIENCE": "Experience",
+                "PROJECTS": "Projects",
+                "EDUCATION": "Education",
+                "SKILLS": "Skills",
+                "LANGUAGES": "Languages",
+                "CONTACT": "Contact",
+                "SUMMARY": "Summary"
+            }
+        },
+        "EDUCATION": {
+            "TITLE": "Education",
+            "ADD": "Add Education",
+            "SCHOOL": "School / University",
+            "DEGREE": "Degree",
+            "FIELD": "Field of Study",
+            "GRAD_YEAR": "Graduation Year",
+            "GRAD_YEAR_PLACEHOLDER": "e.g. 2024",
+            "GPA": "GPA",
+            "GPA_PLACEHOLDER": "e.g. 3.8/4.0",
+            "INSTITUTION": "Institution",
+            "DEGREE_MAJOR": "Degree / Major",
+            "OPTIONAL": "Optional"
+        },
+        "PROJECTS": {
+            "TITLE": "Projects",
+            "ITEM_TITLE": "Project",
+            "ADD": "Add Project",
+            "NAME": "Project Name",
+            "LINK": "Project Link",
+            "DESCRIPTION": "Description",
+            "DESC_PLACEHOLDER": "Describe what you built and the technologies used..."
+        },
+        "SKILLS": {
+            "TITLE": "Skills",
+            "DESC": "Add relevant skills and technologies.",
+            "PLACEHOLDER": "Enter a skill (e.g. Angular, UI Design) and press Enter...",
+            "GET_SUGGESTIONS": "Get AI Suggestions",
+            "SUGGEST": "Suggest Skills",
+            "ANALYZING": "Analyzing...",
+            "COUNT": "{{count}} skills added",
+            "NONE": "No skills added yet."
+        },
+        "ADD_ITEM": "Add item",
+        "ITEM_NAME": "Item Name",
+        "DESCRIPTION": "Fill in the details and watch it come to life with AI assistance",
+        "TITLE_MAIN": "Create Your",
+        "TITLE_SUB": "Perfect Resume",
+        "STEPS_COUNT": "steps",
+        "REORDER_SECTIONS": "Reorder Sections",
+        "SYNC_FROM_PROFILE": "Sync from Profile",
+        "AUTO_SAVED": "Auto-saved to your browser",
+        "A4_FORMAT": "Standard A4 Format",
+        "BACK": "Back",
+        "CONTINUE": "Continue",
+        "DOWNLOAD_PDF": "Download PDF",
+        "GENERATING_PDF": "Generating PDF...",
+        "TEMPLATE_PREVIEW": "Template Preview",
+        "TEMPLATE_DESC": "Choose a template and see real-time updates",
+        "BROWSE_ALL": "Browse All",
+        "LIVE_PREVIEW": "Live Preview",
+        "INTERVIEW": {
+            "TITLE": "Mock Interview Questions",
+            "PREPARE": "Ready to practice?",
+            "DESC": "AI will generate questions based on your resume to help you prepare.",
+            "GENERATE": "Generate Questions",
+            "ANALYZING": "Analyzing resume...",
+            "YOUR_QUESTIONS": "Your Questions",
+            "REGENERATE": "Regenerate",
+            "CONTEXT": "Context",
+            "SHOW_TIP": "Show Pro Tip",
+            "HIDE_TIP": "Hide Tip",
+            "PRO_TIP": "Pro Tip",
+            "GENERAL": "General"
+        }
+    },
+    "PROFILE": {
+        "TITLE": "Professional Profile",
+        "SYNC_STATUS": "Profile Synchronized",
+        "SYNC_DESC": "Your profile data is kept updated across all your resumes.",
+        "EDIT_PROFILE": "Edit Profile",
+        "VIEW_STATS": "View Career Stats",
+        "HERO": {
+            "EDIT_IDENTITY": "Edit Identity",
+            "IDENTITY_PLACEHOLDER": "Professional Identity",
+            "TITLE_PLACEHOLDER": "Career Specialist",
+            "MANAGE_LINKS": "Manage Links",
+            "MOTTO": "Motto",
+            "MOTTO_DEFAULT": "Design your future, one line at a time."
+        },
+        "STATS": {
+            "STRENGTH": "Profile Strength",
+            "EXCELLENT": "EXCELLENT",
+            "STRENGTH_DESC": "Higher strength unlocks more accurate",
+            "STRENGTH_HIGHLIGHT": "AI Role Predictions",
+            "EXP_COUNT": "Experiences",
+            "SKILL_COUNT": "Skills Captured",
+            "SYNC_DATA": "Synchronize Data",
+            "AI_BLUEPRINT": "AI Career Blueprint",
+            "PERSONA_LABEL": "Natural Persona",
+            "VIEW_MAP": "VIEW DETAILED CAREER MAP",
+            "REPO_SIZE": "Repository Size"
+        },
+        "DASHBOARD": {
+            "MASTER_EXP": "Master Experience",
+            "ADD_ENTRY": "+ Add Entry",
+            "NO_ENTRIES": "No entries in your master repository yet.",
+            "EDIT_HISTORICAL": "Edit Historical Details",
+            "DELETE_CONFIRM": "Delete this historical entry?",
+            "MASTER_SUMMARY": "Master Summary",
+            "MASTER_SKILLS": "Master Skills",
+            "ENABLE_AI": "Enable AI Polishing",
+            "NO_SKILLS": "No skills added.",
+            "ADD_PROFICIENCY": "+ Add Proficiency"
+        },
+        "EDITOR": {
+            "TITLE_PERSONAL": "Identity & Contact",
+            "TITLE_EXP_EDIT": "Edit Experience",
+            "TITLE_EXP_NEW": "New Experience",
+            "TITLE_SKILLS": "Master Skills",
+            "TITLE_SUMMARY": "Branding & Summary",
+            "TITLE_SOCIAL": "Social Ecosystem",
+            "UPDATE_REPOS": "Updating Master Repository",
+            "NAME": "Full Name",
+            "JOB_TITLE": "Job Title",
+            "EMAIL": "Email",
+            "LOCATION": "Location",
+            "ROLE": "Role",
+            "COMPANY": "Company",
+            "START_DATE": "Start Date",
+            "END_DATE": "End Date",
+            "EXP_DESC": "Full Description (Master Copy)",
+            "EXP_DESC_PLACE": "Mention everything you did. You can prune this for specific CVs later.",
+            "SKILLS_ADD": "Add Skills (Comma separated)",
+            "SKILLS_PLACE": "Angular, TypeScript, UI/UX...",
+            "SKILLS_HINT": "Press Enter to bulk add to your proficiencies.",
+            "MOTTO": "Professional Motto",
+            "MOTTO_PLACE": "Your career philosophy...",
+            "SUMMARY": "Master Professional Summary",
+            "LINKEDIN": "LinkedIn URL",
+            "GITHUB": "GitHub URL",
+            "PORTFOLIO": "Portfolio/Website",
+            "CANCEL": "Cancel",
+            "SAVE": "Save Changes"
+        }
+    },
+    "INTERVIEW": {
+        "TITLE": "Mock Interview Engine",
+        "SETUP": {
+            "GREETING": "Ready for your Mock Interview?",
+            "DESC": "Our AI has analyzed your resume and prepared 5 tailored questions to challenge your skills.",
+            "FEATURE_TAILORED": "Tailored",
+            "FEATURE_TAILORED_DESC": "Questions specific to your experience.",
+            "FEATURE_FEEDBACK": "Feedback",
+            "FEATURE_FEEDBACK_DESC": "Instant AI scoring and improvement tips.",
+            "FEATURE_CONTEXT": "Context",
+            "FEATURE_CONTEXT_DESC": "Understand why each question is asked.",
+            "START": "Start Mock Interview",
+            "PROCESSING": "Processing..."
+        },
+        "QUESTION": {
+            "LABEL": "Question",
+            "THINKING": "AI is brainstorming...",
+            "YOUR_ANSWER": "Your Answer",
+            "PLACEHOLDER": "Type your answer here...",
+            "SUBMIT": "Submit Answer",
+            "NEXT": "Next Question",
+            "FINISH": "Finish Interview"
+        },
+        "FEEDBACK": {
+            "TITLE": "AI Feedback",
+            "ANALYSIS": "Analysis",
+            "TIP_TITLE": "Tip for Improvement",
+            "SCORE": "Score",
+            "CRITERIA": "Criteria",
+            "IMPROVEMENTS": "Key Improvements",
+            "AI_SENTIMENT": "AI Sentiment"
+        },
+        "COMPLETE": {
+            "TITLE": "Interview Complete!",
+            "SUMMARY": "You've successfully completed the mock interview. Here is your performance summary.",
+            "OVERALL_SCORE": "Overall Performance",
+            "STRENGTHS": "Key Strengths",
+            "GAPS": "Areas to Improve",
+            "RESTART": "Restart Session",
+            "EXIT": "Exit to Dashboard"
+        },
+        "ERROR": {
+            "GENERATE_FAILED": "Failed to generate tailored questions. Please try again.",
+            "ANALYZE_FAILED": "Failed to analyze answer. Please check your connection."
+        }
+    },
+    "FOOTER": {
+        "BRAND_DESC": "World-class AI career tools designed to help professionals land their dream jobs.",
+        "PRODUCT": "Product",
+        "TEMPLATES": "Templates",
+        "ATS_SCAN": "ATS Scan",
+        "AI_BUILDER": "AI Builder",
+        "MOCK_INTERVIEW": "Mock Interview",
+        "COMPANY": "Company",
+        "ABOUT": "About Us",
+        "CAREERS": "Careers",
+        "PRIVACY": "Privacy Policy",
+        "TERMS": "Terms of Service",
+        "NEWSLETTER": "Join our newsletter",
+        "NEWSLETTER_DESC": "Weekly career tips and template updates.",
+        "EMAIL_PLACEHOLDER": "Email address",
+        "SUBSCRIBE": "Subscribe",
+        "COPYRIGHT": "© {{ year }} ResumeAI. All rights reserved."
+    },
+    "COMMON": {
+        "BACK_TO_RESUME": "Back to Resume",
+        "OF": "of"
+    }
+}

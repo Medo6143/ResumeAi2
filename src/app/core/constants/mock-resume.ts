@@ -65,9 +65,9 @@ export const MOCK_RESUME: Resume = {
             id: '1',
             title: 'Certifications',
             items: [
-                { name: 'AWS Certified Solutions Architect', description: 'Professional level cloud certification.' },
                 { name: 'Google Professional Data Engineer', description: 'Advanced data processing certification.' }
             ]
         }
-    ]
+    ],
+    sectionOrder: ['summary', 'experience', 'education', 'skills', 'languages', 'projects', 'custom']
 };

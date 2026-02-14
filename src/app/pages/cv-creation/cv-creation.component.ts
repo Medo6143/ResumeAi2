@@ -11,6 +11,9 @@ import { INITIAL_RESUME } from './models/resume.model';
 import { TemplateService } from '../../core/services/template.service';
 
 // Step Components
+import { FileParserService } from '../../core/services/file-parser.service';
+import { WordExportService } from '../../core/services/word-export.service';
+import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 import { PersonalInfoStepComponent } from './components/steps/personal-info-step/personal-info-step.component';
 import { SummaryStepComponent } from './components/steps/summary-step/summary-step.component';
 import { ExperienceStepComponent } from './components/steps/experience-step/experience-step.component';
@@ -18,7 +21,12 @@ import { ProjectsStepComponent } from './components/steps/projects-step/projects
 import { SkillsStepComponent } from './components/steps/skills-step/skills-step.component';
 import { EducationStepComponent } from './components/steps/education-step/education-step.component';
 import { CustomSectionStepComponent } from './components/steps/custom-section-step/custom-section-step.component';
+import { ProfileSelectorComponent } from './components/profile-selector/profile-selector.component';
+import { AtsScoreComponent } from './components/ats-score/ats-score.component';
+import { JobMatcherComponent } from './components/job-matcher/job-matcher.component';
+import { InterviewQuestionsComponent } from './components/interview-questions/interview-questions.component';
 import { CvPreviewComponent } from './components/cv-preview/cv-preview.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-create-cv',
@@ -26,6 +34,7 @@ import { CvPreviewComponent } from './components/cv-preview/cv-preview.component
     imports: [
         CommonModule,
         FormsModule,
+        DragDropModule,
         // Steps
         PersonalInfoStepComponent,
         SummaryStepComponent,
@@ -35,18 +44,32 @@ import { CvPreviewComponent } from './components/cv-preview/cv-preview.component
         EducationStepComponent,
         CustomSectionStepComponent,
         // Preview
-        CvPreviewComponent
+        CvPreviewComponent,
+        // Features
+        ProfileSelectorComponent,
+        AtsScoreComponent,
+        JobMatcherComponent,
+        InterviewQuestionsComponent,
+        TranslateModule
     ],
     templateUrl: './cv-creation.component.html',
     styleUrls: ['./cv-creation.component.scss']
 })
 export class CvCreationComponent {
-    steps = ['Personal Info', 'Summary & Experience', 'Education & Skills'];
+    steps = ['CV_CREATE.STEPS.PERSONAL', 'CV_CREATE.STEPS.SUMMARY_EXP', 'CV_CREATE.STEPS.EDU_SKILLS'];
     currentStep = signal(1);
     selectedTemplate = signal<string>('modern');
 
     private templateService = inject(TemplateService);
     private route = inject(ActivatedRoute);
+    private fileParser = inject(FileParserService);
+    private wordExport = inject(WordExportService);
+    private translate = inject(TranslateService);
+
+    activeTemplate = signal(this.templateService.getTemplates()[0]);
+    showPreviewModal = signal(false);
+    isMobilePreviewOpen = signal(false);
+    darkMode = signal(false);
 
     // Templates data
     templatesData = this.templateService.getTemplates();
@@ -55,9 +78,7 @@ export class CvCreationComponent {
     // Chat State
     showSideChat = signal(false);
     isChatThinking = false;
-    chatMessages = signal<{ role: 'user' | 'assistant', content: string, actions?: any }[]>([
-        { role: 'assistant', content: 'Hi! I can help you edit your resume. Try saying "Change the summary to be more executive" or "Add a bullet point about leadership to my last job".' }
-    ]);
+    chatMessages = signal<{ role: 'user' | 'assistant', content: string, actions?: any }[]>([]);
     currentChatInput = '';
 
     // Templates data
@@ -83,7 +104,84 @@ export class CvCreationComponent {
                     this.selectedTemplate.set(params['template']);
                 }
             });
+
+            // Set initial chat message after translate service is ready
+            setTimeout(() => {
+                this.chatMessages.set([
+                    { role: 'assistant', content: this.translate.instant('CV_CREATE.CHAT.WELCOME') }
+                ]);
+            }, 0);
         }
+    }
+
+
+    isReorderModalOpen = signal(false);
+
+    toggleReorderModal() {
+        this.isReorderModalOpen.update(v => !v);
+    }
+
+    importFromMaster() {
+        this.cvState.importFromMaster();
+    }
+
+    drop(event: CdkDragDrop<string[]>) {
+        const currentResume = this.cvState.resume();
+        const newOrder = [...currentResume.sectionOrder];
+        moveItemInArray(newOrder, event.previousIndex, event.currentIndex);
+
+        this.cvState.setResume({
+            ...currentResume,
+            sectionOrder: newOrder
+        });
+    }
+
+    getFriendlyName(sectionId: string): string {
+        const key = `CV_TEMPLATES.LABELS.${sectionId.toUpperCase()}`;
+        const translated = this.translate.instant(key);
+        // Fallback to manual mapping if key not found or if translation returns the key itself
+        if (translated === key) {
+            const names: Record<string, string> = {
+                'summary': 'Professional Summary',
+                'experience': 'Work Experience',
+                'education': 'Education',
+                'projects': 'Projects',
+                'skills': 'Skills',
+                'languages': 'Languages',
+                'custom': 'Custom Sections'
+            };
+            return names[sectionId] || sectionId;
+        }
+        return translated;
+    }
+
+    // Import/Export Logic
+    async onFileSelected(event: Event) {
+        const input = event.target as HTMLInputElement;
+        if (input.files?.length) {
+            const file = input.files[0];
+            try {
+                const text = await this.fileParser.parseFile(file);
+                const prefix = this.translate.instant('CV_CREATE.CHAT.USER_PROMPT_PREFIX');
+                const suffix = this.translate.instant('CV_CREATE.CHAT.USER_PROMPT_SUFFIX');
+
+                this.chatMessages.update(msgs => [
+                    ...msgs,
+                    { role: 'user', content: `${prefix}${text}${suffix}` }
+                ]);
+                this.showSideChat.set(true);
+                // Trigger AI response
+                this.sendMessage();
+            } catch (error) {
+                console.error('Import failed', error);
+                alert(this.translate.instant('CV_CREATE.COMMON.IMPORT_FAILED'));
+            }
+            input.value = ''; // Reset
+        }
+    }
+
+    exportToWord() {
+        this.wordExport.generateResume(this.cvState.resume());
     }
 
     // Side Chat Logic
@@ -112,18 +210,18 @@ export class CvCreationComponent {
                         this.applyAiAction(response);
                         this.chatMessages.update(msgs => [...msgs, {
                             role: 'assistant',
-                            content: response.message || 'I\'ve updated your resume based on your request.',
+                            content: response.message || this.translate.instant('CV_CREATE.COMMON.UPDATED_AI'),
                             actions: response
                         }]);
                     } else {
-                        const text = response.message || response.content || (typeof response === 'string' ? response : 'I could not process that request.');
+                        const text = response.message || response.content || (typeof response === 'string' ? response : this.translate.instant('CV_CREATE.COMMON.PROCESS_ERROR'));
                         this.chatMessages.update(msgs => [...msgs, { role: 'assistant', content: text }]);
                     }
                 },
                 error: (err) => {
                     console.error('Chat error', err);
                     this.isChatThinking = false;
-                    const msg = err.message || 'Sorry, I encountered an unknown error.';
+                    const msg = err.message || this.translate.instant('CV_CREATE.COMMON.UNKNOWN_ERROR');
                     this.chatMessages.update(msgs => [...msgs, { role: 'assistant', content: `⚠️ ${msg} ` }]);
                 }
             });
@@ -152,7 +250,6 @@ export class CvCreationComponent {
         }
     }
 
-    // PDF Download
     // PDF Download
     async downloadPDF() {
         if (!this.isBrowser) return;
@@ -213,8 +310,6 @@ export class CvCreationComponent {
             pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
 
             // --- CLICKABLE LINKS LOGIC ---
-            // We need to calculate the PDF coordinates for each link in the DOM
-            // scale factor between DOM pixels and PDF mm
             const scale = imgWidth / pdfContainer.offsetWidth;
 
             const links = pdfContainer.querySelectorAll('a');
@@ -222,17 +317,10 @@ export class CvCreationComponent {
                 const rect = link.getBoundingClientRect();
                 const parentRect = pdfContainer.getBoundingClientRect();
 
-                // Calculate position relative to the container
                 const x = (rect.left - parentRect.left) * scale;
                 const y = (rect.top - parentRect.top) * scale;
                 const w = rect.width * scale;
                 const h = rect.height * scale;
-
-                // Add link annotation to PDF
-                // We assume single page for simplicity for links, or just add to first page if it fits
-                // For multi-page, we'd need to check if 'y' crosses page breaks. 
-                // Currently most templates are single page conceptual, but let's handle the first page for now.
-                // Or basic multi-page handling:
 
                 let linkPage = 1;
                 let linkY = y;
@@ -242,11 +330,9 @@ export class CvCreationComponent {
                     linkPage++;
                 }
 
-                if (linkPage === 1) { // Current PDF context is page 1 initially
+                if (linkPage === 1) {
                     pdf.link(x, linkY, w, h, { url: link.href });
                 }
-                // (Advanced: switch pages for links on page 2+ not implemented for simplicity, 
-                //  requires adding pages explicitly and switching context)
             });
             // -----------------------------
 
@@ -265,14 +351,14 @@ export class CvCreationComponent {
             document.body.removeChild(tempWrapper);
         } catch (e) {
             console.error(e);
-            alert('Failed to generate PDF');
+            alert(this.translate.instant('CV_CREATE.COMMON.PDF_FAILED'));
         } finally {
             this.isDownloading.set(false);
         }
     }
 
     resetForm() {
-        if (confirm('Reset everything?')) {
+        if (confirm(this.translate.instant('CV_CREATE.COMMON.RESET_CONFIRM'))) {
             this.cvState.setResume(INITIAL_RESUME);
             if (this.isBrowser) sessionStorage.removeItem('resumeState');
             this.currentStep.set(1);
@@ -294,11 +380,6 @@ export class CvCreationComponent {
             let current = currentResume;
             for (let i = 0; i < pathParts.length - 1; i++) {
                 const part = pathParts[i];
-                // Handle array indices
-                if (Array.isArray(current) && !isNaN(parseInt(part))) {
-                    // accessed via array index
-                }
-
                 if (current[part] === undefined) {
                     console.warn(`Path segment '${part}' not found in resume state.`);
                     return;

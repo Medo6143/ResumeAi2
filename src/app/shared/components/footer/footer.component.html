@@ -13,8 +13,7 @@
                         class="text-3xl font-black bg-gradient-to-r from-blue-400 to-indigo-400 text-transparent bg-clip-text">ResumeAI</span>
                 </a>
                 <p class="text-slate-400 text-lg leading-relaxed mb-8 max-w-sm">
-                    Empowering professionals with AI-driven resume optimization. Land your dream job with confidence and
-                    precision.
+                    {{ 'FOOTER.BRAND_DESC' | translate }}
                 </p>
                 <div class="flex gap-4">
                     <a href="#"
@@ -43,38 +42,41 @@
 
             <!-- Links Sections -->
             <div class="lg:col-span-2">
-                <h4 class="text-white font-bold mb-6">Product</h4>
+                <h4 class="text-white font-bold mb-6">{{ 'FOOTER.PRODUCT' | translate }}</h4>
                 <ul class="space-y-4">
-                    <li><a routerLink="/create" class="text-slate-400 hover:text-blue-400 transition-colors">Builder</a>
+                    <li><a routerLink="/create" class="text-slate-400 hover:text-blue-400 transition-colors">{{
+                            'FOOTER.AI_BUILDER' | translate }}</a>
                     </li>
-                    <li><a routerLink="/ats-analysis" class="text-slate-400 hover:text-blue-400 transition-colors">ATS
-                            Analyzer</a></li>
-                    <li><a routerLink="/templates"
-                            class="text-slate-400 hover:text-blue-400 transition-colors">Templates</a></li>
-                    <li><a routerLink="/" class="text-slate-400 hover:text-blue-400 transition-colors">How it works</a>
-                    </li>
+                    <li><a routerLink="/ats-analysis" class="text-slate-400 hover:text-blue-400 transition-colors">{{
+                            'FOOTER.ATS_SCAN' | translate }}</a></li>
+                    <li><a routerLink="/templates" class="text-slate-400 hover:text-blue-400 transition-colors">{{
+                            'FOOTER.TEMPLATES' | translate }}</a></li>
+                    <li><a routerLink="/mock-interview" class="text-slate-400 hover:text-blue-400 transition-colors">{{
+                            'FOOTER.MOCK_INTERVIEW' | translate }}</a></li>
                 </ul>
             </div>
 
             <div class="lg:col-span-2">
-                <h4 class="text-white font-bold mb-6">Company</h4>
+                <h4 class="text-white font-bold mb-6">{{ 'FOOTER.COMPANY' | translate }}</h4>
                 <ul class="space-y-4">
-                    <li><a href="#" class="text-slate-400 hover:text-indigo-400 transition-colors">About Us</a></li>
-                    <li><a href="#" class="text-slate-400 hover:text-indigo-400 transition-colors">Careers</a></li>
+                    <li><a href="#" class="text-slate-400 hover:text-indigo-400 transition-colors">{{ 'FOOTER.ABOUT' |
+                            translate }}</a></li>
+                    <li><a href="#" class="text-slate-400 hover:text-indigo-400 transition-colors">{{ 'FOOTER.CAREERS' |
+                            translate }}</a></li>
                     <li><a href="#" class="text-slate-400 hover:text-indigo-400 transition-colors">Blog</a></li>
                     <li><a href="#" class="text-slate-400 hover:text-indigo-400 transition-colors">Contact</a></li>
                 </ul>
             </div>
 
             <div class="lg:col-span-4">
-                <h4 class="text-white font-bold mb-6">Stay Updated</h4>
-                <p class="text-slate-400 mb-6">Get the latest tips on resume building and career growth.</p>
+                <h4 class="text-white font-bold mb-6">{{ 'FOOTER.NEWSLETTER' | translate }}</h4>
+                <p class="text-slate-400 mb-6">{{ 'FOOTER.NEWSLETTER_DESC' | translate }}</p>
                 <form class="flex gap-2">
-                    <input type="email" placeholder="Email address"
+                    <input type="email" [placeholder]="'FOOTER.EMAIL_PLACEHOLDER' | translate"
                         class="flex-1 px-4 py-3 rounded-xl bg-slate-900 border border-slate-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none text-white transition-all">
                     <button type="submit"
                         class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all transform active:scale-95 shadow-lg shadow-blue-500/20">
-                        Join
+                        {{ 'FOOTER.SUBSCRIBE' | translate }}
                     </button>
                 </form>
             </div>
@@ -83,11 +85,13 @@
         <!-- Bottom Bar -->
         <div class="pt-12 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="text-slate-500 text-sm">
-                &copy; {{ currentYear }} ResumeAI. All rights reserved.
+                {{ 'FOOTER.COPYRIGHT' | translate: { year: currentYear } }}
             </div>
             <div class="flex gap-8 text-sm font-medium">
-                <a href="#" class="text-slate-500 hover:text-white transition-colors">Privacy Policy</a>
-                <a href="#" class="text-slate-500 hover:text-white transition-colors">Terms of Service</a>
+                <a href="#" class="text-slate-500 hover:text-white transition-colors">{{ 'FOOTER.PRIVACY' | translate
+                    }}</a>
+                <a href="#" class="text-slate-500 hover:text-white transition-colors">{{ 'FOOTER.TERMS' | translate
+                    }}</a>
                 <a href="#" class="text-slate-500 hover:text-white transition-colors">Cookie Policy</a>
             </div>
         </div>

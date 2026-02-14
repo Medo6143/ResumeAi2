@@ -1,51 +1,32 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()"
-    class="relative backdrop-blur-3xl bg-white/80 dark:bg-slate-950/40 rounded-[2.5rem] p-10 shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden group transition-all duration-500">
-
-    <!-- Premium Accents -->
-    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-500/50 to-transparent">
-    </div>
-    <div
-        class="absolute -inset-0.5 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-[2.5rem] blur opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10">
+<div class="h-full flex flex-col p-8 md:p-12 animate-fade-in">
+    <!-- Form Header -->
+    <div class="mb-10 text-center md:text-left">
+        <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-2">{{ 'ATS_FORM.TITLE' | translate }}</h2>
+        <p class="text-slate-500 dark:text-gray-400 font-medium">{{ 'ATS_FORM.SUBTITLE' | translate }}</p>
     </div>
 
-    <!-- Header Section -->
-    <div class="text-center mb-12">
-        <div
-            class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-600/10 to-blue-600/10 dark:from-purple-600/20 dark:to-blue-600/20 rounded-3xl shadow-lg mb-6 border border-slate-200 dark:border-white/10 group-hover:scale-105 transition-transform duration-500">
-            <svg class="w-10 h-10 text-purple-600 dark:text-purple-400" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="1.5">
-                <path
-                    d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"
-                    stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-        </div>
-        <h2 class="text-3xl font-black text-slate-900 dark:text-white mb-3 tracking-tight">Analytical Input</h2>
-        <p class="text-slate-600 dark:text-gray-400 font-medium">Feed the engine with job details and your professional
-            blueprint.</p>
-    </div>
-
-    <!-- Main Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-        <!-- Job Title -->
-        <div class="space-y-3">
-            <div class="flex items-center justify-between">
+    <!-- The Form -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex-1 flex flex-col gap-10">
+        <!-- Target Position -->
+        <div class="space-y-4">
+            <div class="flex items-center justify-between px-1">
                 <label for="jobTitle"
                     class="text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.6)]"></span>
-                    Target Position
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]"></span>
+                    {{ 'ATS_FORM.TARGET_POSITION' | translate }}
                 </label>
-                <span
-                    class="text-[9px] text-purple-600 dark:text-purple-400/80 font-black uppercase tracking-tighter bg-purple-500/10 px-2 py-0.5 rounded-md border border-purple-200/50 dark:border-transparent">Required</span>
             </div>
-            <div class="relative group/input">
-                <input type="text" id="jobTitle" formControlName="jobTitle" placeholder="e.g. Senior Frontend Engineer"
-                    class="w-full px-6 py-4 bg-slate-100/50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/10 transition-all duration-300">
-                <svg class="absolute right-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-gray-500 group-focus-within/input:text-purple-600 dark:group-focus-within/input:text-purple-400 transition-colors"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path
-                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+            <div class="relative group">
+                <div
+                    class="absolute inset-y-0 left-6 flex items-center text-slate-400 group-focus-within:text-blue-500 transition-colors">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                </div>
+                <input id="jobTitle" formControlName="jobTitle" type="text"
+                    [placeholder]="'ATS_FORM.JOB_TITLE_PLACEHOLDER' | translate"
+                    class="w-full pl-16 pr-6 py-5 bg-slate-100/50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 font-bold">
             </div>
             <p *ngIf="form.get('jobTitle')?.invalid && form.get('jobTitle')?.touched"
                 class="text-xs text-red-500 dark:text-red-400 font-bold flex items-center gap-1.5 animate-fade-in">
@@ -54,24 +35,22 @@
                     <line x1="12" y1="8" x2="12" y2="12" />
                     <line x1="12" y1="16" x2="12.01" y2="16" />
                 </svg>
-                Position title is mandatory
+                {{ 'ATS_FORM.JOB_TITLE_ERROR' | translate }}
             </p>
         </div>
 
-        <!-- Job Description -->
-        <div class="md:row-span-2 space-y-3">
-            <div class="flex items-center justify-between">
+        <!-- Job Specs -->
+        <div class="space-y-4 flex-1">
+            <div class="flex items-center justify-between px-1">
                 <label for="jobDescription"
                     class="text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest flex items-center gap-2">
-                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]"></span>
-                    Target Specs
+                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.6)]"></span>
+                    {{ 'ATS_FORM.TARGET_SPECS' | translate }}
                 </label>
-                <span
-                    class="text-[9px] text-blue-600 dark:text-blue-400/80 font-black uppercase tracking-tighter bg-blue-500/10 px-2 py-0.5 rounded-md border border-blue-200/50 dark:border-transparent">Required</span>
             </div>
             <div class="relative h-full pb-8 md:pb-0">
                 <textarea id="jobDescription" formControlName="jobDescription"
-                    placeholder="Paste the target job description... The more detail, the deeper the analysis."
+                    [placeholder]="'ATS_FORM.JOB_DESC_PLACEHOLDER' | translate"
                     class="w-full h-full min-h-[180px] px-6 py-5 bg-slate-100/50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-500 focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-300 resize-none leading-relaxed"></textarea>
             </div>
             <p *ngIf="form.get('jobDescription')?.invalid && form.get('jobDescription')?.touched"
@@ -81,17 +60,17 @@
                     <line x1="12" y1="8" x2="12" y2="12" />
                     <line x1="12" y1="16" x2="12.01" y2="16" />
                 </svg>
-                Specs mapping required
+                {{ 'ATS_FORM.JOB_DESC_ERROR' | translate }}
             </p>
         </div>
 
         <!-- Resume Asset -->
         <div class="space-y-3">
-            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-between px-1">
                 <label for="resume"
                     class="text-[10px] font-black text-slate-500 dark:text-gray-400 uppercase tracking-widest flex items-center gap-2">
                     <span class="w-1.5 h-1.5 rounded-full bg-fuchsia-500 shadow-[0_0_8px_rgba(217,70,239,0.6)]"></span>
-                    Resume Core
+                    {{ 'ATS_FORM.RESUME_CORE' | translate }}
                 </label>
             </div>
 
@@ -103,7 +82,7 @@
                 <div *ngIf="isDragging"
                     class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-blue-500/5 animate-pulse"></div>
 
-                <div class="relative z-10 px-6 py-10 text-center">
+                <div class="relative z-10 px-6 py-8 text-center">
                     <div
                         class="w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-2xl bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 group-hover/drop:scale-110 transition-transform duration-500 shadow-sm dark:shadow-xl">
                         <svg class="w-8 h-8"
@@ -116,7 +95,7 @@
                     </div>
                     <button type="button" (click)="fileInput.click()" [disabled]="parsing"
                         class="text-sm font-black text-slate-800 dark:text-white mb-2 hover:text-purple-600 dark:hover:text-purple-400 transition-colors uppercase tracking-widest underline decoration-2 decoration-purple-500/30 underline-offset-4">
-                        {{ parsing ? 'Parsing Data...' : 'Inject File' }}
+                        {{ parsing ? ('ATS_FORM.PARSING' | translate) : ('ATS_FORM.INJECT_FILE' | translate) }}
                     </button>
                     <p class="text-[9px] text-slate-500 dark:text-gray-500 font-black tracking-widest uppercase">PDF /
                         DOCX / TXT</p>
@@ -124,72 +103,73 @@
                         accept=".pdf,.docx,.txt">
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Manual Text Override -->
-    <div class="mb-10 space-y-3">
-        <label for="resume"
-            class="text-[10px] font-black text-slate-400 dark:text-gray-500 uppercase tracking-[0.3em] flex items-center gap-2">
-            Manual Override / Pasted Content
-        </label>
-        <textarea id="resume" formControlName="resume" rows="4"
-            placeholder="Parsed content will appear here, or you can paste directly..."
-            class="w-full px-6 py-4 bg-slate-50/50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl text-slate-700 dark:text-gray-300 placeholder-slate-400 dark:placeholder-gray-600 focus:outline-none focus:border-purple-500/50 transition-all duration-300 resize-none text-sm font-medium"></textarea>
-        <p *ngIf="form.get('resume')?.invalid && form.get('resume')?.touched"
-            class="text-xs text-red-500 dark:text-red-400 font-bold flex items-center gap-1.5 animate-fade-in">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="12" y1="8" x2="12" y2="12" />
-                <line x1="12" y1="16" x2="12.01" y2="16" />
-            </svg>
-            Resume asset is required for mapping
-        </p>
-    </div>
-
-    <!-- Unified Launch Trigger -->
-    <div class="relative">
-        <button type="submit" [disabled]="form.invalid || loading || parsing"
-            class="w-full group/btn relative overflow-hidden py-5 bg-slate-900 dark:bg-white text-white dark:text-black font-black text-sm uppercase tracking-[0.2em] rounded-2xl transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-30 disabled:grayscale disabled:scale-100 disabled:cursor-not-allowed shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_40px_-15px_rgba(255,255,255,0.2)]">
-
-            <span class="relative z-10 flex items-center justify-center gap-3" [class.invisible]="loading">
-                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="3">
-                    <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" />
+            <p *ngIf="form.get('resume')?.invalid && form.get('resume')?.touched"
+                class="text-xs text-red-500 dark:text-red-400 font-bold flex items-center gap-1.5 animate-fade-in">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
                 </svg>
-                Launch Analysis Engine
-            </span>
+                {{ 'ATS_FORM.RESUME_ERROR' | translate }}
+            </p>
+        </div>
 
-            <!-- Loading Micro-UX -->
-            <div class="absolute inset-0 flex items-center justify-center bg-black dark:bg-black text-white"
-                *ngIf="loading">
-                <div class="flex items-center gap-3">
-                    <div class="w-5 h-5 rounded-full border-2 border-white/20 border-t-white animate-spin"></div>
-                    <span class="text-xs font-black tracking-widest">Processing...</span>
+        <!-- Manual Text Override -->
+        <div class="mb-4 space-y-3">
+            <label for="resume"
+                class="text-[10px] font-black text-slate-400 dark:text-gray-500 uppercase tracking-[0.3em] flex items-center gap-2">
+                {{ 'ATS_FORM.MANUAL_OVERRIDE' | translate }}
+            </label>
+            <textarea id="resume" formControlName="resume" rows="4"
+                [placeholder]="'ATS_FORM.MANUAL_PLACEHOLDER' | translate"
+                class="w-full px-6 py-4 bg-slate-50/50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl text-slate-700 dark:text-gray-300 placeholder-slate-400 dark:placeholder-gray-600 focus:outline-none focus:border-purple-500/50 transition-all duration-300 resize-none text-sm font-medium"></textarea>
+        </div>
+
+        <!-- Unified Launch Trigger -->
+        <div class="relative">
+            <button type="submit" [disabled]="form.invalid || loading || parsing"
+                class="w-full group/btn relative overflow-hidden py-5 bg-slate-900 dark:bg-white text-white dark:text-black font-black text-sm uppercase tracking-[0.2em] rounded-2xl transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-30 disabled:grayscale disabled:scale-100 disabled:cursor-not-allowed shadow-[0_20px_40px_-15px_rgba(0,0,0,0.2)] dark:shadow-[0_20px_40px_-15px_rgba(255,255,255,0.2)]">
+
+                <span class="relative z-10 flex items-center justify-center gap-3" [class.invisible]="loading">
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="3">
+                        <path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    {{ 'ATS_FORM.LAUNCH' | translate }}
+                </span>
+
+                <!-- Loading Micro-UX -->
+                <div class="absolute inset-0 flex items-center justify-center bg-black dark:bg-black text-white"
+                    *ngIf="loading">
+                    <div class="flex items-center gap-3">
+                        <div class="w-5 h-5 rounded-full border-2 border-white/20 border-t-white animate-spin"></div>
+                        <span class="text-xs font-black tracking-widest">{{ 'ATS_FORM.PROCESSING' | translate }}</span>
+                    </div>
                 </div>
-            </div>
-        </button>
-    </div>
+            </button>
+        </div>
+    </form>
 
     <!-- System Stats -->
     <div class="mt-10 pt-10 border-t border-slate-100 dark:border-white/5 grid grid-cols-2 md:grid-cols-4 gap-4">
         <div class="space-y-1">
-            <p class="text-[9px] font-black text-slate-400 dark:text-gray-500 tracking-widest uppercase">Protocol</p>
-            <p class="text-xs font-bold text-slate-700 dark:text-gray-300">AES-256 E2E</p>
-        </div>
-        <div class="space-y-1 border-l border-slate-100 dark:border-white/5 pl-4">
-            <p class="text-[9px] font-black text-slate-400 dark:text-gray-500 tracking-widest uppercase">Engine</p>
+            <p class="text-[9px] font-black text-slate-400 dark:text-gray-500 tracking-widest uppercase">{{
+                'ATS_FORM.PROTOCOL' | translate }}</p>
             <p class="text-xs font-bold text-slate-700 dark:text-gray-300">Nueral-ATS v4</p>
+            <!-- Using generic names -->
+        </div>
+        <div class="space-y-1 border-l border-slate-100 dark:border-white/5 pl-4 px-4">
+            <p class="text-[9px] font-black text-slate-400 dark:text-gray-500 tracking-widest uppercase">{{
+                'ATS_FORM.ENGINE' | translate }}</p>
+            <p class="text-xs font-bold text-slate-700 dark:text-gray-300">GPT-4-Alpha</p>
         </div>
         <div class="hidden md:block space-y-1 border-l border-slate-100 dark:border-white/5 pl-4 px-4">
-            <p class="text-[9px] font-black text-slate-400 dark:text-gray-500 tracking-widest uppercase">Latency</p>
-            <p class="text-xs font-bold text-slate-700 dark:text-gray-300">~850ms/t</p>
-        </div>
-        <div class="hidden md:block space-y-1 border-l border-slate-100 dark:border-white/5 pl-4">
-            <p class="text-[9px] font-black text-slate-400 dark:text-gray-500 tracking-widest uppercase">Safety</p>
+            <p class="text-[9px] font-black text-slate-400 dark:text-gray-500 tracking-widest uppercase">{{
+                'ATS_FORM.VERIFIED' | translate }}</p>
             <p class="text-xs font-bold text-green-600 dark:text-green-400 flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Verified
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> {{ 'ATS_FORM.VERIFIED' | translate }}
             </p>
         </div>
     </div>
-</form>
+</div>

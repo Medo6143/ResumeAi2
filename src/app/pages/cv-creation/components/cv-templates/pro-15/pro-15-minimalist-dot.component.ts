@@ -57,7 +57,7 @@ import { CommonModule } from '@angular/common';
                     </div>
                 </section>
                 <section *ngIf="resume.skills && resume.skills.length">
-                    <h4 class="text-[10px] font-black uppercase mb-6 tracking-widest opacity-30 italic">Skillset</h4>
+                    <h4 class="text-[10px] font-black uppercase mb-6 tracking-widest opacity-30 italic">Skills</h4>
                     <div class="flex flex-wrap gap-2">
                         <span *ngFor="let s of resume.skills" class="text-[10px] font-bold border-b-2 border-slate-900 pb-0.5">{{ s }}</span>
                     </div>

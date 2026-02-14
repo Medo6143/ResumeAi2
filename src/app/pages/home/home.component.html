@@ -1,6 +1,6 @@
 <div class="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white transition-colors duration-300">
     <!-- Clean Professional Background -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="fixed inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <!-- Subtle gradient overlay -->
         <div
             class="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-slate-900 dark:via-slate-950 dark:to-indigo-950 opacity-50">
@@ -18,18 +18,20 @@
         </div>
     </div>
 
-    <!-- Modular Components -->
-    <app-hero [userAvatars]="userAvatars"></app-hero>
+    <!-- Main Content -->
+    <main>
+        <app-hero [userAvatars]="userAvatars"></app-hero>
 
-    <app-stats [stats]="stats"></app-stats>
+        <app-stats [stats]="stats"></app-stats>
 
-    <app-ats-preview></app-ats-preview>
+        <app-ats-preview></app-ats-preview>
 
-    <app-how-it-works></app-how-it-works>
+        <app-how-it-works></app-how-it-works>
 
-    <app-templates-preview></app-templates-preview>
+        <app-templates-preview></app-templates-preview>
 
-    <app-features></app-features>
+        <app-features></app-features>
 
-    <app-cta></app-cta>
+        <app-cta></app-cta>
+    </main>
 </div>

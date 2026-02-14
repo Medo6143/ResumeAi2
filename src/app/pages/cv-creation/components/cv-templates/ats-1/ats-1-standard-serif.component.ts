@@ -24,13 +24,13 @@ import { CommonModule } from '@angular/common';
 
         <!-- Summary -->
         <section *ngIf="resume.summary" class="mb-6">
-            <h3 class="text-lg font-bold uppercase border-b border-black mb-2">Professional Summary</h3>
+            <h3 class="text-lg font-bold uppercase border-b border-black mb-2">Profile</h3>
             <p class="text-sm text-justify">{{ resume.summary }}</p>
         </section>
 
         <!-- Experience -->
         <section *ngIf="resume.experience?.length" class="mb-6">
-            <h3 class="text-lg font-bold uppercase border-b border-black mb-4">Work Experience</h3>
+            <h3 class="text-lg font-bold uppercase border-b border-black mb-4">Experience</h3>
             <div class="space-y-4">
                 <div *ngFor="let job of resume.experience">
                     <div class="flex justify-between items-baseline font-bold">
@@ -76,7 +76,7 @@ import { CommonModule } from '@angular/common';
 
         <!-- Skills -->
         <section *ngIf="resume.skills?.length">
-            <h3 class="text-lg font-bold uppercase border-b border-black mb-2">Technical Skills</h3>
+            <h3 class="text-lg font-bold uppercase border-b border-black mb-2">Skills</h3>
             <p class="text-sm">
                 <ng-container *ngFor="let s of resume.skills; let last = last">
                     {{ s }}<span *ngIf="!last">, </span>

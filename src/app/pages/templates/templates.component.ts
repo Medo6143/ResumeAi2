@@ -6,13 +6,14 @@ import { TemplateConfig } from '../../core/models/template.model';
 import { PreviewModalComponent } from './components/preview-modal/preview-modal';
 import { CvPreviewComponent } from '../cv-creation/components/cv-preview/cv-preview.component';
 import { MOCK_RESUME } from '../../core/constants/mock-resume';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-    selector: 'app-templates',
-    standalone: true,
-    imports: [CommonModule, PreviewModalComponent, CvPreviewComponent],
-    templateUrl: './templates.component.html',
-    styles: [`
+  selector: 'app-templates',
+  standalone: true,
+  imports: [CommonModule, PreviewModalComponent, CvPreviewComponent, TranslateModule],
+  templateUrl: './templates.component.html',
+  styles: [`
     .animate-gradient-x {
       background-size: 200% 200%;
       animation: gradient-x 15s ease infinite;
@@ -34,47 +35,47 @@ import { MOCK_RESUME } from '../../core/constants/mock-resume';
   `]
 })
 export class TemplatesComponent {
-    private templateService = inject(TemplateService);
-    private router = inject(Router);
+  private templateService = inject(TemplateService);
+  private router = inject(Router);
 
-    allTemplates = this.templateService.getTemplates();
-    mockResume = MOCK_RESUME;
+  allTemplates = this.templateService.getTemplates();
+  mockResume = MOCK_RESUME;
 
-    // Pagination
-    pageSize = 8;
-    currentPage = signal(0);
+  // Pagination
+  pageSize = 8;
+  currentPage = signal(0);
 
-    paginatedTemplates = computed(() => {
-        const start = this.currentPage() * this.pageSize;
-        return this.allTemplates.slice(start, start + this.pageSize);
-    });
+  paginatedTemplates = computed(() => {
+    const start = this.currentPage() * this.pageSize;
+    return this.allTemplates.slice(start, start + this.pageSize);
+  });
 
-    totalPages = Math.ceil(this.allTemplates.length / this.pageSize);
+  totalPages = Math.ceil(this.allTemplates.length / this.pageSize);
 
-    // Modal State
-    selectedTemplateForPreview = signal<TemplateConfig | null>(null);
+  // Modal State
+  selectedTemplateForPreview = signal<TemplateConfig | null>(null);
 
-    nextPage() {
-        if (this.currentPage() < this.totalPages - 1) {
-            this.currentPage.update(p => p + 1);
-        }
+  nextPage() {
+    if (this.currentPage() < this.totalPages - 1) {
+      this.currentPage.update(p => p + 1);
     }
+  }
 
-    prevPage() {
-        if (this.currentPage() > 0) {
-            this.currentPage.update(p => p - 1);
-        }
+  prevPage() {
+    if (this.currentPage() > 0) {
+      this.currentPage.update(p => p - 1);
     }
+  }
 
-    openPreview(template: TemplateConfig) {
-        this.selectedTemplateForPreview.set(template);
-    }
+  openPreview(template: TemplateConfig) {
+    this.selectedTemplateForPreview.set(template);
+  }
 
-    closePreview() {
-        this.selectedTemplateForPreview.set(null);
-    }
+  closePreview() {
+    this.selectedTemplateForPreview.set(null);
+  }
 
-    selectTemplate(templateId: string) {
-        this.router.navigate(['/create'], { queryParams: { template: templateId } });
-    }
+  selectTemplate(templateId: string) {
+    this.router.navigate(['/create'], { queryParams: { template: templateId } });
+  }
 }

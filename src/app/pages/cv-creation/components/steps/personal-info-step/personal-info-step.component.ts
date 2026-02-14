@@ -2,11 +2,12 @@ import { Component, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CvStateService } from '../../../services/cv-state.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-personal-info-step',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, TranslateModule],
     templateUrl: './personal-info-step.component.html',
     styles: []
 })

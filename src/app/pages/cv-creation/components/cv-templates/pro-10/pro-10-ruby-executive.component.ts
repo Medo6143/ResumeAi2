@@ -33,7 +33,7 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
                             <app-experience-block [jobs]="resume.experience" [primaryColor]="config.primaryColor"></app-experience-block>
                         </section>
                         <section *ngIf="resume.projects && resume.projects.length">
-                            <h3 class="text-xs font-black uppercase mb-6 border-l-4 pl-4" [style.border-color]="config.primaryColor">Initiatives</h3>
+                            <h3 class="text-xs font-black uppercase mb-6 border-l-4 pl-4" [style.border-color]="config.primaryColor">Projects</h3>
                             <div class="space-y-6">
                                 <div *ngFor="let p of resume.projects">
                                     <h4 class="text-sm font-black italic">{{ p.name }}</h4>

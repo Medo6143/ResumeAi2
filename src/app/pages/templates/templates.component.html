@@ -12,11 +12,10 @@
         <div class="text-center mb-16 space-y-4">
             <h1
                 class="text-5xl md:text-6xl font-black tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 text-transparent bg-clip-text">
-                Choose Your Design
+                {{ 'TEMPLATES.TITLE' | translate }}
             </h1>
             <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                Explore our collection of 20 premium layouts designed to make your resume stand out to both recruiters
-                and machines.
+                {{ 'TEMPLATES.SUBTITLE' | translate }}
             </p>
         </div>
 
@@ -46,7 +45,7 @@
                         class="absolute bottom-4 left-0 right-0 flex justify-center gap-4 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-300 z-10 px-4">
                         <button (click)="$event.stopPropagation(); openPreview(template)"
                             class="px-5 py-2.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-800 dark:text-white rounded-xl shadow-xl font-bold text-sm hover:scale-105 active:scale-95 transition-all w-full border border-slate-200 dark:border-slate-700">
-                            Quick View
+                            {{ 'TEMPLATES.QUICK_VIEW' | translate }}
                         </button>
                     </div>
 
@@ -54,7 +53,7 @@
                     <div *ngIf="template.isAtsOptimized" class="absolute top-3 right-3 z-10 animate-fade-in-down">
                         <span
                             class="px-3 py-1 bg-emerald-500/90 backdrop-blur-sm text-white text-[10px] font-black uppercase tracking-wider rounded-lg shadow-lg border border-emerald-400/50">
-                            ATS Friendly
+                            {{ 'TEMPLATES.ATS_FRIENDLY' | translate }}
                         </span>
                     </div>
                 </div>
@@ -66,7 +65,8 @@
 
                     <div class="mt-6 flex items-center justify-between">
                         <span
-                            class="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">Select</span>
+                            class="text-xs font-black uppercase tracking-widest text-indigo-600 dark:text-indigo-400">{{
+                            'TEMPLATES.SELECT' | translate }}</span>
                         <div class="w-4 h-4 rounded-full" [style.background]="template.primaryColor"></div>
                     </div>
                 </div>
@@ -76,7 +76,8 @@
         <!-- Pagination Controls -->
         <div class="flex justify-center items-center gap-6 mt-16">
             <button (click)="prevPage()" [disabled]="currentPage() === 0"
-                class="p-5 glass-panel rounded-3xl text-slate-700 dark:text-slate-300 disabled:opacity-20 transition-all hover:scale-110 active:scale-95 shadow-xl">
+                class="p-5 glass-panel rounded-3xl text-slate-700 dark:text-slate-300 disabled:opacity-20 transition-all hover:scale-110 active:scale-95 shadow-xl"
+                [attr.aria-label]="'TEMPLATES.PREV_PAGE' | translate">
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
@@ -88,7 +89,8 @@
                 </span>
             </div>
             <button (click)="nextPage()" [disabled]="currentPage() === totalPages - 1"
-                class="p-5 glass-panel rounded-3xl text-slate-700 dark:text-slate-300 disabled:opacity-20 transition-all hover:scale-110 active:scale-95 shadow-xl">
+                class="p-5 glass-panel rounded-3xl text-slate-700 dark:text-slate-300 disabled:opacity-20 transition-all hover:scale-110 active:scale-95 shadow-xl"
+                [attr.aria-label]="'TEMPLATES.NEXT_PAGE' | translate">
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>

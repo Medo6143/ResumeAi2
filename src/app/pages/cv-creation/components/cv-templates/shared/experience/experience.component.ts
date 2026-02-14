@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-experience-block',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, TranslateModule],
     template: `
     <div *ngFor="let job of jobs" [class]="className || 'mb-4'">
         <div class="flex justify-between items-baseline font-bold">

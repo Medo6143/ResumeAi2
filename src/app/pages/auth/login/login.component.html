@@ -25,12 +25,12 @@
 
             <div class="max-w-xl animate-fade-slide-up" style="animation-delay: 0.2s;">
                 <h1 class="text-6xl font-black text-white leading-tight mb-8">
-                    Elevate Your <br />
-                    <span class="text-blue-500">Career</span> with AI
+                    {{ 'LOGIN.HERO_TITLE_1' | translate }} <br />
+                    <span class="text-blue-500">{{ 'LOGIN.HERO_TITLE_2' | translate }}</span> {{ 'LOGIN.HERO_TITLE_3' |
+                    translate }}
                 </h1>
                 <p class="text-xl text-slate-400 leading-relaxed mb-12">
-                    Join thousands of professionals using our AI-driven platform to craft world-class resumes and land
-                    their dream jobs at top-tier companies.
+                    {{ 'LOGIN.HERO_DESC' | translate }}
                 </p>
 
                 <!-- Feature Badges -->
@@ -44,8 +44,8 @@
                                     d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
                         </div>
-                        <h3 class="text-white font-bold mb-1">Instant Analysis</h3>
-                        <p class="text-sm text-slate-500">Real-time ATS scoring</p>
+                        <h3 class="text-white font-bold mb-1">{{ 'LOGIN.BADGE_ANALYSIS' | translate }}</h3>
+                        <p class="text-sm text-slate-500">{{ 'LOGIN.BADGE_ANALYSIS_DESC' | translate }}</p>
                     </div>
                     <div
                         class="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm group hover:bg-white/10 transition-all duration-300">
@@ -56,8 +56,8 @@
                                     d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                             </svg>
                         </div>
-                        <h3 class="text-white font-bold mb-1">Secure & Private</h3>
-                        <p class="text-sm text-slate-500">Your data is yours</p>
+                        <h3 class="text-white font-bold mb-1">{{ 'LOGIN.BADGE_SECURE' | translate }}</h3>
+                        <p class="text-sm text-slate-500">{{ 'LOGIN.BADGE_SECURE_DESC' | translate }}</p>
                     </div>
                 </div>
             </div>
@@ -67,7 +67,7 @@
                     <div *ngFor="let i of [1,2,3,4]"
                         class="w-8 h-8 rounded-full border-2 border-slate-900 bg-slate-800"></div>
                 </div>
-                <span>Trusted by 25k+ professionals</span>
+                <span>{{ 'LOGIN.TRUSTED_BY' | translate }}</span>
             </div>
         </div>
     </div>
@@ -81,8 +81,8 @@
 
         <div class="w-full max-w-md animate-fade-in">
             <div class="mb-10">
-                <h2 class="text-4xl font-black text-slate-900 dark:text-white mb-3">Welcome back</h2>
-                <p class="text-slate-500 dark:text-slate-400 font-medium">Please enter your details to sign in.</p>
+                <h2 class="text-4xl font-black text-slate-900 dark:text-white mb-3">{{ 'LOGIN.TITLE' | translate }}</h2>
+                <p class="text-slate-500 dark:text-slate-400 font-medium">{{ 'LOGIN.SUBTITLE' | translate }}</p>
             </div>
 
             <!-- Social Login Buttons -->
@@ -102,7 +102,7 @@
                         d="M43.611,20.083L43.611,20.083L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z">
                     </path>
                 </svg>
-                Sign in with Google
+                {{ 'LOGIN.GOOGLE_SIGNIN' | translate }}
             </button>
 
             <div class="relative mb-8">
@@ -110,24 +110,27 @@
                     <div class="w-full border-t border-slate-100 dark:border-slate-800"></div>
                 </div>
                 <div class="relative flex justify-center text-xs">
-                    <span class="px-4 bg-white dark:bg-slate-950 text-slate-400 font-bold uppercase tracking-widest">Or
-                        login with email</span>
+                    <span class="px-4 bg-white dark:bg-slate-950 text-slate-400 font-bold uppercase tracking-widest">
+                        {{ 'LOGIN.OR_EMAIL' | translate }}</span>
                 </div>
             </div>
 
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 ml-1">Email
-                        Address</label>
+                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 ml-1">{{
+                        'LOGIN.EMAIL_LABEL' | translate }}
+                    </label>
                     <input formControlName="email" type="email"
                         class="block w-full px-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-transparent focus:border-blue-500 focus:bg-white dark:focus:bg-slate-800 rounded-2xl transition-all outline-none text-slate-900 dark:text-white font-medium"
-                        placeholder="name@company.com">
+                        [placeholder]="'LOGIN.EMAIL_PLACEHOLDER' | translate">
                 </div>
 
                 <div>
                     <div class="flex justify-between items-center mb-2 ml-1">
-                        <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Password</label>
-                        <a href="#" class="text-xs font-bold text-blue-600 hover:text-blue-500">Forgot Password?</a>
+                        <label class="text-sm font-bold text-slate-700 dark:text-slate-300">{{ 'LOGIN.PASSWORD_LABEL' |
+                            translate }}</label>
+                        <a href="#" class="text-xs font-bold text-blue-600 hover:text-blue-500">{{
+                            'LOGIN.FORGOT_PASSWORD' | translate }}</a>
                     </div>
                     <input formControlName="password" type="password"
                         class="block w-full px-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-transparent focus:border-blue-500 focus:bg-white dark:focus:bg-slate-800 rounded-2xl transition-all outline-none text-slate-900 dark:text-white font-medium"
@@ -144,16 +147,16 @@
                     <span class="flex items-center justify-center gap-2">
                         <span *ngIf="isLoading()"
                             class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                        {{ isLoading() ? 'Signing in...' : 'Sign In' }}
+                        {{ isLoading() ? ('LOGIN.SIGNING_IN' | translate) : ('LOGIN.SIGNIN' | translate) }}
                     </span>
                 </button>
             </form>
 
             <div class="mt-8 text-center text-sm">
                 <p class="text-slate-600 dark:text-slate-400">
-                    New to ResumeAI?
-                    <a routerLink="/register" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">Create
-                        an account</a>
+                    {{ 'LOGIN.NO_ACCOUNT' | translate }}
+                    <a routerLink="/register" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">{{
+                        'LOGIN.CREATE_ACCOUNT' | translate }}</a>
                 </p>
             </div>
         </div>

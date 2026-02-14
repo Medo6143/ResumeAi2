@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CvStateService } from '../../../services/cv-state.service';
 import { OpenRouterAiService } from '../../../../../core/services/openrouter-ai.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-summary-step',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, TranslateModule],
     templateUrl: './summary-step.component.html',
     styles: []
 })

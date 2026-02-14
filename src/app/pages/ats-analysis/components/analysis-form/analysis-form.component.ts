@@ -2,11 +2,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FileParsingService } from '../../../../core/services/file-parsing.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-analysis-form',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, TranslateModule],
     templateUrl: './analysis-form.component.html',
     styles: []
 })

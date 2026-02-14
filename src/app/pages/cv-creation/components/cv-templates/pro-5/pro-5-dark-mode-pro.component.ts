@@ -83,7 +83,7 @@ import { CommonModule } from '@angular/common';
                         </div>
                     </section>
                     <section class="p-6 border-t border-slate-800">
-                        <h2 class="text-white text-xs font-black mb-6 uppercase tracking-[0.2em]">System_Languages</h2>
+                        <h2 class="text-white text-xs font-black mb-6 uppercase tracking-[0.2em]">Languages</h2>
                         <div class="flex flex-col gap-2">
                             <div *ngFor="let l of resume.languages" class="flex items-center gap-2">
                                 <div class="w-1.5 h-1.5 rounded-full bg-indigo-500"></div>

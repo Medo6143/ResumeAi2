@@ -37,7 +37,7 @@ import { CommonModule } from '@angular/common';
                     <div class="absolute -left-[56px] top-1 w-2 h-2 rounded-full bg-white border-2 border-slate-900 z-10"></div>
                     <div class="flex gap-8">
                         <div class="w-32 shrink-0">
-                            <h4 class="text-[10px] font-black uppercase opacity-20">Learning</h4>
+                            <h4 class="text-[10px] font-black uppercase opacity-20">Education</h4>
                         </div>
                         <div class="flex-1 space-y-6">
                             <div *ngFor="let edu of resume.education">
@@ -74,7 +74,7 @@ import { CommonModule } from '@angular/common';
                     <div class="absolute -left-[56px] top-1 w-2 h-2 rounded-full bg-white border-2 border-slate-900 z-10"></div>
                     <div class="flex gap-8">
                         <div class="w-32 shrink-0">
-                            <h4 class="text-[10px] font-black uppercase opacity-20">Labor</h4>
+                            <h4 class="text-[10px] font-black uppercase opacity-20">Experience</h4>
                         </div>
                         <div class="flex-1 space-y-6">
                             <div *ngFor="let p of resume.projects">

@@ -70,7 +70,7 @@ import { CommonModule } from '@angular/common';
             <!-- Right: Experience -->
             <div class="col-span-8 space-y-12">
                 <section *ngIf="resume.experience?.length">
-                    <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-900 mb-8 border-b border-gray-100 pb-2">Professional Experience</h3>
+                    <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-900 mb-8 border-b border-gray-100 pb-2">Experience</h3>
                     <div class="space-y-10">
                         <div *ngFor="let job of resume.experience">
                              <div class="flex justify-between items-baseline mb-2">

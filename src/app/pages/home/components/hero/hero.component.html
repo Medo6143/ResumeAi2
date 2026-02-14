@@ -1,6 +1,6 @@
 <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 text-center overflow-hidden">
     <!-- Sophisticated Mesh Gradient Background -->
-    <div class="absolute inset-0 -z-10 pointer-events-none">
+    <div class="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true">
         <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[120px] animate-pulse">
         </div>
         <div
@@ -15,42 +15,40 @@
         <div *ngIf="authService.user$ | async as user" class="mb-8 animate-fade-in">
             <div
                 class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 dark:text-blue-400 font-bold text-sm">
-                <span class="relative flex h-2 w-2">
+                <span class="relative flex h-2 w-2" aria-hidden="true">
                     <span
                         class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                 </span>
-                Welcome back, {{ user.displayName }}!
+                {{ 'HERO.WELCOME_BACK' | translate }} {{ user.displayName }}!
             </div>
         </div>
 
         <!-- Premium Badge -->
         <div
             class="inline-flex items-center gap-3 px-5 py-2 rounded-2xl bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl border border-slate-200 dark:border-slate-800 shadow-xl shadow-slate-200/20 dark:shadow-none mb-10 animate-fade-in">
-            <div
-                class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-lg"
+                aria-hidden="true">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                         d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
             </div>
-            <span class="text-sm font-bold text-slate-800 dark:text-slate-200">The Future of Resume Building is
-                Here</span>
+            <span class="text-sm font-bold text-slate-800 dark:text-slate-200">{{ 'HERO.BADGE' | translate }}</span>
         </div>
 
         <!-- Clean Headline -->
         <div class="mb-14 px-4">
             <h1
                 class="text-6xl sm:text-7xl md:text-8xl font-black text-slate-950 dark:text-white mb-8 tracking-tight leading-[1.1]">
-                Land Your<br />
+                {{ 'HERO.TITLE_1' | translate }}<br />
                 <span
-                    class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400 text-transparent bg-clip-text animate-gradient-x bg-size-200">Dream
-                    Job.</span>
+                    class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400 text-transparent bg-clip-text animate-gradient-x bg-size-200">{{
+                    'HERO.TITLE_2' | translate }}</span>
             </h1>
             <p
                 class="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed font-medium">
-                The most sophisticated AI-powered platform to analyze, optimize, and build resumes that bypass ATS and
-                impress recruiters.
+                {{ 'HERO.SUBTITLE' | translate }}
             </p>
         </div>
 
@@ -59,18 +57,18 @@
             style="animation-delay: 0.3s;">
             <a [routerLink]="(authService.user$ | async) ? '/ats-analysis' : '/login'"
                 class="group relative px-10 py-5 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-600 bg-size-200 animate-gradient-x text-white font-bold text-lg flex items-center gap-3 hover:shadow-2xl hover:shadow-indigo-500/50 transition-all duration-500 hover:scale-105 active:scale-95 overflow-hidden w-full sm:w-auto justify-center">
-                <div
-                    class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000">
+                <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000"
+                    aria-hidden="true">
                 </div>
                 <svg class="w-6 h-6 relative z-10 group-hover:rotate-12 transition-transform" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor">
+                    viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                         d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-                <span class="relative z-10">{{ (authService.user$ | async) ? 'Go to Analysis' : 'Start Free Analysis'
-                    }}</span>
-                <div
-                    class="relative z-10 w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-all">
+                <span class="relative z-10">{{ (authService.user$ | async) ? ('HERO.CTA_ANALYSIS_AUTH' | translate) :
+                    ('HERO.CTA_ANALYSIS_GUEST' | translate) }}</span>
+                <div class="relative z-10 w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-all"
+                    aria-hidden="true">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
                             d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -81,16 +79,17 @@
             <a [routerLink]="(authService.user$ | async) ? '/create' : '/register'"
                 class="group px-10 py-5 rounded-2xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl border-2 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-white font-bold text-lg hover:bg-white dark:hover:bg-slate-800 hover:border-indigo-300 dark:hover:border-indigo-500 transition-all duration-300 hover:shadow-2xl hover:shadow-slate-300/50 dark:hover:shadow-indigo-900/20 flex items-center gap-3 hover:scale-105 w-full sm:w-auto justify-center">
                 <svg class="w-6 h-6 text-slate-500 dark:text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors"
-                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2.5 2.5 0 113.536 3.536L11.828 15H9v-2.828l8.586-8.586z" />
                 </svg>
-                {{ (authService.user$ | async) ? 'Create New Resume' : 'Build Resume Now' }}
+                {{ (authService.user$ | async) ? ('HERO.CTA_RESUME_AUTH' | translate) : ('HERO.CTA_RESUME_GUEST' |
+                translate) }}
             </a>
 
             <a *ngIf="!(authService.user$ | async)" routerLink="/login"
                 class="group px-8 py-5 rounded-2xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-bold text-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-all duration-300 hover:scale-105 w-full sm:w-auto justify-center">
-                Sign In
+                {{ 'HERO.CTA_SIGN_IN' | translate }}
             </a>
         </div>
 
@@ -99,46 +98,48 @@
             <div class="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-600 dark:text-slate-400">
                 <div
                     class="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full border border-slate-200 dark:border-slate-700 shadow-lg">
-                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                         <path fill-rule="evenodd"
                             d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                             clip-rule="evenodd" />
                     </svg>
-                    <span class="font-semibold">No Credit Card</span>
+                    <span class="font-semibold">{{ 'HERO.BADGE_NO_CARD' | translate }}</span>
                 </div>
                 <div
                     class="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full border border-slate-200 dark:border-slate-700 shadow-lg">
-                    <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-5 h-5 text-blue-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                         <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                         <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                     </svg>
-                    <span class="font-semibold">Free Forever</span>
+                    <span class="font-semibold">{{ 'HERO.BADGE_FREE' | translate }}</span>
                 </div>
                 <div
                     class="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-full border border-slate-200 dark:border-slate-700 shadow-lg">
-                    <svg class="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-5 h-5 text-indigo-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                         <path fill-rule="evenodd"
                             d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
                             clip-rule="evenodd" />
                     </svg>
-                    <span class="font-semibold">Instant Results</span>
+                    <span class="font-semibold">{{ 'HERO.BADGE_INSTANT' | translate }}</span>
                 </div>
             </div>
 
             <!-- User Testimonials Preview -->
             <div class="flex items-center gap-4">
                 <div class="flex -space-x-4">
-                    <div *ngFor="let avatar of userAvatars"
+                    <div *ngFor="let avatar of userAvatars; let i = index"
                         class="w-12 h-12 rounded-full border-3 border-white dark:border-slate-900 bg-gradient-to-br from-slate-200 to-slate-300 overflow-hidden shadow-lg hover:scale-110 hover:z-10 transition-transform cursor-pointer">
-                        <img [src]="avatar" [alt]="'User ' + avatar" class="w-full h-full object-cover" loading="lazy">
+                        <img [src]="avatar" [alt]="'Happy user avatar ' + (i + 1)" class="w-full h-full object-cover"
+                            loading="lazy">
                     </div>
                 </div>
                 <div class="text-left">
-                    <div class="flex items-center gap-1 mb-1">
-                        <span *ngFor="let star of [1,2,3,4,5]" class="text-yellow-400 text-lg">★</span>
+                    <div class="flex items-center gap-1 mb-1" role="img" aria-label="4.9 out of 5 stars">
+                        <span *ngFor="let star of [1,2,3,4,5]" class="text-yellow-400 text-lg"
+                            aria-hidden="true">★</span>
                     </div>
-                    <div class="font-bold text-slate-800 dark:text-white">4.9/5 from 3,200+ reviews</div>
-                    <div class="text-xs text-slate-500 dark:text-slate-400">Trusted worldwide</div>
+                    <div class="font-bold text-slate-800 dark:text-white">{{ 'HERO.REVIEWS' | translate }}</div>
+                    <div class="text-xs text-slate-500 dark:text-slate-400">{{ 'HERO.TRUSTED' | translate }}</div>
                 </div>
             </div>
         </div>

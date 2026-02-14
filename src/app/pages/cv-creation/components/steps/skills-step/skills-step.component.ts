@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule, FormBuilder, FormControl } from '@angular/forms';
 import { CvStateService } from '../../../services/cv-state.service';
 import { OpenRouterAiService } from '../../../../../core/services/openrouter-ai.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-skills-step',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, FormsModule],
+    imports: [CommonModule, ReactiveFormsModule, FormsModule, TranslateModule],
     templateUrl: './skills-step.component.html'
 })
 export class SkillsStepComponent implements OnInit {

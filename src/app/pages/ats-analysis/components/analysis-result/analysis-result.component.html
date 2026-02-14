@@ -1,164 +1,148 @@
-<div class="space-y-10 animate-fade-in transition-colors duration-500">
-    <!-- Premium Score Dashboard -->
-    <div
-        class="relative overflow-hidden backdrop-blur-3xl bg-white/80 dark:bg-slate-950/40 rounded-[2.5rem] p-12 border border-slate-200 dark:border-white/10 shadow-2xl transition-all duration-500">
-        <!-- Background Glows -->
-        <div class="absolute -top-24 -left-24 w-64 h-64 rounded-full opacity-10 dark:opacity-20 pointer-events-none"
-            [ngClass]="{'bg-green-500 blur-[80px]': result.score >= 75, 'bg-yellow-500 blur-[80px]': result.score >= 50 && result.score < 75, 'bg-red-500 blur-[80px]': result.score < 50}">
+<div class="h-full flex flex-col p-8 md:p-12 animate-fade-slide-up">
+    <!-- Analysis Header -->
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 mb-12">
+        <div>
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest mb-4">
+                <span class="relative flex h-2 w-2">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                {{ 'ATS_RESULT.MATCH_RATING' | translate }}
+            </div>
+            <h2 class="text-3xl md:text-5xl font-black text-slate-900 dark:text-white leading-[1.1] tracking-tight">
+                {{ 'ATS_RESULT.RESUME_IS' | translate }} <br />
+                <span [class]="getScoreStrokeColor(result.score)">{{ result.matchStatus }}</span> {{
+                'ATS_RESULT.FOR_ROLE' | translate }}
+            </h2>
         </div>
 
-        <div class="relative z-10 flex flex-col md:flex-row items-center gap-12">
-            <!-- Advanced circular gauge -->
-            <div class="relative inline-flex items-center justify-center shrink-0">
-                <svg class="h-56 w-56 transform -rotate-90">
-                    <circle class="text-slate-200 dark:text-white/[0.05]" stroke-width="12" stroke="currentColor"
-                        fill="transparent" r="95" cx="112" cy="112" />
-                    <circle class="transition-all duration-[1500ms] ease-out"
-                        [ngClass]="getScoreStrokeColor(result.score)" stroke-width="12" [attr.stroke-dasharray]="597"
-                        [attr.stroke-dashoffset]="597 - (597 * result.score) / 100" stroke-linecap="round"
-                        stroke="currentColor" fill="transparent" r="95" cx="112" cy="112"
-                        style="filter: drop-shadow(0 0 15px currentColor);" />
-                </svg>
-                <div class="absolute flex flex-col items-center">
-                    <span class="text-7xl font-black text-slate-900 dark:text-white tracking-tighter">{{ result.score
-                        }}</span>
-                    <span class="text-slate-500 dark:text-gray-500 text-xs font-bold uppercase tracking-widest">Global
-                        Score</span>
-                </div>
-            </div>
-
-            <div class="flex-1 space-y-6 text-center md:text-left">
-                <div>
-                    <h3 class="text-slate-400 dark:text-gray-400 font-bold uppercase tracking-[0.3em] text-[10px] mb-2">
-                        Neural Match Rating
-                    </h3>
-                    <p class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight leading-tight">
-                        Your resume is <span [ngClass]="getScoreStrokeColor(result.score)">{{ result.matchPercentage }}%
-                            Optimized</span> for this role
-                    </p>
-                </div>
-                <div class="flex flex-wrap gap-4 justify-center md:justify-start">
-                    <div
-                        class="px-4 py-2 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center gap-2 shadow-sm">
-                        <div class="w-2 h-2 rounded-full" [ngClass]="getScoreBg(result.score)"></div>
-                        <span class="text-sm font-semibold text-slate-700 dark:text-gray-300">{{ result.score >= 75 ?
-                            'Superior Alignment' :
-                            result.score >= 50 ? 'Steady Progress' : 'Critical Gaps' }}</span>
-                    </div>
-                </div>
+        <!-- Score Circular Gauge -->
+        <div class="relative w-32 h-32 flex-shrink-0">
+            <svg class="w-full h-full transform -rotate-90 scale-110">
+                <circle cx="64" cy="64" r="58" stroke="currentColor" stroke-width="8" fill="transparent"
+                    class="text-slate-100 dark:text-white/5" />
+                <circle cx="64" cy="64" r="58" stroke="currentColor" stroke-width="8" fill="transparent"
+                    [class]="getScoreStrokeColor(result.score)" [style.stroke-dasharray]="364.4"
+                    [style.stroke-dashoffset]="364.4 * (1 - result.score / 100)" stroke-linecap="round"
+                    class="transition-all duration-1000 ease-out" />
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <span class="text-3xl font-black text-slate-900 dark:text-white leading-none">{{ result.score }}%</span>
+                <span class="text-[8px] font-black text-slate-500 uppercase tracking-widest mt-1">{{
+                    'ATS_RESULT.GLOBAL_SCORE' | translate }}</span>
             </div>
         </div>
     </div>
 
-    <!-- Analytical Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Strategic Strengths -->
+    <!-- Quick Stats Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
         <div
-            class="group backdrop-blur-2xl bg-white/80 dark:bg-slate-950/40 rounded-[2rem] p-8 border border-slate-200 dark:border-white/10 hover:border-green-500/30 transition-all duration-500 shadow-xl dark:shadow-none">
-            <div class="flex items-center gap-4 mb-8">
-                <div
-                    class="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-600 dark:text-green-400 border border-green-500/20 group-hover:scale-110 transition-transform">
-                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M9 11l3 3L22 4" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" stroke-linecap="round"
-                            stroke-linejoin="round" />
+            class="p-6 rounded-[2.5rem] bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5 hover:bg-slate-100 transition-colors">
+            <div class="flex items-center gap-4 mb-5">
+                <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Core Strengths</h3>
-                    <p class="text-[10px] text-slate-400 dark:text-gray-500 font-black tracking-wide uppercase">Top
-                        competitive advantages</p>
+                    <h3 class="text-sm font-black text-slate-900 dark:text-white">{{ 'ATS_RESULT.STRENGTHS_TITLE' |
+                        translate }}</h3>
+                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">{{
+                        'ATS_RESULT.STRENGTHS_SUB' | translate }}</p>
                 </div>
             </div>
-            <ul class="space-y-4">
-                <li *ngFor="let item of result.strengths"
-                    class="flex items-start gap-4 p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 hover:bg-green-500/[0.03] dark:hover:bg-green-500/[0.03] hover:border-green-500/20 transition-all shadow-sm dark:shadow-none">
+            <ul class="space-y-3">
+                <li *ngFor="let s of result.strengths" class="flex items-start gap-3 group">
                     <div
-                        class="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-green-500 dark:bg-green-400 shadow-[0_0_8px_rgba(74,222,128,0.5)]">
+                        class="w-5 h-5 rounded-full bg-blue-500/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-blue-500/20 transition-colors">
+                        <svg class="w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4">
+                            <path d="M20 6L9 17l-5-5" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
                     </div>
-                    <span class="text-sm text-slate-700 dark:text-gray-300 font-medium leading-relaxed">{{ item
-                        }}</span>
+                    <span class="text-xs text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{{ s }}</span>
                 </li>
             </ul>
         </div>
 
-        <!-- Capability Gaps -->
         <div
-            class="group backdrop-blur-2xl bg-white/80 dark:bg-slate-950/40 rounded-[2rem] p-8 border border-slate-200 dark:border-white/10 hover:border-red-500/30 transition-all duration-500 shadow-xl dark:shadow-none">
-            <div class="flex items-center gap-4 mb-8">
-                <div
-                    class="w-12 h-12 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-600 dark:text-red-400 border border-red-500/20 group-hover:scale-110 transition-transform">
-                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10" />
-                        <line x1="12" y1="8" x2="12" y2="12" />
-                        <line x1="12" y1="16" x2="12.01" y2="16" />
+            class="p-6 rounded-[2.5rem] bg-slate-50 dark:bg-white/[0.03] border border-slate-200/60 dark:border-white/5 hover:bg-slate-100 transition-colors">
+            <div class="flex items-center gap-4 mb-5">
+                <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Identified Gaps</h3>
-                    <p class="text-[10px] text-slate-400 dark:text-gray-500 font-black tracking-wide uppercase">Missing
-                        high-impact skills</p>
+                    <h3 class="text-sm font-black text-slate-900 dark:text-white">{{ 'ATS_RESULT.GAPS_TITLE' | translate
+                        }}</h3>
+                    <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">{{ 'ATS_RESULT.GAPS_SUB' |
+                        translate }}</p>
                 </div>
             </div>
-            <div class="flex flex-wrap gap-3">
-                <div *ngFor="let skill of result.missingSkills"
-                    class="px-5 py-2.5 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-300 text-sm font-bold border border-red-100 dark:border-red-500/20 hover:bg-red-100 dark:hover:bg-red-500/20 hover:scale-105 transition-all cursor-default shadow-sm dark:shadow-none">
-                    {{ skill }}
-                </div>
-                <div *ngIf="result.missingSkills.length === 0"
-                    class="text-slate-500 dark:text-gray-500 italic text-sm py-4">
-                    No critical gaps identified. Excellent coverage!
-                </div>
-            </div>
+            <ul class="space-y-3">
+                <li *ngFor="let g of result.gaps" class="flex items-start gap-3 group">
+                    <div
+                        class="w-5 h-5 rounded-full bg-purple-500/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-purple-500/20 transition-colors">
+                        <div class="w-1.5 h-1.5 rounded-full bg-purple-400"></div>
+                    </div>
+                    <span class="text-xs text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{{ g }}</span>
+                </li>
+                <li *ngIf="!result.gaps.length" class="text-xs text-slate-400 italic px-2">
+                    {{ 'ATS_RESULT.NO_GAPS' | translate }}
+                </li>
+            </ul>
         </div>
     </div>
 
-    <!-- Strategic Roadmap -->
-    <div
-        class="relative overflow-hidden backdrop-blur-3xl bg-white/80 dark:bg-slate-950/40 dark:bg-gradient-to-br dark:from-purple-500/[0.05] dark:via-transparent dark:to-blue-500/[0.05] rounded-[2.5rem] p-10 border border-slate-200 dark:border-white/10 shadow-xl transition-all duration-500">
-        <!-- Decoration for light mode -->
-        <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 blur-3xl pointer-events-none dark:hidden"></div>
-        <div class="absolute bottom-0 left-0 w-32 h-32 bg-blue-500/5 blur-3xl pointer-events-none dark:hidden"></div>
-
-        <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-10 gap-4">
-            <div class="flex items-center gap-4 relative z-10">
-                <div
-                    class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-500/10 flex items-center justify-center text-purple-600 dark:text-purple-400 border border-purple-200 dark:border-purple-500/20 shadow-sm">
-                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M13 2L3 14h9l-1 8 10-10h-9l1-8z" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Execution Roadmap</h3>
-                    <p class="text-sm text-slate-500 dark:text-gray-400 font-medium">Prioritized actions to maximize
-                        your conversion rate
-                    </p>
-                </div>
-            </div>
+    <!-- Execution Roadmap -->
+    <div class="flex-1 min-h-0 flex flex-col">
+        <div class="flex items-center gap-4 mb-6">
             <div
-                class="px-4 py-1.5 rounded-full bg-purple-50 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20 text-purple-600 dark:text-purple-400 text-[10px] font-black uppercase tracking-[0.2em] relative z-10">
-                Action Required
+                class="w-10 h-10 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-black flex items-center justify-center">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                </svg>
+            </div>
+            <div>
+                <h3 class="text-xl font-black text-slate-900 dark:text-white tracking-tight">{{
+                    'ATS_RESULT.ROADMAP_TITLE' | translate }}</h3>
+                <p class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">{{ 'ATS_RESULT.ROADMAP_SUB' |
+                    translate }}</p>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
-            <div *ngFor="let rec of result.recommendations; let i = index"
-                class="group relative p-6 rounded-3xl bg-slate-50 dark:bg-black/60 border border-slate-100 dark:border-white/10 hover:bg-white dark:hover:bg-purple-500/[0.05] hover:border-purple-200 dark:hover:border-purple-500/30 hover:shadow-xl transition-all duration-300 animate-fade-in"
-                [style.animation-delay]="i * 100 + 'ms'">
-                <div class="flex flex-col h-full">
-                    <div class="flex items-center gap-3 mb-4">
-                        <span
-                            class="flex-shrink-0 w-8 h-8 rounded-xl bg-purple-100 dark:bg-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400 text-xs font-black group-hover:bg-purple-600 dark:group-hover:bg-purple-400 group-hover:text-white dark:group-hover:text-black transition-colors shadow-sm dark:shadow-none">
-                            {{ i + 1 }}
-                        </span>
+        <div class="flex-1 overflow-y-auto pr-4 space-y-4 scrollbar-thin">
+            <div *ngFor="let a of result.actionableSteps; let i = index"
+                class="relative p-7 rounded-[2rem] bg-white dark:bg-white/[0.02] border border-slate-200/80 dark:border-white/5 hover:border-purple-500/30 transition-all group overflow-hidden">
+
+                <!-- Background Number -->
+                <span
+                    class="absolute -right-2 top-1/2 -translate-y-1/2 text-8xl font-black text-slate-100/50 dark:text-white/[0.02] group-hover:text-purple-500/[0.05] transition-colors pointer-events-none">
+                    0{{ i + 1 }}
+                </span>
+
+                <div class="relative z-10 flex gap-6">
+                    <div class="flex-shrink-0">
                         <div
-                            class="h-px flex-1 bg-slate-200 dark:bg-white/10 group-hover:bg-purple-300 dark:group-hover:bg-purple-500/30 transition-colors">
+                            class="w-12 h-12 rounded-2xl bg-slate-900 dark:bg-black border border-white/5 flex items-center justify-center text-blue-400 font-black shadow-inner">
+                            {{ i + 1 }}
                         </div>
                     </div>
-                    <p
-                        class="text-sm text-slate-700 dark:text-gray-300 font-medium leading-relaxed group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                        {{ rec }}
-                    </p>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-3">
+                            <span class="text-[10px] font-black text-blue-500 uppercase tracking-widest">{{
+                                'ATS_RESULT.ACTION_REQUIRED' | translate }}</span>
+                            <div class="h-px w-8 bg-blue-500/30"></div>
+                        </div>
+                        <p class="text-sm text-slate-700 dark:text-slate-200 font-bold leading-relaxed max-w-md">
+                            {{ a }}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

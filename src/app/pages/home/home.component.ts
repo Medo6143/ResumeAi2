@@ -29,7 +29,7 @@ import { TemplatesPreviewComponent } from './components/templates-preview/templa
 export class HomeComponent implements OnInit {
     isBrowser: boolean;
 
-    particles = Array.from({ length: 30 }, (_, i) => ({
+    particles = Array.from({ length: 12 }, (_, i) => ({
         x: Math.random() * 100,
         y: Math.random() * 100,
         size: Math.random() * 8 + 3,
@@ -49,23 +49,23 @@ export class HomeComponent implements OnInit {
     stats = [
         {
             value: '25K+',
-            label: 'Active Users',
-            description: 'Professionals transformed'
+            labelKey: 'STATS.ACTIVE_USERS',
+            descKey: 'STATS.ACTIVE_USERS_DESC'
         },
         {
             value: '96%',
-            label: 'Success Rate',
-            description: 'Got more interviews'
+            labelKey: 'STATS.SUCCESS_RATE',
+            descKey: 'STATS.SUCCESS_RATE_DESC'
         },
         {
             value: '50+',
-            label: 'ATS Systems',
-            description: 'Fully compatible'
+            labelKey: 'STATS.ATS_SYSTEMS',
+            descKey: 'STATS.ATS_SYSTEMS_DESC'
         },
         {
             value: '3.2K',
-            label: '5★ Reviews',
-            description: 'Happy customers'
+            labelKey: 'STATS.REVIEWS',
+            descKey: 'STATS.REVIEWS_DESC'
         }
     ];
 

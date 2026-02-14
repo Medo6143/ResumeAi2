@@ -4,10 +4,12 @@ import { FormsModule, ReactiveFormsModule, FormBuilder, Validators } from '@angu
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 @Component({
     selector: 'app-register',
     standalone: true,
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink, TranslateModule],
     templateUrl: './register.component.html'
 })
 export class RegisterComponent {

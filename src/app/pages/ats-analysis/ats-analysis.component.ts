@@ -6,11 +6,12 @@ import { AtsResult } from './models/ats-result.model';
 import { AnalysisFormComponent } from './components/analysis-form/analysis-form.component';
 import { AnalysisResultComponent } from './components/analysis-result/analysis-result.component';
 import { ChangeDetectorRef } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-ats-analysis',
     standalone: true,
-    imports: [CommonModule, AnalysisFormComponent, AnalysisResultComponent],
+    imports: [CommonModule, AnalysisFormComponent, AnalysisResultComponent, TranslateModule],
     templateUrl: './ats-analysis.component.html',
     styles: []
 })
@@ -28,7 +29,8 @@ export class AtsAnalysisComponent {
 
     constructor(
         private aiService: OpenRouterAiService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private translate: TranslateService
     ) { }
 
     private log(msg: string) {
@@ -58,7 +60,7 @@ export class AtsAnalysisComponent {
         if (this.loading) return;
 
         this.loading = true;
-        this.status = 'Preparing analysis...';
+        this.status = this.translate.instant('ATS.STATUS.PREPARING');
         this.error = null;
         this.errorDetail = null;
         this.result = null;
@@ -70,13 +72,13 @@ export class AtsAnalysisComponent {
         const prompt = atsPrompt(data.jobTitle, data.jobDescription, data.resume, 'en');
         this.log('AI Prompt generated.');
 
-        this.status = 'Requesting AI Feedback...';
+        this.status = this.translate.instant('ATS.STATUS.REQUESTING');
         this.log('Sending request to OpenRouter...');
 
         this.aiService.sendPrompt(prompt).subscribe({
             next: (response) => {
                 this.log('Response received from AI.');
-                this.status = 'Interpreting Results...';
+                this.status = this.translate.instant('ATS.STATUS.INTERPRETING');
                 try {
                     let content = response?.choices?.[0]?.message?.content;
                     if (!content) {
@@ -101,15 +103,18 @@ export class AtsAnalysisComponent {
                     // Map to expected camelCase structure regardless of what AI sent
                     this.result = {
                         score: Number(rawResult.score || rawResult.match_score || 0),
-                        matchPercentage: Number(rawResult.matchPercentage || rawResult.match_percentage || rawResult.matchPercentage || 0),
+                        matchPercentage: Number(rawResult.matchPercentage || rawResult.match_percentage || 0),
+                        matchStatus: rawResult.matchStatus || rawResult.match_status || (Number(rawResult.score) > 70 ? 'GOOD' : 'AVERAGE'),
                         strengths: Array.isArray(rawResult.strengths) ? rawResult.strengths : [],
-                        missingSkills: Array.isArray(rawResult.missingSkills || rawResult.missing_skills) ? (rawResult.missingSkills || rawResult.missing_skills) : [],
-                        recommendations: Array.isArray(rawResult.recommendations) ? rawResult.recommendations : []
+                        gaps: Array.isArray(rawResult.gaps || rawResult.missingSkills || rawResult.missing_skills) ? (rawResult.gaps || rawResult.missingSkills || rawResult.missing_skills) : [],
+                        actionableSteps: Array.isArray(rawResult.actionableSteps || rawResult.actionable_steps || rawResult.recommendations) ? (rawResult.actionableSteps || rawResult.actionable_steps || rawResult.recommendations) : []
                     };
 
+
                     this.log('Analysis results successfully parsed and mapped.');
+
                     this.log(`Mapped Result: ${JSON.stringify(this.result)}`);
-                    this.status = 'Analysis Successful!';
+                    this.status = this.translate.instant('ATS.STATUS.SUCCESS');
                     this.cdr.detectChanges();
                 } catch (e: any) {
                     this.log(`Critical Error: ${e.message}`);
@@ -137,7 +142,7 @@ export class AtsAnalysisComponent {
                     this.error = 'Connection Blocked';
                     this.errorDetail = 'The request was blocked by your browser or network. Please check for AdBlockers or try a different browser.';
                 } else {
-                    this.error = 'AI service unavailable';
+                    this.error = this.translate.instant('ATS.ERROR.UNAVAILABLE');
                     this.errorDetail = err.message || 'A network error occurred while contacting the AI.';
                 }
             }

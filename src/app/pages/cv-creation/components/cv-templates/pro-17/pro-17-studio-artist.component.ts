@@ -24,7 +24,7 @@ import { CommonModule } from '@angular/common';
                 <div class="text-[10px] leading-relaxed opacity-60" [innerHTML]="job.description"></div>
             </div>
             <div *ngFor="let p of resume.projects" class="p-8 rounded-[2rem] border-2 border-indigo-50 flex flex-col gap-4">
-                <p class="text-[9px] font-black text-indigo-600 uppercase">Project</p>
+                <p class="text-[9px] font-black text-indigo-600 uppercase">Projects</p>
                 <h4 class="text-lg font-black leading-tight">{{ p.name }}</h4>
                 <p class="text-[10px] font-medium opacity-60">{{ p.description }}</p>
             </div>
@@ -43,7 +43,7 @@ import { CommonModule } from '@angular/common';
                 </div>
             </div>
             <div *ngIf="resume.skills && resume.skills.length" class="p-8 rounded-[2rem] border-2 border-slate-900 flex flex-col gap-6">
-                <p class="text-[9px] font-black opacity-40 uppercase tracking-widest">Stack</p>
+                <p class="text-[9px] font-black opacity-40 uppercase tracking-widest">Skills</p>
                 <div class="flex flex-wrap gap-2">
                     <span *ngFor="let s of resume.skills" class="text-[10px] font-black border-b-2 border-slate-900">{{ s }}</span>
                 </div>

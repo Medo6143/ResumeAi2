@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
         </header>
 
         <section *ngIf="resume.skills?.length" class="mb-6">
-            <h2 class="font-bold uppercase border-b border-gray-400 mb-2">Technical Skills</h2>
+            <h2 class="font-bold uppercase border-b border-gray-400 mb-2">Skills</h2>
             <div class="flex flex-wrap gap-2">
                 <span *ngFor="let s of resume.skills" class="bg-gray-100 px-1 border border-gray-300 rounded">{{ s }}</span>
             </div>

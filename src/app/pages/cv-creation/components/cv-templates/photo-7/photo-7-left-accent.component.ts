@@ -54,7 +54,7 @@ import { CommonModule } from '@angular/common';
                     </section>
 
                     <section *ngIf="resume.projects?.length">
-                         <h3 class="text-2xl font-black text-slate-900 mb-6">Key Projects</h3>
+                         <h3 class="text-2xl font-black text-slate-900 mb-6">Projects</h3>
                          <div class="space-y-6">
                             <div *ngFor="let p of resume.projects">
                                 <h4 class="font-bold text-lg text-slate-800">{{ p.name }}</h4>

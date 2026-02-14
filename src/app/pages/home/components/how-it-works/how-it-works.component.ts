@@ -1,18 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-how-it-works',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, TranslateModule],
     templateUrl: './how-it-works.component.html',
     styles: []
 })
 export class HowItWorksComponent {
     steps = [
-        { num: '01', title: 'Paste Job Description', desc: 'Copy the job details you are targeting.' },
-        { num: '02', title: 'AI Analysis', desc: 'Our engine identifies keywords and missing skills.' },
-        { num: '03', title: 'Generate & Edit', desc: 'Get tailored content suggestions and perfect your resume.' },
-        { num: '04', title: 'Download PDF', desc: 'Export your ATS-optimized resume instantly.' }
+        { num: '01', titleKey: 'HOW_IT_WORKS.STEPS.1.TITLE', descKey: 'HOW_IT_WORKS.STEPS.1.DESC' },
+        { num: '02', titleKey: 'HOW_IT_WORKS.STEPS.2.TITLE', descKey: 'HOW_IT_WORKS.STEPS.2.DESC' },
+        { num: '03', titleKey: 'HOW_IT_WORKS.STEPS.3.TITLE', descKey: 'HOW_IT_WORKS.STEPS.3.DESC' },
+        { num: '04', titleKey: 'HOW_IT_WORKS.STEPS.4.TITLE', descKey: 'HOW_IT_WORKS.STEPS.4.DESC' }
     ];
 }
+

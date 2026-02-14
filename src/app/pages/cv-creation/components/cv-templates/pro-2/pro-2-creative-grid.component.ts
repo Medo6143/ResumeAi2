@@ -48,20 +48,20 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
             </div>
             <div class="col-span-5 flex flex-col gap-6">
                 <div class="p-6 bg-pink-50 rounded-3xl">
-                    <h4 class="text-[10px] font-black uppercase mb-4">Stack</h4>
+                    <h4 class="text-[10px] font-black uppercase mb-4">Skills</h4>
                     <div class="flex flex-wrap gap-2">
                         <span *ngFor="let s of resume.skills" class="px-2 py-1 bg-white text-[9px] font-bold rounded-lg shadow-sm">{{ s }}</span>
                     </div>
                 </div>
                 <div class="p-6 bg-slate-50 rounded-3xl">
-                    <h4 class="text-[10px] font-black uppercase mb-4">Reach</h4>
+                    <h4 class="text-[10px] font-black uppercase mb-4">Skills</h4>
                     <div class="text-[10px] space-y-2 opacity-60">
                         <p>M: {{ resume.personalInfo.phone }}</p>
                         <p>E: {{ resume.personalInfo.email }}</p>
                     </div>
                 </div>
                 <div *ngIf="resume.education && resume.education.length" class="p-6 bg-indigo-50 rounded-3xl">
-                    <h4 class="text-[10px] font-black uppercase mb-4">Study</h4>
+                    <h4 class="text-[10px] font-black uppercase mb-4">Education</h4>
                     <div class="space-y-4">
                         <div *ngFor="let edu of resume.education">
                             <p class="text-[10px] font-bold">{{ edu.degree }}</p>
@@ -70,7 +70,7 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
                     </div>
                 </div>
                 <div *ngIf="resume.languages && resume.languages.length" class="p-6 bg-slate-100 rounded-3xl">
-                    <h4 class="text-[10px] font-black uppercase mb-2">Tongues</h4>
+                    <h4 class="text-[10px] font-black uppercase mb-2">Languages</h4>
                     <p class="text-[9px] font-bold opacity-60">{{ resume.languages.join(', ') }}</p>
                 </div>
             </div>

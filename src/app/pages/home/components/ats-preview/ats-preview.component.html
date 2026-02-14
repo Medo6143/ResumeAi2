@@ -1,41 +1,42 @@
-<section class="py-24 bg-gray-50 dark:bg-gray-900 border-y border-gray-200 dark:border-gray-800">
+<section class="py-24 bg-gray-50 dark:bg-gray-900 border-y border-gray-200 dark:border-gray-800"
+    aria-labelledby="ats-preview-heading">
     <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
         <!-- Text Content -->
         <div class="md:w-1/2">
             <div
                 class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 font-medium text-sm mb-6">
-                <span>✅</span> ATS Optimized
+                <span aria-hidden="true">✅</span> {{ 'ATS_PREVIEW.BADGE' | translate }}
             </div>
-            <h2 class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-                See how you rank <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-600">before
-                    applying</span>
+            <h2 id="ats-preview-heading" class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+                {{ 'ATS_PREVIEW.TITLE_1' | translate }} <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-600">{{
+                    'ATS_PREVIEW.TITLE_2' | translate }}</span>
             </h2>
             <p class="text-gray-600 dark:text-gray-400 text-lg mb-8 leading-relaxed">
-                Our advanced ATS algorithm analyzes your resume against job descriptions to give you a match score and
-                actionable feedback.
+                {{ 'ATS_PREVIEW.DESC' | translate }}
             </p>
 
             <div class="flex flex-col gap-4">
                 <div
                     class="flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <div
-                        class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl font-bold">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-600 dark:text-blue-400 text-xl font-bold"
+                        aria-hidden="true">
                         1</div>
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white">Keyword Matching</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Identifies missing hard skills & soft
-                            skills.</p>
+                        <h3 class="font-bold text-gray-900 dark:text-white">{{ 'ATS_PREVIEW.KEYWORD' | translate }}</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'ATS_PREVIEW.KEYWORD_DESC' | translate }}
+                        </p>
                     </div>
                 </div>
                 <div
                     class="flex items-start gap-4 p-4 rounded-xl bg-white dark:bg-gray-800 shadow-sm border border-gray-100 dark:border-gray-700">
-                    <div
-                        class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl font-bold">
+                    <div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400 text-xl font-bold"
+                        aria-hidden="true">
                         2</div>
                     <div>
-                        <h4 class="font-bold text-gray-900 dark:text-white">Format Check</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">Ensures your resume is readable by bots.</p>
+                        <h3 class="font-bold text-gray-900 dark:text-white">{{ 'ATS_PREVIEW.FORMAT' | translate }}</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'ATS_PREVIEW.FORMAT_DESC' | translate }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -48,22 +49,25 @@
                 <!-- Top Bar -->
                 <div class="flex items-center justify-between mb-8">
                     <div>
-                        <h3 class="font-bold text-gray-900 dark:text-white text-lg">Senior Frontend Developer</h3>
-                        <p class="text-sm text-gray-500">Google • Remote</p>
+                        <h3 class="font-bold text-gray-900 dark:text-white text-lg">{{ 'ATS_PREVIEW.JOB_TITLE' |
+                            translate }}</h3>
+                        <p class="text-sm text-gray-500">{{ 'ATS_PREVIEW.COMPANY' | translate }}</p>
                     </div>
                     <div class="flex flex-col items-end">
-                        <span class="text-sm text-gray-500">Match Score</span>
+                        <span class="text-sm text-gray-500">{{ 'ATS_PREVIEW.MATCH_SCORE' | translate }}</span>
                         <span class="text-4xl font-bold text-green-500">{{ score }}%</span>
                     </div>
                 </div>
 
                 <!-- Progress Bar -->
-                <div class="w-full h-3 bg-gray-100 dark:bg-gray-700 rounded-full mb-8 overflow-hidden">
+                <div class="w-full h-3 bg-gray-100 dark:bg-gray-700 rounded-full mb-8 overflow-hidden"
+                    role="progressbar" [attr.aria-valuenow]="score" aria-valuemin="0" aria-valuemax="100">
                     <div class="h-full bg-gradient-to-r from-green-400 to-emerald-600 w-[92%] animate-pulse"></div>
                 </div>
 
                 <!-- Skills -->
-                <h4 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Matched Skills</h4>
+                <h4 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">{{
+                    'ATS_PREVIEW.MATCHED_SKILLS' | translate }}</h4>
                 <div class="flex flex-wrap gap-2">
                     <span *ngFor="let skill of skills"
                         class="px-3 py-1 rounded-full bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-sm font-medium border border-green-100 dark:border-green-800">

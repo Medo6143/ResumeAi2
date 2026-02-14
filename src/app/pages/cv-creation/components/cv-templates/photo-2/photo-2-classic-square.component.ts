@@ -31,7 +31,7 @@ import { CommonModule } from '@angular/common';
             <div class="col-span-8 space-y-8">
                 <!-- Summary -->
                 <section *ngIf="resume.summary">
-                    <h3 class="text-xs font-sans font-bold uppercase text-slate-400 mb-3 tracking-widest">Professional Summary</h3>
+                    <h3 class="text-xs font-sans font-bold uppercase text-slate-400 mb-3 tracking-widest">Profile</h3>
                     <p class="text-sm leading-relaxed text-slate-700">{{ resume.summary }}</p>
                 </section>
 

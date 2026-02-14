@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
         </div>
         <div class="space-y-4">
             <section *ngIf="resume.summary">
-                <h2 class="text-[12px] font-bold border-b mb-1 pb-0.5 uppercase">Professional Summary</h2>
+                <h2 class="text-[12px] font-bold border-b mb-1 pb-0.5 uppercase">Profile</h2>
                 <p class="text-[10px]">{{ resume.summary }}</p>
             </section>
             <section *ngIf="resume.skills && resume.skills.length">

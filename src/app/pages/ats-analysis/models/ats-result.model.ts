@@ -1,7 +1,8 @@
 export interface AtsResult {
     score: number;
     matchPercentage: number;
+    matchStatus: string;
     strengths: string[];
-    missingSkills: string[];
-    recommendations: string[];
+    gaps: string[];
+    actionableSteps: string[];
 }

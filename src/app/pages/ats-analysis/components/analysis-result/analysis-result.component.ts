@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { AtsResult } from '../../models/ats-result.model';
 
 @Component({
     selector: 'app-analysis-result',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, TranslateModule],
     templateUrl: './analysis-result.component.html',
     styles: []
 })

@@ -27,7 +27,7 @@ import { CommonModule } from '@angular/common';
                 </div>
             </section>
             <section *ngIf="resume.projects && resume.projects.length" class="space-y-12">
-                <h3 class="text-sm font-bold border-b border-slate-200 pb-2 mb-8 uppercase tracking-[0.3em]">Scientific Works</h3>
+                <h3 class="text-sm font-bold border-b border-slate-200 pb-2 mb-8 uppercase tracking-[0.3em]">Projects</h3>
                 <div class="grid grid-cols-2 gap-12">
                     <div *ngFor="let p of resume.projects">
                         <h4 class="text-lg font-normal mb-2 italic">{{ p.name }}</h4>
@@ -37,7 +37,7 @@ import { CommonModule } from '@angular/common';
             </section>
             <div class="grid grid-cols-2 gap-20">
                 <section *ngIf="resume.education && resume.education.length" class="space-y-8">
-                    <h3 class="text-sm font-bold border-b border-slate-200 pb-2 mb-8 uppercase tracking-[0.3em]">Formation</h3>
+                    <h3 class="text-sm font-bold border-b border-slate-200 pb-2 mb-8 uppercase tracking-[0.3em]">Education</h3>
                     <div *ngFor="let edu of resume.education">
                         <p class="text-[10px] font-bold opacity-30 mb-1 tracking-widest">{{ edu.startDate }} .. {{ edu.endDate }}</p>
                         <h4 class="text-lg font-normal italic leading-snug">{{ edu.degree }}</h4>
@@ -46,7 +46,7 @@ import { CommonModule } from '@angular/common';
                 </section>
                 <div class="space-y-12">
                     <section *ngIf="resume.skills && resume.skills.length">
-                        <h3 class="text-sm font-bold border-b border-slate-200 pb-2 mb-8 uppercase tracking-[0.3em]">Specialism</h3>
+                        <h3 class="text-sm font-bold border-b border-slate-200 pb-2 mb-8 uppercase tracking-[0.3em]">Skills</h3>
                         <div class="grid grid-cols-2 gap-x-8 gap-y-2">
                             <div *ngFor="let s of resume.skills" class="text-[11px] font-medium opacity-60 flex items-center gap-3">
                                 <span class="w-1 h-1 bg-slate-300 rounded-full"></span> {{ s }}

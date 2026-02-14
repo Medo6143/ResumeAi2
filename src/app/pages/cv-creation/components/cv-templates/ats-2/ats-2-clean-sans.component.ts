@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
         </header>
 
         <section *ngIf="resume.summary" class="mb-5">
-             <h3 class="font-bold border-b border-slate-300 mb-2 uppercase text-xs tracking-wider">Summary</h3>
+             <h3 class="font-bold border-b border-slate-300 mb-2 uppercase text-xs tracking-wider">Profile</h3>
              <p>{{ resume.summary }}</p>
         </section>
 

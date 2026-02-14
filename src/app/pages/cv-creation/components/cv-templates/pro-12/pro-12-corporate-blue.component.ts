@@ -25,11 +25,11 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
             <div class="grid grid-cols-12 gap-12">
                 <div class="col-span-8 space-y-10">
                     <section *ngIf="resume.experience && resume.experience.length">
-                        <h3 class="text-xs font-bold text-[#1e3a8a] border-b pb-1 mb-4 uppercase font-sans tracking-widest">Career History</h3>
+                        <h3 class="text-xs font-bold text-[#1e3a8a] border-b pb-1 mb-4 uppercase font-sans tracking-widest">Experience</h3>
                         <app-experience-block [jobs]="resume.experience"></app-experience-block>
                     </section>
                     <section *ngIf="resume.projects && resume.projects.length">
-                        <h3 class="text-xs font-bold text-[#1e3a8a] border-b pb-1 mb-4 uppercase font-sans tracking-widest">Key Projects</h3>
+                        <h3 class="text-xs font-bold text-[#1e3a8a] border-b pb-1 mb-4 uppercase font-sans tracking-widest">Projects</h3>
                         <div class="space-y-6">
                             <div *ngFor="let p of resume.projects">
                                 <h4 class="text-sm font-bold text-slate-800">{{ p.name }}</h4>

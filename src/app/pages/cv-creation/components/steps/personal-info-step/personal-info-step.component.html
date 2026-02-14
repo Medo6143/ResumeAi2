@@ -21,97 +21,106 @@
             </div>
             <div
                 class="absolute inset-0 bg-black/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                <span class="text-white text-xs font-medium">Change</span>
+                <span class="text-white text-xs font-medium">{{ 'CV_CREATE.PERSONAL.CHANGE' | translate }}</span>
             </div>
         </div>
 
         <div class="flex gap-3">
             <button type="button" (click)="fileInput.click()"
                 class="px-4 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 hover:bg-indigo-100 rounded-lg transition dark:bg-indigo-900/30 dark:text-indigo-400">
-                Upload Photo
+                {{ 'CV_CREATE.PERSONAL.UPLOAD' | translate }}
             </button>
             <button *ngIf="form.get('photo')?.value" type="button" (click)="removePhoto()"
                 class="px-4 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition dark:bg-red-900/30 dark:text-red-400">
-                Remove
+                {{ 'CV_CREATE.COMMON.REMOVE' | translate }}
             </button>
         </div>
         <p class="text-xs text-slate-500 text-center max-w-xs">
-            Recommended: Square JPG or PNG, at least 400x400px. <br>
-            This photo will only appear on templates that support it.
+            {{ 'CV_CREATE.PERSONAL.PHOTO_RECOMMENDED' | translate }} <br>
+            {{ 'CV_CREATE.PERSONAL.PHOTO_SUPPORT_NOTE' | translate }}
         </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Full Name -->
         <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ 'CV_CREATE.PERSONAL.NAME'
+                | translate }}</label>
             <input type="text" formControlName="fullName"
                 class="w-full rounded-xl border border-slate-200/70 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200/70 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none"
-                placeholder="e.g. John Doe">
+                [placeholder]="'CV_CREATE.PERSONAL.NAME_PLACEHOLDER' | translate">
         </div>
 
         <!-- Job Title -->
         <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Job Title</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{
+                'CV_CREATE.PERSONAL.JOB_TITLE' | translate }}</label>
             <input type="text" formControlName="jobTitle"
                 class="w-full rounded-xl border border-slate-200/70 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200/70 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none"
-                placeholder="e.g. Senior Frontend Engineer">
+                [placeholder]="'ATS_FORM.JOB_TITLE_PLACEHOLDER' | translate">
         </div>
 
         <!-- Email -->
         <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ 'CV_CREATE.PERSONAL.EMAIL'
+                | translate }}</label>
             <input type="email" formControlName="email"
                 class="w-full rounded-xl border border-slate-200/70 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200/70 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none"
-                placeholder="john@example.com">
+                [placeholder]="'CV_CREATE.PERSONAL.EMAIL_PLACEHOLDER' | translate">
         </div>
 
         <!-- Phone -->
         <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Phone</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ 'CV_CREATE.PERSONAL.PHONE'
+                | translate }}</label>
             <input type="tel" formControlName="phone"
                 class="w-full rounded-xl border border-slate-200/70 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200/70 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none"
-                placeholder="+1 234 567 890">
+                [placeholder]="'CV_CREATE.PERSONAL.PHONE_PLACEHOLDER' | translate">
         </div>
 
         <!-- Location -->
         <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Location</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{
+                'CV_CREATE.PERSONAL.LOCATION' | translate }}</label>
             <input type="text" formControlName="location"
                 class="w-full rounded-xl border border-slate-200/70 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200/70 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none"
-                placeholder="City, Country">
+                [placeholder]="'CV_CREATE.PERSONAL.LOCATION_PLACEHOLDER' | translate">
         </div>
 
         <!-- LinkedIn -->
         <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">LinkedIn</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{
+                'CV_CREATE.PERSONAL.LINKEDIN' | translate }}</label>
             <input type="url" formControlName="linkedin"
                 class="w-full rounded-xl border border-slate-200/70 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200/70 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none"
-                placeholder="linkedin.com/in/johndoe">
+                [placeholder]="'CV_CREATE.PERSONAL.LINKEDIN_PLACEHOLDER' | translate">
         </div>
 
         <!-- GitHub -->
         <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">GitHub</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{
+                'CV_CREATE.PERSONAL.GITHUB' | translate }}</label>
             <input type="url" formControlName="github"
                 class="w-full rounded-xl border border-slate-200/70 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200/70 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none"
-                placeholder="github.com/johndoe">
+                [placeholder]="'CV_CREATE.PERSONAL.GITHUB_PLACEHOLDER' | translate">
         </div>
 
         <!-- Portfolio -->
         <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Portfolio Status /
-                URL</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{
+                'CV_CREATE.PERSONAL.PORTFOLIO' | translate }}</label>
             <input type="text" formControlName="portfolio"
                 class="w-full rounded-xl border border-slate-200/70 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200/70 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none"
-                placeholder="e.g. portfolio.com or 'Open for work'">
+                [placeholder]="'CV_CREATE.PERSONAL.PORTFOLIO_PLACEHOLDER' | translate">
         </div>
 
         <!-- Website -->
         <div class="md:col-span-2">
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Website / Other</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{
+                'CV_CREATE.PERSONAL.WEBSITE' | translate }}</label>
             <input type="url" formControlName="website"
                 class="w-full rounded-xl border border-slate-200/70 bg-white/90 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200/70 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none"
-                placeholder="https://johndoe.dev">
+                [placeholder]="'CV_CREATE.PERSONAL.WEBSITE_PLACEHOLDER' | translate">
         </div>
     </div>
+</div>

@@ -124,4 +124,9 @@ export class CvPreviewComponent {
 
     config = signal<TemplateConfig>(this.templateService.getTemplates()[0]);
     resumeOverride = signal<any>(null);
+    darkMode = signal(false);
+
+    @Input('darkMode') set setDarkMode(value: boolean) {
+        this.darkMode.set(value);
+    }
 }

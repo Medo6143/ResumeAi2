@@ -18,6 +18,7 @@ export interface Resume {
     languages: string[];
     projects: Project[];
     customSections: CustomSection[];
+    sectionOrder: string[]; // e.g. ['summary', 'experience', 'education', 'skills', 'projects']
 }
 
 export interface Experience {
@@ -64,5 +65,6 @@ export const INITIAL_RESUME: Resume = {
     skills: [],
     languages: [],
     projects: [],
-    customSections: []
+    customSections: [],
+    sectionOrder: ['summary', 'experience', 'education', 'projects', 'skills', 'languages']
 };

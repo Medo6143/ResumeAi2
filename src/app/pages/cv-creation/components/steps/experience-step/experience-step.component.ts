@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CvStateService } from '../../../services/cv-state.service';
 import { OpenRouterAiService } from '../../../../../core/services/openrouter-ai.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-experience-step',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, TranslateModule],
     templateUrl: './experience-step.component.html'
 })
 export class ExperienceStepComponent implements OnInit {

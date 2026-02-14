@@ -1,18 +1,18 @@
-<section class="py-24 bg-gray-50 dark:bg-gray-900 overflow-hidden">
+<section class="py-24 bg-gray-50 dark:bg-gray-900 overflow-hidden" aria-labelledby="templates-heading">
     <div class="container mx-auto px-4">
         <div class="flex flex-col md:flex-row items-end justify-between mb-12 gap-6">
             <div class="max-w-xl">
-                <h2 class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-                    Professional Templates
+                <h2 id="templates-heading" class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                    {{ 'TEMPLATES_PREVIEW.TITLE' | translate }}
                 </h2>
                 <p class="text-gray-600 dark:text-gray-400 text-lg">
-                    Choose from our collection of ATS-friendly templates designed to get you hired.
+                    {{ 'TEMPLATES_PREVIEW.DESC' | translate }}
                 </p>
             </div>
             <button routerLink="/templates"
                 class="px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-white dark:hover:bg-gray-800 transition-colors">
-                View All Templates
-                <span class="ml-2">→</span>
+                {{ 'TEMPLATES_PREVIEW.VIEW_ALL' | translate }}
+                <span class="ml-2" aria-hidden="true">→</span>
             </button>
         </div>
 
@@ -23,8 +23,8 @@
                     class="group relative aspect-[1/1.4] rounded-2xl overflow-hidden shadow-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
 
                     <!-- Mockup Resume Content -->
-                    <div
-                        class="w-full h-full p-4 flex flex-col gap-3 scale-90 origin-top opacity-80 group-hover:opacity-100 transition-opacity">
+                    <div class="w-full h-full p-4 flex flex-col gap-3 scale-90 origin-top opacity-80 group-hover:opacity-100 transition-opacity"
+                        aria-hidden="true">
                         <div class="h-16 w-16 rounded-full bg-gray-200 dark:bg-gray-700 mx-auto"></div>
                         <div class="h-4 w-3/4 rounded bg-gray-200 dark:bg-gray-700 mx-auto"></div>
                         <div class="h-3 w-1/2 rounded bg-gray-200 dark:bg-gray-700 mx-auto mb-4"></div>
@@ -39,7 +39,7 @@
                         class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-8 p-4">
                         <button [routerLink]="['/create']" [queryParams]="{template: template.id.toLowerCase()}"
                             class="w-full py-3 bg-white text-black font-semibold rounded-xl shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                            Use {{ template.name }}
+                            {{ 'TEMPLATES_PREVIEW.USE_TEMPLATE' | translate }} {{ template.name }}
                         </button>
                     </div>
                 </div>

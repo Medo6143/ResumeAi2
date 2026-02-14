@@ -23,12 +23,12 @@
 
             <div class="max-w-xl animate-fade-slide-up" style="animation-delay: 0.2s;">
                 <h1 class="text-6xl font-black text-white leading-tight mb-8">
-                    Your Future <br />
-                    Starts <span class="text-indigo-500">Here</span>
+                    {{ 'REGISTER.HERO_TITLE_1' | translate }} <br />
+                    {{ 'REGISTER.HERO_TITLE_2' | translate }} <span class="text-indigo-500">{{ 'REGISTER.HERO_TITLE_3' |
+                        translate }}</span>
                 </h1>
                 <p class="text-xl text-slate-400 leading-relaxed mb-12">
-                    Create an account to unlock the full potential of AI. Analyze, optimize, and build professional
-                    resumes that stand out from the crowd.
+                    {{ 'REGISTER.HERO_DESC' | translate }}
                 </p>
 
                 <div class="space-y-6">
@@ -40,7 +40,7 @@
                                     d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <span class="text-slate-300 font-medium">Free for individuals, forever</span>
+                        <span class="text-slate-300 font-medium">{{ 'REGISTER.FEATURE_FREE' | translate }}</span>
                     </div>
                     <div class="flex items-center gap-4 group">
                         <div
@@ -50,7 +50,7 @@
                                     d="M5 13l4 4L19 7" />
                             </svg>
                         </div>
-                        <span class="text-slate-300 font-medium">Access to 20+ Premium Templates</span>
+                        <span class="text-slate-300 font-medium">{{ 'REGISTER.FEATURE_TEMPLATES' | translate }}</span>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                             </svg>
                         </div>
                     </div>
-                    <span>No credit card required</span>
+                    <span>{{ 'REGISTER.NO_CREDIT_CARD' | translate }}</span>
                 </div>
             </div>
         </div>
@@ -80,8 +80,9 @@
 
         <div class="w-full max-w-md animate-fade-in">
             <div class="mb-10">
-                <h2 class="text-4xl font-black text-slate-900 dark:text-white mb-3">Create Account</h2>
-                <p class="text-slate-500 dark:text-slate-400 font-medium">Start your journey to a better career.</p>
+                <h2 class="text-4xl font-black text-slate-900 dark:text-white mb-3">{{ 'REGISTER.TITLE' | translate }}
+                </h2>
+                <p class="text-slate-500 dark:text-slate-400 font-medium">{{ 'REGISTER.SUBTITLE' | translate }}</p>
             </div>
 
             <!-- Social Register Button (Mirror Login) -->
@@ -101,7 +102,7 @@
                         d="M43.611,20.083L43.611,20.083L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z">
                     </path>
                 </svg>
-                Sign up with Google
+                {{ 'REGISTER.GOOGLE_SIGNUP' | translate }}
             </button>
 
             <div class="relative mb-8">
@@ -109,34 +110,35 @@
                     <div class="w-full border-t border-slate-100 dark:border-slate-800"></div>
                 </div>
                 <div class="relative flex justify-center text-xs">
-                    <span class="px-4 bg-white dark:bg-slate-950 text-slate-400 font-bold uppercase tracking-widest">Or
-                        register with email</span>
+                    <span class="px-4 bg-white dark:bg-slate-950 text-slate-400 font-bold uppercase tracking-widest">{{
+                        'REGISTER.OR_EMAIL' | translate }}</span>
                 </div>
             </div>
 
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-6">
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 ml-1">Full
-                        Name</label>
+                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 ml-1">{{
+                        'REGISTER.NAME_LABEL' | translate }}</label>
                     <input formControlName="displayName" type="text"
                         class="block w-full px-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-transparent focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-800 rounded-2xl transition-all outline-none text-slate-900 dark:text-white font-medium"
-                        placeholder="John Doe">
+                        [placeholder]="'REGISTER.NAME_PLACEHOLDER' | translate">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 ml-1">Email
-                        Address</label>
+                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 ml-1">{{
+                        'REGISTER.EMAIL_LABEL' | translate }}</label>
                     <input formControlName="email" type="email"
                         class="block w-full px-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-transparent focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-800 rounded-2xl transition-all outline-none text-slate-900 dark:text-white font-medium"
-                        placeholder="name@company.com">
+                        [placeholder]="'REGISTER.EMAIL_PLACEHOLDER' | translate">
                 </div>
 
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 ml-1">Password</label>
+                    <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 ml-1">{{
+                        'REGISTER.PASSWORD_LABEL' | translate }}</label>
                     <input formControlName="password" type="password"
                         class="block w-full px-5 py-4 bg-slate-50 dark:bg-slate-900 border-2 border-transparent focus:border-indigo-500 focus:bg-white dark:focus:bg-slate-800 rounded-2xl transition-all outline-none text-slate-900 dark:text-white font-medium"
                         placeholder="••••••••">
-                    <p class="text-[10px] text-slate-500 mt-2 ml-2">Must be at least 6 characters.</p>
+                    <p class="text-[10px] text-slate-500 mt-2 ml-2">{{ 'REGISTER.PASSWORD_HINT' | translate }}</p>
                 </div>
 
                 <div *ngIf="errorMessage()"
@@ -149,16 +151,16 @@
                     <span class="flex items-center justify-center gap-2">
                         <span *ngIf="isLoading()"
                             class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
-                        {{ isLoading() ? 'Creating account...' : 'Create Account' }}
+                        {{ isLoading() ? ('REGISTER.CREATING' | translate) : ('REGISTER.CREATE' | translate) }}
                     </span>
                 </button>
             </form>
 
             <div class="mt-8 text-center text-sm">
                 <p class="text-slate-600 dark:text-slate-400">
-                    Already have an account?
-                    <a routerLink="/login" class="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Sign
-                        In</a>
+                    {{ 'REGISTER.HAS_ACCOUNT' | translate }}
+                    <a routerLink="/login" class="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">{{
+                        'REGISTER.SIGN_IN' | translate }}</a>
                 </p>
             </div>
         </div>
