@@ -1,7 +1,7 @@
-import { Component, Inject, PLATFORM_ID, signal, inject } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, signal, inject, HostListener } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -10,7 +10,6 @@ import { CvStateService } from './services/cv-state.service';
 import { INITIAL_RESUME } from './models/resume.model';
 import { TemplateService } from '../../core/services/template.service';
 
-// Step Components
 import { FileParserService } from '../../core/services/file-parser.service';
 import { WordExportService } from '../../core/services/word-export.service';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
@@ -28,6 +27,15 @@ import { InterviewQuestionsComponent } from './components/interview-questions/in
 import { CvPreviewComponent } from './components/cv-preview/cv-preview.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
+export type SectionId = 'personal' | 'summary' | 'experience' | 'projects' | 'education' | 'skills' | 'custom';
+export type ToolTab = 'ats' | 'matcher' | 'interview' | null;
+
+export interface SidebarSection {
+    id: SectionId;
+    labelKey: string;
+    icon: string;
+}
+
 @Component({
     selector: 'app-create-cv',
     standalone: true,
@@ -35,7 +43,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
         CommonModule,
         FormsModule,
         DragDropModule,
-        // Steps
+        RouterModule,
         PersonalInfoStepComponent,
         SummaryStepComponent,
         ExperienceStepComponent,
@@ -43,9 +51,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
         SkillsStepComponent,
         EducationStepComponent,
         CustomSectionStepComponent,
-        // Preview
         CvPreviewComponent,
-        // Features
         ProfileSelectorComponent,
         AtsScoreComponent,
         JobMatcherComponent,
@@ -56,56 +62,66 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
     styleUrls: ['./cv-creation.component.scss']
 })
 export class CvCreationComponent {
-    steps = ['CV_CREATE.STEPS.PERSONAL', 'CV_CREATE.STEPS.SUMMARY_EXP', 'CV_CREATE.STEPS.EDU_SKILLS'];
-    currentStep = signal(1);
-    selectedTemplate = signal<string>('modern');
-
     private templateService = inject(TemplateService);
     private route = inject(ActivatedRoute);
     private fileParser = inject(FileParserService);
     private wordExport = inject(WordExportService);
     private translate = inject(TranslateService);
 
-    activeTemplate = signal(this.templateService.getTemplates()[0]);
-    showPreviewModal = signal(false);
-    isMobilePreviewOpen = signal(false);
-    darkMode = signal(false);
+    // Section navigation (replaces step wizard)
+    sections: SidebarSection[] = [
+        { id: 'personal', labelKey: 'CV_CREATE.STEPS.PERSONAL', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
+        { id: 'summary', labelKey: 'CV_CREATE.SUMMARY.TITLE', icon: 'M4 6h16M4 12h16M4 18h7' },
+        { id: 'experience', labelKey: 'CV_CREATE.EXPERIENCE.TITLE', icon: 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
+        { id: 'projects', labelKey: 'CV_CREATE.PROJECTS.TITLE', icon: 'M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z' },
+        { id: 'education', labelKey: 'CV_CREATE.EDUCATION.TITLE', icon: 'M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222' },
+        { id: 'skills', labelKey: 'CV_CREATE.SKILLS.TITLE', icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z' },
+        { id: 'custom', labelKey: 'CV_CREATE.CUSTOM.TITLE', icon: 'M12 4v16m8-8H4' }
+    ];
 
-    // Templates data
-    templatesData = this.templateService.getTemplates();
+    activeSection = signal<SectionId>('personal');
+    selectedTemplate = signal<string>('modern');
+    activeTemplate = signal(this.templateService.getTemplates()[0]);
+    darkMode = signal(false);
     isDownloading = signal(false);
 
-    // Chat State
-    showSideChat = signal(false);
+    // Tools tabs
+    activeToolTab = signal<ToolTab>(null);
+
+    // Template data
+    templatesData = this.templateService.getTemplates();
+
+    // Command Palette (AI Chat)
+    showCommandPalette = signal(false);
     isChatThinking = false;
     chatMessages = signal<{ role: 'user' | 'assistant', content: string, actions?: any }[]>([]);
     currentChatInput = '';
 
-    // Templates data
-    templates = [
-        { id: 'modern' as const, name: 'Modern', color: '#4f46e5' },
-        { id: 'minimal' as const, name: 'Minimal', color: '#10b981' },
-        { id: 'executive' as const, name: 'Executive', color: '#8b5cf6' }
-    ];
+    // Actions dropdown
+    showActionsDropdown = signal(false);
+
+    // Reorder modal
+    isReorderModalOpen = signal(false);
+
+    // Mobile view mode
+    mobileView = signal<'form' | 'preview'>('form');
 
     private isBrowser: boolean;
 
     constructor(
         private openRouterService: OpenRouterAiService,
-        private cvState: CvStateService,
+        public cvState: CvStateService,
         @Inject(PLATFORM_ID) platformId: Object
     ) {
         this.isBrowser = isPlatformBrowser(platformId);
 
         if (this.isBrowser) {
-            // Handle Template from query param
             this.route.queryParams.subscribe(params => {
                 if (params['template']) {
                     this.selectedTemplate.set(params['template']);
                 }
             });
 
-            // Set initial chat message after translate service is ready
             setTimeout(() => {
                 this.chatMessages.set([
                     { role: 'assistant', content: this.translate.instant('CV_CREATE.CHAT.WELCOME') }
@@ -114,9 +130,22 @@ export class CvCreationComponent {
         }
     }
 
+    @HostListener('document:click', ['$event'])
+    onDocumentClick() {
+        this.showActionsDropdown.set(false);
+    }
 
-    isReorderModalOpen = signal(false);
+    // Section navigation
+    setSection(id: SectionId) {
+        this.activeSection.set(id);
+    }
 
+    // Tool tabs
+    setToolTab(tab: ToolTab) {
+        this.activeToolTab.update(current => current === tab ? null : tab);
+    }
+
+    // Reorder
     toggleReorderModal() {
         this.isReorderModalOpen.update(v => !v);
     }
@@ -129,17 +158,12 @@ export class CvCreationComponent {
         const currentResume = this.cvState.resume();
         const newOrder = [...currentResume.sectionOrder];
         moveItemInArray(newOrder, event.previousIndex, event.currentIndex);
-
-        this.cvState.setResume({
-            ...currentResume,
-            sectionOrder: newOrder
-        });
+        this.cvState.setResume({ ...currentResume, sectionOrder: newOrder });
     }
 
     getFriendlyName(sectionId: string): string {
         const key = `CV_TEMPLATES.LABELS.${sectionId.toUpperCase()}`;
         const translated = this.translate.instant(key);
-        // Fallback to manual mapping if key not found or if translation returns the key itself
         if (translated === key) {
             const names: Record<string, string> = {
                 'summary': 'Professional Summary',
@@ -155,7 +179,11 @@ export class CvCreationComponent {
         return translated;
     }
 
-    // Import/Export Logic
+    getSectionIndex(): number {
+        return this.sections.findIndex(s => s.id === this.activeSection());
+    }
+
+    // Import/Export
     async onFileSelected(event: Event) {
         const input = event.target as HTMLInputElement;
         if (input.files?.length) {
@@ -164,19 +192,17 @@ export class CvCreationComponent {
                 const text = await this.fileParser.parseFile(file);
                 const prefix = this.translate.instant('CV_CREATE.CHAT.USER_PROMPT_PREFIX');
                 const suffix = this.translate.instant('CV_CREATE.CHAT.USER_PROMPT_SUFFIX');
-
                 this.chatMessages.update(msgs => [
                     ...msgs,
                     { role: 'user', content: `${prefix}${text}${suffix}` }
                 ]);
-                this.showSideChat.set(true);
-                // Trigger AI response
+                this.showCommandPalette.set(true);
                 this.sendMessage();
             } catch (error) {
                 console.error('Import failed', error);
                 alert(this.translate.instant('CV_CREATE.COMMON.IMPORT_FAILED'));
             }
-            input.value = ''; // Reset
+            input.value = '';
         }
     }
 
@@ -184,13 +210,9 @@ export class CvCreationComponent {
         this.wordExport.generateResume(this.cvState.resume());
     }
 
-    // Side Chat Logic
-    toggleSideChat() {
-        this.showSideChat.update(v => !v);
-    }
-
-    toggleMobilePreview() {
-        this.isMobilePreviewOpen.update(v => !v);
+    // Command Palette Chat
+    toggleCommandPalette() {
+        this.showCommandPalette.update(v => !v);
     }
 
     sendMessage() {
@@ -198,18 +220,15 @@ export class CvCreationComponent {
 
         const userMsg = this.currentChatInput;
         this.chatMessages.update(msgs => [...msgs, { role: 'user', content: userMsg }]);
-
         this.currentChatInput = '';
         this.isChatThinking = true;
 
-        // Get current resume state from service
         const currentResume = this.cvState.resume();
 
         this.openRouterService.updateCvFromChat(currentResume, userMsg)
             .subscribe({
                 next: (response: any) => {
                     this.isChatThinking = false;
-
                     if (response.action) {
                         this.applyAiAction(response);
                         this.chatMessages.update(msgs => [...msgs, {
@@ -226,32 +245,9 @@ export class CvCreationComponent {
                     console.error('Chat error', err);
                     this.isChatThinking = false;
                     const msg = err.message || this.translate.instant('CV_CREATE.COMMON.UNKNOWN_ERROR');
-                    this.chatMessages.update(msgs => [...msgs, { role: 'assistant', content: `⚠️ ${msg} ` }]);
+                    this.chatMessages.update(msgs => [...msgs, { role: 'assistant', content: msg }]);
                 }
             });
-    }
-
-    stepClasses(index: number): string {
-        if (this.currentStep() === index + 1) {
-            return 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/30 ring-4 ring-indigo-50';
-        } else if (this.currentStep() > index + 1) {
-            return 'bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-md';
-        } else {
-            return 'bg-white text-slate-400 border-2 border-slate-200';
-        }
-    }
-
-    // Navigation
-    nextStep() {
-        if (this.currentStep() < 3) {
-            this.currentStep.update(step => step + 1);
-        }
-    }
-
-    previousStep() {
-        if (this.currentStep() > 1) {
-            this.currentStep.update(step => step - 1);
-        }
     }
 
     // PDF Download
@@ -261,18 +257,16 @@ export class CvCreationComponent {
         this.isDownloading.set(true);
 
         try {
-            // We look for 'app-cv-preview' or a specific ID
             const previewElement = document.querySelector('app-cv-preview') as HTMLElement;
             if (!previewElement) throw new Error('Preview element not found');
 
-            // Clone and clean
             const pdfContainer = previewElement.cloneNode(true) as HTMLElement;
             pdfContainer.classList.add('pdf-export');
-            // Additional cleanup styles...
             pdfContainer.style.width = '210mm';
-            pdfContainer.style.minHeight = '297mm'; // A4
+            pdfContainer.style.minHeight = '297mm';
             pdfContainer.style.padding = '0';
             pdfContainer.style.margin = '0';
+            pdfContainer.style.transform = 'none';
 
             const tempWrapper = document.createElement('div');
             tempWrapper.style.position = 'fixed';
@@ -281,7 +275,6 @@ export class CvCreationComponent {
             tempWrapper.appendChild(pdfContainer);
             document.body.appendChild(tempWrapper);
 
-            // Wait for image loading
             const images = Array.from(pdfContainer.querySelectorAll('img'));
             await Promise.all(images.map(img => {
                 if (img.complete) return Promise.resolve();
@@ -298,11 +291,7 @@ export class CvCreationComponent {
             });
 
             const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF({
-                orientation: 'portrait',
-                unit: 'mm',
-                format: 'a4'
-            });
+            const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
 
             const imgWidth = 210;
             const pageHeight = 297;
@@ -313,35 +302,22 @@ export class CvCreationComponent {
 
             pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
 
-            // --- CLICKABLE LINKS LOGIC ---
             const scale = imgWidth / pdfContainer.offsetWidth;
-
             const links = pdfContainer.querySelectorAll('a');
             links.forEach((link: HTMLAnchorElement) => {
                 const rect = link.getBoundingClientRect();
                 const parentRect = pdfContainer.getBoundingClientRect();
-
                 const x = (rect.left - parentRect.left) * scale;
                 const y = (rect.top - parentRect.top) * scale;
                 const w = rect.width * scale;
                 const h = rect.height * scale;
-
                 let linkPage = 1;
                 let linkY = y;
-
-                while (linkY > pageHeight) {
-                    linkY -= pageHeight;
-                    linkPage++;
-                }
-
-                if (linkPage === 1) {
-                    pdf.link(x, linkY, w, h, { url: link.href });
-                }
+                while (linkY > pageHeight) { linkY -= pageHeight; linkPage++; }
+                if (linkPage === 1) { pdf.link(x, linkY, w, h, { url: link.href }); }
             });
-            // -----------------------------
 
             heightLeft -= pageHeight;
-
             while (heightLeft > 0) {
                 position -= pageHeight;
                 pdf.addPage();
@@ -351,7 +327,6 @@ export class CvCreationComponent {
 
             const fileName = `${this.cvState.resume().personalInfo.fullName.replace(/\s+/g, '_') || 'resume'}.pdf`;
             pdf.save(fileName);
-
             document.body.removeChild(tempWrapper);
         } catch (e) {
             console.error(e);
@@ -365,36 +340,23 @@ export class CvCreationComponent {
         if (confirm(this.translate.instant('CV_CREATE.COMMON.RESET_CONFIRM'))) {
             this.cvState.setResume(INITIAL_RESUME);
             if (this.isBrowser) sessionStorage.removeItem('resumeState');
-            this.currentStep.set(1);
+            this.activeSection.set('personal');
         }
     }
 
     private applyAiAction(response: any) {
         if (!response.path || !response.value) return;
-
-        console.log('Applying AI Action:', response);
-
         try {
-            // Deep clone current state
             const currentResume = JSON.parse(JSON.stringify(this.cvState.resume()));
-
-            // Parse path: 'experience[0].description' -> ['experience', '0', 'description']
             const pathParts = response.path.replace(/\]/g, '').split(/[\.\[]/);
-
             let current = currentResume;
             for (let i = 0; i < pathParts.length - 1; i++) {
                 const part = pathParts[i];
-                if (current[part] === undefined) {
-                    console.warn(`Path segment '${part}' not found in resume state.`);
-                    return;
-                }
+                if (current[part] === undefined) return;
                 current = current[part];
             }
-
             const lastPart = pathParts[pathParts.length - 1];
             current[lastPart] = response.value;
-
-            // Update the state
             this.cvState.setResume(currentResume);
         } catch (e) {
             console.error('Failed to apply AI action:', e);

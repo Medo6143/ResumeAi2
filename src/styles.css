@@ -1,3 +1,133 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ======================================================
+   STUDIO DESIGN SYSTEM
+   Shared utility classes for the Resume Studio redesign.
+   Soft Modern aesthetic (Vercel/Stripe inspired).
+   ====================================================== */
+
+@layer components {
+
+  /* --- Inputs --- */
+  .studio-input {
+    @apply w-full rounded-lg border border-neutral-200 bg-white px-3.5 py-2.5 text-sm text-neutral-900
+           placeholder-neutral-400 transition-colors duration-150
+           focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none
+           dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-100
+           dark:placeholder-neutral-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-400;
+  }
+
+  .studio-textarea {
+    @apply studio-input resize-y leading-relaxed;
+  }
+
+  /* --- Labels --- */
+  .studio-label {
+    @apply block text-[11px] font-semibold uppercase tracking-wider text-neutral-500
+           dark:text-neutral-400 mb-1.5;
+  }
+
+  /* --- Cards --- */
+  .studio-card {
+    @apply bg-white border border-neutral-200 rounded-xl shadow-sm
+           dark:bg-neutral-900 dark:border-neutral-800;
+  }
+
+  /* --- Section titles inside form panels --- */
+  .studio-section-title {
+    @apply text-lg font-bold text-neutral-900 dark:text-white tracking-tight;
+  }
+
+  .studio-section-desc {
+    @apply text-sm text-neutral-500 dark:text-neutral-400 mt-0.5;
+  }
+
+  /* --- Buttons --- */
+  .studio-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg
+           bg-indigo-600 text-white text-sm font-semibold
+           hover:bg-indigo-700 active:scale-[0.98] transition-all duration-150
+           disabled:opacity-50 disabled:cursor-not-allowed
+           dark:bg-indigo-500 dark:hover:bg-indigo-600;
+  }
+
+  .studio-btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg
+           text-sm font-medium text-neutral-600 bg-transparent
+           hover:bg-neutral-100 active:bg-neutral-200 transition-colors duration-150
+           dark:text-neutral-300 dark:hover:bg-neutral-800 dark:active:bg-neutral-700;
+  }
+
+  .studio-btn-accent {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg
+           text-xs font-bold text-indigo-600 bg-indigo-50
+           hover:bg-indigo-100 transition-colors duration-150
+           dark:text-indigo-400 dark:bg-indigo-950/50 dark:hover:bg-indigo-900/50;
+  }
+
+  .studio-btn-danger {
+    @apply inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg
+           text-xs font-medium text-red-600 bg-transparent
+           hover:bg-red-50 transition-colors duration-150
+           dark:text-red-400 dark:hover:bg-red-950/30;
+  }
+
+  /* --- Icon button (toolbar / sidebar) --- */
+  .studio-icon-btn {
+    @apply flex items-center justify-center w-9 h-9 rounded-lg
+           text-neutral-500 hover:text-neutral-900 hover:bg-neutral-100
+           transition-colors duration-150
+           dark:text-neutral-400 dark:hover:text-white dark:hover:bg-neutral-800;
+  }
+
+  /* --- Badge / Tag --- */
+  .studio-badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold
+           uppercase tracking-wider font-mono
+           bg-neutral-100 text-neutral-600
+           dark:bg-neutral-800 dark:text-neutral-400;
+  }
+
+  .studio-badge-accent {
+    @apply studio-badge bg-indigo-50 text-indigo-600
+           dark:bg-indigo-950/50 dark:text-indigo-400;
+  }
+
+  /* --- Form item card (experience/education/project entries) --- */
+  .studio-form-card {
+    @apply bg-white border border-neutral-200 rounded-xl p-5 transition-all duration-150
+           hover:border-neutral-300
+           dark:bg-neutral-900 dark:border-neutral-800 dark:hover:border-neutral-700;
+  }
+
+  /* --- Separator --- */
+  .studio-divider {
+    @apply border-t border-neutral-100 dark:border-neutral-800;
+  }
+
+  /* --- Skill tag --- */
+  .studio-skill-tag {
+    @apply inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-mono font-medium
+           bg-neutral-100 text-neutral-700 border border-neutral-200
+           dark:bg-neutral-800 dark:text-neutral-300 dark:border-neutral-700
+           relative;
+  }
+
+  /* --- Scrollbar styling --- */
+  .studio-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  .studio-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .studio-scrollbar::-webkit-scrollbar-thumb {
+    background-color: theme('colors.neutral.300');
+    border-radius: 9999px;
+  }
+  .dark .studio-scrollbar::-webkit-scrollbar-thumb {
+    background-color: theme('colors.neutral.700');
+  }
+}
