@@ -17,43 +17,40 @@
     animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Glassmorphism Utilities */
-.glass-effect {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.dark .glass-effect {
-    background: rgba(3, 7, 18, 0.85);
-    /* slate-950 */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-/* Navbar Link Hover Effect */
+/* Navbar Link Styles */
 .nav-link {
     position: relative;
     font-weight: 500;
-    transition: color 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -2px;
-    left: 0;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 0;
     height: 2px;
     background: linear-gradient(90deg, #6366f1, #a855f7);
-    /* indigo-500 to purple-500 */
     transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0.8;
+    border-radius: 2px;
 }
 
 .nav-link:hover::after,
-.nav-link.active::after {
-    width: 100%;
+.active-nav-link::after {
+    width: 60%;
+}
+
+/* Active Nav Link Styling */
+.active-nav-link {
+    color: #6366f1 !important;
+    background: rgba(99, 102, 241, 0.08);
+}
+
+:host-context(.dark) .active-nav-link {
+    color: #818cf8 !important;
+    background: rgba(99, 102, 241, 0.15);
 }
 
 /* Logo Gradient Animation */

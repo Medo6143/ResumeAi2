@@ -1,16 +1,16 @@
-<section class="py-24 bg-gray-50 dark:bg-gray-900 overflow-hidden" aria-labelledby="templates-heading">
+<section class="py-24 bg-slate-50 dark:bg-slate-900/50 overflow-hidden" aria-labelledby="templates-heading">
     <div class="container mx-auto px-4">
         <div class="flex flex-col md:flex-row items-end justify-between mb-12 gap-6">
             <div class="max-w-xl">
-                <h2 id="templates-heading" class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+                <h2 id="templates-heading" class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
                     {{ 'TEMPLATES_PREVIEW.TITLE' | translate }}
                 </h2>
-                <p class="text-gray-600 dark:text-gray-400 text-lg">
+                <p class="text-slate-600 dark:text-slate-300 text-lg">
                     {{ 'TEMPLATES_PREVIEW.DESC' | translate }}
                 </p>
             </div>
             <button routerLink="/templates"
-                class="px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-medium hover:bg-white dark:hover:bg-gray-800 transition-colors">
+                class="px-6 py-3 rounded-xl border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-medium hover:bg-white dark:hover:bg-slate-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition-all">
                 {{ 'TEMPLATES_PREVIEW.VIEW_ALL' | translate }}
                 <span class="ml-2" aria-hidden="true">→</span>
             </button>
@@ -20,18 +20,18 @@
         <div class="flex gap-8 overflow-x-auto pb-8 snap-x">
             <div *ngFor="let template of templates" class="min-w-[280px] md:min-w-[340px] snap-center">
                 <div
-                    class="group relative aspect-[1/1.4] rounded-2xl overflow-hidden shadow-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
+                    class="group relative aspect-[1/1.4] rounded-2xl overflow-hidden shadow-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-all duration-300 hover:shadow-2xl hover:-translate-y-2">
 
                     <!-- Mockup Resume Content -->
                     <div class="w-full h-full p-4 flex flex-col gap-3 scale-90 origin-top opacity-80 group-hover:opacity-100 transition-opacity"
                         aria-hidden="true">
-                        <div class="h-16 w-16 rounded-full bg-gray-200 dark:bg-gray-700 mx-auto"></div>
-                        <div class="h-4 w-3/4 rounded bg-gray-200 dark:bg-gray-700 mx-auto"></div>
-                        <div class="h-3 w-1/2 rounded bg-gray-200 dark:bg-gray-700 mx-auto mb-4"></div>
+                        <div class="h-16 w-16 rounded-full bg-slate-200 dark:bg-slate-600 mx-auto"></div>
+                        <div class="h-4 w-3/4 rounded bg-slate-200 dark:bg-slate-600 mx-auto"></div>
+                        <div class="h-3 w-1/2 rounded bg-slate-200 dark:bg-slate-600 mx-auto mb-4"></div>
 
-                        <div class="h-24 rounded bg-gray-100 dark:bg-gray-700/50"></div>
-                        <div class="h-24 rounded bg-gray-100 dark:bg-gray-700/50"></div>
-                        <div class="h-24 rounded bg-gray-100 dark:bg-gray-700/50"></div>
+                        <div class="h-24 rounded bg-slate-100 dark:bg-slate-700/50"></div>
+                        <div class="h-24 rounded bg-slate-100 dark:bg-slate-700/50"></div>
+                        <div class="h-24 rounded bg-slate-100 dark:bg-slate-700/50"></div>
                     </div>
 
                     <!-- Overlay -->
@@ -43,7 +43,7 @@
                         </button>
                     </div>
                 </div>
-                <p class="mt-4 text-center font-medium text-gray-900 dark:text-white">{{ template.name }} Template</p>
+                <p class="mt-4 text-center font-medium text-slate-900 dark:text-white">{{ template.name }} Template</p>
             </div>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <header
-    class="fixed inset-x-0 top-0 z-50 backdrop-blur-xl bg-white/70 dark:bg-gray-950/70 border-b border-gray-200/40 dark:border-gray-800/40 transition-all">
+    class="fixed inset-x-0 top-0 z-50 backdrop-blur-2xl bg-white/80 dark:bg-slate-950/80 border-b border-slate-200/50 dark:border-slate-700/40 transition-all duration-300 shadow-sm dark:shadow-slate-900/50">
 
-    <div class="max-w-7xl mx-auto px-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
 
         <div class="flex h-16 items-center justify-between">
 
@@ -9,29 +9,35 @@
             <div class="flex items-center gap-10">
 
                 <a routerLink="/"
-                    class="text-2xl font-bold tracking-tight bg-gradient-to-r from-blue-600 via-purple-500 to-cyan-500 bg-clip-text text-transparent hover:opacity-80 transition">
+                    class="text-2xl font-black tracking-tight bg-gradient-to-r from-blue-600 via-purple-500 to-cyan-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity">
                     ResumeAI
                 </a>
 
                 <!-- Desktop Navigation -->
                 <nav aria-label="Main Navigation" class="hidden lg:block">
-                    <ul class="flex items-center gap-8 text-sm font-medium">
+                    <ul class="flex items-center gap-1 text-sm font-medium">
 
-                        <li><a routerLink="/" routerLinkActive="text-blue-600 dark:text-blue-400"
-                                [routerLinkActiveOptions]="{exact: true}" class="nav-link">{{ 'NAV.HOME' | translate
+                        <li><a routerLink="/" routerLinkActive="active-nav-link"
+                                [routerLinkActiveOptions]="{exact: true}"
+                                class="nav-link px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/10 transition-all duration-200">{{
+                                'NAV.HOME' | translate
                                 }}</a></li>
 
-                        <li><a routerLink="/features" routerLinkActive="text-blue-600 dark:text-blue-400"
-                                class="nav-link">{{ 'NAV.FEATURES' | translate }}</a></li>
+                        <li><a routerLink="/features" routerLinkActive="active-nav-link"
+                                class="nav-link px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/10 transition-all duration-200">{{
+                                'NAV.FEATURES' | translate }}</a></li>
 
-                        <li><a routerLink="/templates" routerLinkActive="text-blue-600 dark:text-blue-400"
-                                class="nav-link">{{ 'NAV.TEMPLATES' | translate }}</a></li>
+                        <li><a routerLink="/templates" routerLinkActive="active-nav-link"
+                                class="nav-link px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/10 transition-all duration-200">{{
+                                'NAV.TEMPLATES' | translate }}</a></li>
 
-                        <li><a routerLink="/mock-interview" routerLinkActive="text-blue-600 dark:text-blue-400"
-                                class="nav-link">{{ 'NAV.MOCK_INTERVIEW' | translate }}</a></li>
+                        <li><a routerLink="/mock-interview" routerLinkActive="active-nav-link"
+                                class="nav-link px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/10 transition-all duration-200">{{
+                                'NAV.MOCK_INTERVIEW' | translate }}</a></li>
 
-                        <li><a routerLink="/profile" routerLinkActive="text-blue-600 dark:text-blue-400"
-                                class="nav-link">{{ 'NAV.PROFILE' | translate }}</a></li>
+                        <li><a routerLink="/profile" routerLinkActive="active-nav-link"
+                                class="nav-link px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-white/10 transition-all duration-200">{{
+                                'NAV.PROFILE' | translate }}</a></li>
 
                     </ul>
                 </nav>
@@ -39,30 +45,40 @@
             </div>
 
             <!-- Actions -->
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-3">
 
                 <!-- Language Switcher -->
                 <button (click)="langService.toggleLanguage()" aria-label="Switch language"
-                    class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-blue-500 transition-all group">
-                    <svg class="w-4 h-4 text-slate-500 group-hover:text-blue-500" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
+                    class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/10 border border-slate-200/80 dark:border-white/10 hover:border-blue-400 dark:hover:border-blue-400 transition-all group">
+                    <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 group-hover:text-blue-500 transition-colors"
+                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path
                             d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
                             stroke-width="2" />
                     </svg>
                     <span
-                        class="text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-400 group-hover:text-blue-500">
+                        class="text-[10px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-300 group-hover:text-blue-500 transition-colors">
                         {{ langService.currentLang() === 'en' ? 'AR' : 'EN' }}
                     </span>
                 </button>
 
                 <!-- Theme Toggle -->
                 <button (click)="themeService.toggleTheme()" aria-label="Toggle theme"
-                    class="relative w-11 h-6 rounded-full bg-gray-200 dark:bg-gray-800 transition">
+                    class="relative w-12 h-7 rounded-full bg-slate-200 dark:bg-indigo-600/30 border border-slate-300 dark:border-indigo-500/40 transition-all duration-300 hover:scale-105">
 
                     <span
-                        class="absolute top-1 left-1 w-4 h-4 bg-white dark:bg-gray-900 rounded-full shadow transform transition"
+                        class="absolute top-0.5 left-0.5 w-6 h-6 bg-white dark:bg-indigo-400 rounded-full shadow-md flex items-center justify-center transform transition-all duration-300"
                         [class.translate-x-5]="themeService.darkMode()">
+                        <svg *ngIf="!themeService.darkMode()" class="w-3.5 h-3.5 text-amber-500" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <svg *ngIf="themeService.darkMode()" class="w-3.5 h-3.5 text-white" fill="currentColor"
+                            viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+                        </svg>
                     </span>
 
                 </button>
@@ -73,18 +89,18 @@
                     <div class="flex items-center gap-3">
 
                         <div class="hidden sm:block text-right">
-                            <p class="text-xs font-semibold text-gray-900 dark:text-white">
+                            <p class="text-xs font-semibold text-slate-900 dark:text-white">
                                 {{ user.displayName || 'User' }}
                             </p>
                             <button (click)="logout()"
-                                class="text-[11px] text-red-500 hover:text-red-600 font-semibold uppercase tracking-wider"
+                                class="text-[11px] text-red-500 hover:text-red-400 font-semibold uppercase tracking-wider transition-colors"
                                 aria-label="Sign out of your account">
                                 {{ 'NAV.SIGN_OUT' | translate }}
                             </button>
                         </div>
 
                         <div
-                            class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow">
+                            class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center font-bold shadow-lg shadow-blue-600/20">
                             {{ (user.displayName || 'U').charAt(0) }}
                         </div>
 
@@ -95,11 +111,11 @@
                 <ng-template #guest>
                     <div class="flex items-center gap-2">
                         <a routerLink="/login"
-                            class="hidden sm:inline text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-blue-600">
+                            class="hidden sm:inline text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                             {{ 'NAV.SIGN_IN' | translate }}
                         </a>
                         <a routerLink="/register"
-                            class="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold shadow hover:shadow-lg transition">
+                            class="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm font-bold shadow-lg shadow-blue-600/25 hover:shadow-xl hover:shadow-blue-600/40 hover:scale-105 transition-all duration-300">
                             {{ 'NAV.GET_STARTED' | translate }}
                         </a>
                     </div>
@@ -107,7 +123,7 @@
 
                 <!-- Mobile Button -->
                 <button (click)="toggleMenu()" aria-expanded="{{ isMenuOpen }}" aria-label="Toggle Menu"
-                    class="lg:hidden p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800">
+                    class="lg:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 transition-all">
 
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path *ngIf="!isMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -125,19 +141,26 @@
 
     <!-- Mobile Navigation -->
     <nav *ngIf="isMenuOpen" aria-label="Mobile Navigation"
-        class="lg:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950">
+        class="lg:hidden border-t border-slate-200/50 dark:border-slate-700/50 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl">
 
-        <ul class="flex flex-col p-4 space-y-3 text-sm font-medium">
+        <ul class="flex flex-col p-4 space-y-1 text-sm font-medium">
 
-            <li><a routerLink="/" (click)="closeMenu()" class="mobile-link">{{ 'NAV.HOME' | translate }}</a></li>
-            <li><a routerLink="/features" (click)="closeMenu()" class="mobile-link">{{ 'NAV.FEATURES' | translate }}</a>
-            </li>
-            <li><a routerLink="/templates" (click)="closeMenu()" class="mobile-link">{{ 'NAV.TEMPLATES' | translate
+            <li><a routerLink="/" (click)="closeMenu()"
+                    class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 transition-all">{{
+                    'NAV.HOME' | translate }}</a></li>
+            <li><a routerLink="/features" (click)="closeMenu()"
+                    class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 transition-all">{{
+                    'NAV.FEATURES' | translate }}</a></li>
+            <li><a routerLink="/templates" (click)="closeMenu()"
+                    class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 transition-all">{{
+                    'NAV.TEMPLATES' | translate }}</a></li>
+            <li><a routerLink="/mock-interview" (click)="closeMenu()"
+                    class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 transition-all">{{
+                    'NAV.MOCK_INTERVIEW' | translate
                     }}</a></li>
-            <li><a routerLink="/mock-interview" (click)="closeMenu()" class="mobile-link">{{ 'NAV.MOCK_INTERVIEW' |
-                    translate }}</a></li>
-            <li><a routerLink="/profile" (click)="closeMenu()" class="mobile-link">{{ 'NAV.PROFILE' | translate }}</a>
-            </li>
+            <li><a routerLink="/profile" (click)="closeMenu()"
+                    class="block px-4 py-3 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/10 transition-all">{{
+                    'NAV.PROFILE' | translate }}</a></li>
 
         </ul>
     </nav>
