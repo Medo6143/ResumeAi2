@@ -9,121 +9,88 @@ import { InterviewGeneratorService, InterviewQuestion } from '../../services/int
     standalone: true,
     imports: [CommonModule, TranslateModule],
     template: `
-    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden mt-6">
-      <!-- Header -->
-      <div (click)="toggleCollapse()" 
-           class="p-4 border-b border-slate-100 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-        <h3 class="font-bold text-slate-800 dark:text-white flex items-center gap-2">
-            <svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+    <div class="space-y-4">
+
+      <!-- Welcome / Generate -->
+      <div *ngIf="questions().length === 0 && !isLoading()" class="text-center py-4 space-y-3">
+        <p class="text-xs text-neutral-500 dark:text-neutral-400 max-w-xs mx-auto">
+            {{ 'CV_CREATE.INTERVIEW.DESC' | translate }}
+        </p>
+        <button (click)="generate()" class="studio-btn-primary !text-xs !py-2">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
             </svg>
-            {{ 'CV_CREATE.INTERVIEW.TITLE' | translate }}
-        </h3>
-        <svg class="w-5 h-5 text-slate-400 transform transition-transform duration-300" 
-            [class.rotate-180]="!isCollapsed()">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
+            {{ 'CV_CREATE.INTERVIEW.GENERATE' | translate }}
+        </button>
       </div>
 
-      <!-- Content -->
-      <div *ngIf="!isCollapsed()" class="p-4 md:p-6 animate-fade-in">
-        
-        <!-- Welcome / Input -->
-        <div *ngIf="questions().length === 0 && !isLoading()" class="text-center space-y-4">
-            <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-2">
-                <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-                </svg>
-            </div>
-            <h4 class="text-lg font-bold text-slate-800 dark:text-white">{{ 'CV_CREATE.INTERVIEW.PREPARE' | translate }}</h4>
-            <p class="text-sm text-slate-600 dark:text-slate-400 max-w-sm mx-auto">
-                {{ 'CV_CREATE.INTERVIEW.DESC' | translate }}
-            </p>
-            
-            <button (click)="generate()" 
-                class="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-bold hover:shadow-lg hover:shadow-purple-500/30 transition-all active:scale-95">
-                {{ 'CV_CREATE.INTERVIEW.GENERATE' | translate }}
+      <!-- Loading -->
+      <div *ngIf="isLoading()" class="py-6 text-center space-y-3">
+        <div class="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+        <p class="text-xs font-medium text-neutral-500 dark:text-neutral-400 font-mono">{{ 'CV_CREATE.INTERVIEW.ANALYZING' | translate }}</p>
+      </div>
+
+      <!-- Questions -->
+      <div *ngIf="questions().length > 0" class="space-y-3 animate-fade-in">
+
+        <div class="flex items-center justify-between mb-1">
+            <span class="studio-badge font-mono">{{ questions().length }} {{ 'CV_CREATE.INTERVIEW.YOUR_QUESTIONS' | translate }}</span>
+            <button (click)="reset()" class="studio-btn-ghost !text-[10px] font-mono">
+                {{ 'CV_CREATE.INTERVIEW.REGENERATE' | translate }}
             </button>
         </div>
 
-        <!-- Loading -->
-        <div *ngIf="isLoading()" class="py-8 text-center space-y-4">
-            <div class="relative w-16 h-16 mx-auto">
-                <div class="absolute inset-0 rounded-full border-4 border-purple-100 dark:border-purple-900"></div>
-                <div class="absolute inset-0 rounded-full border-4 border-purple-500 border-t-transparent animate-spin"></div>
-            </div>
-            <p class="text-sm font-medium text-slate-600 dark:text-slate-400">{{ 'CV_CREATE.INTERVIEW.ANALYZING' | translate }}</p>
-        </div>
+        <div *ngFor="let q of questions(); let i = index"
+             class="p-3 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700/50 space-y-2">
 
-        <!-- Results -->
-        <div *ngIf="questions().length > 0" class="space-y-6">
-            
-            <div class="flex items-center justify-between">
-                <h4 class="font-bold text-slate-800 dark:text-white">{{ 'CV_CREATE.INTERVIEW.YOUR_QUESTIONS' | translate }}</h4>
-                <button (click)="reset()" class="text-xs text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white underline">
-                    {{ 'CV_CREATE.INTERVIEW.REGENERATE' | translate }}
+            <div class="flex gap-2">
+                <span class="w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 text-[10px] font-bold font-mono flex items-center justify-center flex-shrink-0 mt-0.5">
+                    {{ i + 1 }}
+                </span>
+                <p class="text-xs font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed flex-1">{{ q.question }}</p>
+            </div>
+
+            <div class="flex flex-wrap gap-1.5 ml-7">
+                <span *ngIf="q.difficulty" class="studio-badge !text-[8px]">{{ q.difficulty }}</span>
+                <span *ngIf="q.context" class="studio-badge-accent !text-[8px]">{{ q.context }}</span>
+            </div>
+
+            <!-- Tip toggle -->
+            <div class="ml-7">
+                <button (click)="toggleTip(i)"
+                    class="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 font-mono">
+                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {{ (expandedTip() === i ? 'CV_CREATE.INTERVIEW.HIDE_TIP' : 'CV_CREATE.INTERVIEW.SHOW_TIP') | translate }}
                 </button>
-            </div>
-
-            <div class="space-y-4">
-                <div *ngFor="let q of questions(); let i = index" 
-                     class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4 border border-slate-200 dark:border-slate-700/50">
-                    
-                    <div class="flex gap-3">
-                        <span class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 text-xs font-bold flex items-center justify-center mt-1">
-                            {{ i + 1 }}
-                        </span>
-                        <div class="flex-1 space-y-2">
-                            <p class="font-medium text-slate-800 dark:text-white leading-relaxed">{{ q.question }}</p>
-                            
-                            <div class="flex flex-wrap gap-2 text-xs">
-                                <span class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-medium">
-                                    {{ q.difficulty || ('CV_CREATE.INTERVIEW.GENERAL' | translate) }}
-                                </span>
-                                <span class="px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-800/30">
-                                    {{ 'CV_CREATE.INTERVIEW.CONTEXT' | translate }}: {{ q.context }}
-                                </span>
-                            </div>
-
-                            <!-- Reveal Answer Tip -->
-                            <div class="pt-2">
-                                <button (click)="toggleTip(i)" 
-                                    class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
-                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    {{ (expandedTip() === i ? 'CV_CREATE.INTERVIEW.HIDE_TIP' : 'CV_CREATE.INTERVIEW.SHOW_TIP') | translate }}
-                                </button>
-                                
-                                <div *ngIf="expandedTip() === i" class="mt-2 text-sm text-slate-600 dark:text-slate-300 bg-indigo-50 dark:bg-indigo-900/10 p-3 rounded-lg border-l-2 border-indigo-400 animate-fade-in">
-                                    <span class="font-bold text-indigo-800 dark:text-indigo-300 block mb-1">💡 {{ 'CV_CREATE.INTERVIEW.PRO_TIP' | translate }}:</span>
-                                    {{ q.answerTip }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                <div *ngIf="expandedTip() === i"
+                    class="mt-1.5 text-[11px] text-neutral-600 dark:text-neutral-400 bg-indigo-50 dark:bg-indigo-900/10 p-2.5 rounded-lg border-l-2 border-indigo-400 leading-relaxed animate-fade-in">
+                    {{ q.answerTip }}
                 </div>
             </div>
-            
         </div>
-
       </div>
     </div>
-  `
+    `,
+    styles: [`
+      :host { display: block; }
+      .animate-fade-in {
+        animation: fadeIn 200ms ease-out;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(4px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    `]
 })
 export class InterviewQuestionsComponent {
     private cvState = inject(CvStateService);
     private generator = inject(InterviewGeneratorService);
 
-    isCollapsed = signal(true);
     isLoading = signal(false);
     questions = signal<InterviewQuestion[]>([]);
     expandedTip = signal<number | null>(null);
-
-    toggleCollapse() {
-        this.isCollapsed.update(v => !v);
-    }
 
     toggleTip(index: number) {
         this.expandedTip.update(current => current === index ? null : index);
@@ -145,7 +112,6 @@ export class InterviewQuestionsComponent {
                 error: (err) => {
                     console.error(err);
                     this.isLoading.set(false);
-                    // Handle error
                 }
             });
     }

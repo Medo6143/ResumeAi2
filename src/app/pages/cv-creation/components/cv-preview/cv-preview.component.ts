@@ -1,5 +1,5 @@
-import { Component, inject, Input, computed, signal, Type } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, Input, computed, signal, Type, ViewChild, ElementRef, AfterViewInit, OnDestroy, PLATFORM_ID, Inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { CvStateService } from '../../services/cv-state.service';
 import { TemplateService } from '../../../../core/services/template.service';
 import { TemplateConfig } from '../../../../core/models/template.model';
@@ -41,6 +41,8 @@ import { Ats3CompactTechComponent } from '../cv-templates/ats-3/ats-3-compact-te
 import { Ats4ExecutiveSimpleComponent } from '../cv-templates/ats-4/ats-4-executive-simple.component';
 import { Ats5AcademicPlainComponent } from '../cv-templates/ats-5/ats-5-academic-plain.component';
 
+const A4_WIDTH_PX = 793; // 210mm in pixels at 96dpi
+
 @Component({
     selector: 'app-cv-preview',
     standalone: true,
@@ -48,13 +50,17 @@ import { Ats5AcademicPlainComponent } from '../cv-templates/ats-5/ats-5-academic
     templateUrl: './cv-preview.component.html',
     styleUrls: ['./cv-preview.component.scss']
 })
-export class CvPreviewComponent {
+export class CvPreviewComponent implements AfterViewInit, OnDestroy {
     private cvState = inject(CvStateService);
     private templateService = inject(TemplateService);
+    private isBrowser: boolean;
+    private resizeObserver: ResizeObserver | null = null;
+
+    @ViewChild('previewContainer', { static: false }) previewContainer!: ElementRef<HTMLElement>;
 
     resume = computed(() => this.resumeOverride() || this.cvState.resume());
+    scale = signal(0.5);
 
-    // Map of template IDs to components
     private templateMap: Record<string, Type<any>> = {
         'modern': ModernComponent,
         'minimal': MinimalComponent,
@@ -114,7 +120,6 @@ export class CvPreviewComponent {
         if (data) this.resumeOverride.set(data);
     }
 
-    // Keep compatibility
     @Input() set template(t: any) {
         if (t) {
             const config = this.templateService.getTemplateById(t);
@@ -128,5 +133,36 @@ export class CvPreviewComponent {
 
     @Input('darkMode') set setDarkMode(value: boolean) {
         this.darkMode.set(value);
+    }
+
+    constructor(@Inject(PLATFORM_ID) platformId: Object) {
+        this.isBrowser = isPlatformBrowser(platformId);
+    }
+
+    ngAfterViewInit() {
+        if (!this.isBrowser) return;
+
+        setTimeout(() => this.calculateScale(), 0);
+
+        this.resizeObserver = new ResizeObserver(() => {
+            this.calculateScale();
+        });
+
+        if (this.previewContainer?.nativeElement) {
+            this.resizeObserver.observe(this.previewContainer.nativeElement);
+        }
+    }
+
+    ngOnDestroy() {
+        this.resizeObserver?.disconnect();
+    }
+
+    private calculateScale() {
+        if (!this.previewContainer?.nativeElement) return;
+        const containerWidth = this.previewContainer.nativeElement.clientWidth;
+        if (containerWidth > 0) {
+            const newScale = Math.min(containerWidth / A4_WIDTH_PX, 1);
+            this.scale.set(newScale);
+        }
     }
 }

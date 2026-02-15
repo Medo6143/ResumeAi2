@@ -1,94 +1,76 @@
-<div class="space-y-6" [formGroup]="form">
+<div class="space-y-5" [formGroup]="form">
     <div class="flex items-center justify-between">
-        <h2 class="text-xl font-bold text-slate-800">{{ 'CV_CREATE.EXPERIENCE.TITLE' | translate }}</h2>
-        <button type="button" (click)="addExperience()"
-            class="text-sm font-bold px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 text-indigo-600 hover:shadow-sm transition-all flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        <div></div>
+        <button type="button" (click)="addExperience()" class="studio-btn-accent">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
             </svg>
             {{ 'CV_CREATE.EXPERIENCE.ADD_POSITION' | translate }}
         </button>
     </div>
 
-    <div formArrayName="experience" class="space-y-6">
+    <div formArrayName="experience" class="space-y-4">
         <div *ngFor="let job of experienceControls; let i = index" [formGroupName]="i"
-            class="p-6 rounded-xl border border-slate-200 bg-gradient-to-br from-white to-slate-50/50 shadow-sm hover:shadow-md transition-all group">
+            class="studio-form-card border-l-2 border-l-indigo-500 dark:border-l-indigo-400">
 
             <div class="flex items-start justify-between mb-4">
-                <h3 class="text-lg font-bold text-slate-800">{{ 'CV_CREATE.EXPERIENCE.ITEM_TITLE' | translate }} {{ i +
-                    1 }}</h3>
+                <div class="flex items-center gap-2">
+                    <span class="studio-badge font-mono">{{ i + 1 }}</span>
+                    <h3 class="text-sm font-bold text-neutral-900 dark:text-white">
+                        {{ 'CV_CREATE.EXPERIENCE.ITEM_TITLE' | translate }} {{ i + 1 }}
+                    </h3>
+                </div>
                 <button type="button" (click)="removeExperience(i)"
-                    class="text-slate-400 hover:text-rose-500 transition-colors opacity-0 group-hover:opacity-100">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    class="studio-btn-danger opacity-0 group-hover:opacity-100">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                 </button>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">{{ 'CV_CREATE.EXPERIENCE.JOB_TITLE' |
-                        translate }}</label>
-                    <input formControlName="role" type="text"
-                        [placeholder]="'CV_CREATE.EXPERIENCE.JOB_TITLE' | translate"
-                        class="w-full rounded-lg border border-slate-200/70 bg-white/90 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200/60 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none">
+                    <label class="studio-label">{{ 'CV_CREATE.EXPERIENCE.JOB_TITLE' | translate }}</label>
+                    <input formControlName="role" type="text" class="studio-input"
+                        [placeholder]="'CV_CREATE.EXPERIENCE.JOB_TITLE' | translate">
                 </div>
-
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">{{ 'CV_CREATE.EXPERIENCE.COMPANY' |
-                        translate }}</label>
-                    <input formControlName="company" type="text"
-                        [placeholder]="'CV_CREATE.EXPERIENCE.COMPANY' | translate"
-                        class="w-full rounded-lg border border-slate-200/70 bg-white/90 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200/60 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none">
+                    <label class="studio-label">{{ 'CV_CREATE.EXPERIENCE.COMPANY' | translate }}</label>
+                    <input formControlName="company" type="text" class="studio-input"
+                        [placeholder]="'CV_CREATE.EXPERIENCE.COMPANY' | translate">
                 </div>
-
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">{{ 'CV_CREATE.EXPERIENCE.START_DATE'
-                        | translate }}</label>
-                    <input formControlName="startDate" type="month"
-                        class="w-full rounded-lg border border-slate-200/70 bg-white/90 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200/60 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none">
+                    <label class="studio-label">{{ 'CV_CREATE.EXPERIENCE.START_DATE' | translate }}</label>
+                    <input formControlName="startDate" type="month" class="studio-input">
                 </div>
-
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 mb-1">{{ 'CV_CREATE.EXPERIENCE.END_DATE' |
-                        translate }}</label>
-                    <input formControlName="endDate" type="month"
-                        class="w-full rounded-lg border border-slate-200/70 bg-white/90 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200/60 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none">
-                    <div class="mt-1 flex items-center gap-2">
+                    <label class="studio-label">{{ 'CV_CREATE.EXPERIENCE.END_DATE' | translate }}</label>
+                    <input formControlName="endDate" type="month" class="studio-input">
+                    <div class="mt-1.5 flex items-center gap-2">
                         <input type="checkbox" [id]="'currentJob' + i" [formControlName]="'isCurrent'"
                             (change)="toggleCurrentJob(i, $event)"
-                            class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-2 focus:ring-indigo-500/40 dark:border-slate-600 dark:bg-slate-800">
-                        <label [for]="'currentJob' + i" class="text-xs text-slate-500">{{ 'CV_CREATE.EXPERIENCE.CURRENT'
-                            | translate }}</label>
+                            class="w-3.5 h-3.5 rounded border-neutral-300 text-indigo-600 focus:ring-1 focus:ring-indigo-500 dark:border-neutral-600 dark:bg-neutral-800">
+                        <label [for]="'currentJob' + i" class="text-[11px] text-neutral-500 dark:text-neutral-400">
+                            {{ 'CV_CREATE.EXPERIENCE.CURRENT' | translate }}
+                        </label>
                     </div>
                 </div>
             </div>
 
             <div class="relative">
-                <label class="block text-xs font-semibold text-slate-600 mb-2">{{
-                    'CV_CREATE.EXPERIENCE.DESC_ACHIEVEMENTS' | translate }}</label>
-                <textarea formControlName="description" rows="3"
-                    class="w-full rounded-lg border border-slate-200/70 bg-white/90 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200/60 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none resize-y"
+                <label class="studio-label">{{ 'CV_CREATE.EXPERIENCE.DESC_ACHIEVEMENTS' | translate }}</label>
+                <textarea formControlName="description" rows="3" class="studio-textarea"
                     [placeholder]="'CV_CREATE.EXPERIENCE.DESC_PLACEHOLDER' | translate"></textarea>
-
                 <button type="button" (click)="improveExperience(i)" [disabled]="loadingExperience().has(i)"
-                    class="absolute bottom-3 right-3 text-xs font-bold px-3 py-1.5 rounded-lg bg-gradient-to-r from-emerald-500 to-green-600 text-white hover:shadow-md transition-all flex items-center gap-1 disabled:opacity-50">
-                    <svg *ngIf="!loadingExperience().has(i)" class="w-3 h-3" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    class="absolute bottom-3 right-3 studio-btn-accent !text-[10px]">
+                    <svg *ngIf="!loadingExperience().has(i)" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
-                    <svg *ngIf="loadingExperience().has(i)" class="animate-spin w-3 h-3" fill="none"
-                        viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
-                        </circle>
-                        <path class="opacity-75" fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                        </path>
+                    <svg *ngIf="loadingExperience().has(i)" class="animate-spin w-3 h-3" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    {{ loadingExperience().has(i) ? ('CV_CREATE.EXPERIENCE.IMPROVING' | translate) :
-                    ('CV_CREATE.COMMON.IMPROVE_AI' | translate) }}
+                    <span class="font-mono">{{ (loadingExperience().has(i) ? 'CV_CREATE.EXPERIENCE.IMPROVING' : 'CV_CREATE.COMMON.IMPROVE_AI') | translate }}</span>
                 </button>
             </div>
         </div>

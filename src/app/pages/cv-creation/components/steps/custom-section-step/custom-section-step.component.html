@@ -1,10 +1,9 @@
-<div class="space-y-6 pt-6 border-t border-slate-200" [formGroup]="form">
+<div class="space-y-5" [formGroup]="form">
     <div class="flex items-center justify-between">
-        <h3 class="text-lg font-bold text-slate-800">{{ 'CV_CREATE.CUSTOM.TITLE' | translate }}</h3>
-        <button type="button" (click)="addCustomSection()"
-            class="text-sm font-bold px-4 py-2 rounded-xl bg-gradient-to-r from-purple-50 to-pink-50 text-purple-600 hover:shadow-sm transition-all flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        <div></div>
+        <button type="button" (click)="addCustomSection()" class="studio-btn-accent">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
             </svg>
             {{ 'CV_CREATE.CUSTOM.ADD' | translate }}
         </button>
@@ -12,46 +11,41 @@
 
     <div formArrayName="customSections" class="space-y-4">
         <div *ngFor="let section of customSectionsControls; let i = index" [formGroupName]="i"
-            class="p-4 rounded-xl border border-slate-200 bg-white/50 group hover:shadow-sm transition-all">
+            class="studio-form-card border-l-2 border-l-purple-500 dark:border-l-purple-400">
 
             <div class="flex items-center justify-between mb-4">
                 <input formControlName="title" type="text"
                     [placeholder]="'CV_CREATE.CUSTOM.SECTION_PLACEHOLDER' | translate"
-                    class="text-lg font-bold bg-transparent border-b-2 border-slate-200/60 focus:border-indigo-500 dark:border-slate-700/60 dark:focus:border-indigo-400 focus:outline-none w-full py-2 text-slate-900 dark:text-slate-100 placeholder-slate-400">
-                <button type="button" (click)="removeCustomSection(i)" class="text-slate-400 hover:text-rose-500 ml-4">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12" />
+                    class="text-sm font-bold bg-transparent border-b border-neutral-200 dark:border-neutral-700 focus:border-indigo-500 dark:focus:border-indigo-400 outline-none w-full py-1.5 text-neutral-900 dark:text-white placeholder-neutral-400 transition-colors">
+                <button type="button" (click)="removeCustomSection(i)" class="studio-btn-danger ml-3">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
 
-            <div formArrayName="items" class="space-y-3">
+            <div formArrayName="items" class="space-y-2">
                 <div *ngFor="let item of getCustomSectionItems(i); let j = index" [formGroupName]="j"
-                    class="flex gap-3 items-start group/item p-3 rounded-lg bg-slate-50/50 hover:bg-white transition-colors">
+                    class="flex gap-2 items-start group/item p-3 rounded-lg bg-neutral-50 dark:bg-neutral-800/50 hover:bg-white dark:hover:bg-neutral-800 transition-colors">
 
-                    <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <input formControlName="name" type="text"
-                            [placeholder]="'CV_CREATE.CUSTOM.ITEM_NAME' | translate"
-                            class="w-full rounded-lg border border-slate-200/70 bg-white/90 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200/60 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none">
-                        <textarea formControlName="description" rows="1"
-                            [placeholder]="'CV_CREATE.CUSTOM.DETAIL' | translate"
-                            class="w-full rounded-lg border border-slate-200/70 bg-white/90 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:ring-3 focus:ring-indigo-200/60 dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400 dark:focus:ring-indigo-500/20 outline-none resize-none"></textarea>
+                    <div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-2">
+                        <input formControlName="name" type="text" class="studio-input !py-2 !text-xs"
+                            [placeholder]="'CV_CREATE.CUSTOM.ITEM_NAME' | translate">
+                        <textarea formControlName="description" rows="1" class="studio-textarea !py-2 !text-xs !resize-none"
+                            [placeholder]="'CV_CREATE.CUSTOM.DETAIL' | translate"></textarea>
                     </div>
 
                     <button type="button" (click)="removeCustomItem(i, j)"
-                        class="text-slate-300 hover:text-rose-500 transition-colors opacity-0 group-hover/item:opacity-100">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
+                        class="text-neutral-300 dark:text-neutral-600 hover:text-red-500 dark:hover:text-red-400 transition-colors opacity-0 group-hover/item:opacity-100 mt-2">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
 
-                <button type="button" (click)="addCustomItem(i)"
-                    class="text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors flex items-center gap-2 ml-1">
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                <button type="button" (click)="addCustomItem(i)" class="studio-btn-ghost !text-xs !text-indigo-600 dark:!text-indigo-400">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                     </svg>
                     {{ 'CV_CREATE.CUSTOM.ADD_ITEM' | translate }}
                 </button>

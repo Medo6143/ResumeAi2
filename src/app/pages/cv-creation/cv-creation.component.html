@@ -1,388 +1,291 @@
-<div
-    class="min-h-screen w-full max-w-[100vw] overflow-x-hidden bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-gray-900 dark:via-indigo-950 dark:to-purple-950 pt-20 md:pt-32 pb-16 px-3 md:px-4 relative animate-gradient-x">
+<!-- Hidden file input for imports -->
+<input #fileInput type="file" (change)="onFileSelected($event)" accept=".pdf,.docx,.txt" class="hidden">
 
-    <!-- Animated Background Elements -->
-    <div class="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-            class="absolute top-20 left-10 w-96 h-96 bg-purple-300/30 dark:bg-purple-600/20 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-3xl animate-float-slow">
-        </div>
-        <div class="absolute top-40 right-20 w-[30rem] h-[30rem] bg-indigo-300/30 dark:bg-indigo-600/20 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-3xl animate-float-medium"
-            style="animation-delay: 1s;"></div>
-        <div class="absolute bottom-20 left-40 w-96 h-96 bg-pink-300/30 dark:bg-pink-600/20 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-3xl animate-float-slow"
-            style="animation-delay: 2s;"></div>
-    </div>
+<div class="studio-layout">
 
-    <!-- Side Chat Toggle (Mobile) -->
-    <button (click)="toggleSideChat()"
-        class="fixed bottom-4 right-4 z-50 w-12 h-12 md:w-16 md:h-16 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 rounded-full text-white shadow-2xl hover:shadow-indigo-500/50 dark:hover:shadow-indigo-400/50 flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 animate-pulse-glow">
-        <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-        </svg>
-    </button>
-
-    <!-- Mobile Preview Button (Mobile Only) -->
-    <button (click)="toggleMobilePreview()"
-        class="lg:hidden fixed bottom-4 left-4 z-50 flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-emerald-600 to-green-600 dark:from-emerald-500 dark:to-green-500 rounded-full text-white shadow-2xl hover:shadow-emerald-500/50 dark:hover:shadow-emerald-400/50 hover:scale-105 active:scale-95 transition-all duration-300 font-bold text-sm">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-        </svg>
-        <span class="hidden sm:inline">{{ 'CV_CREATE.PREVIEW_CV' | translate }}</span>
-    </button>
-
-    <!-- Modern Side Chat Panel -->
-    <div *ngIf="showSideChat()"
-        class="fixed top-0 right-0 h-full w-full sm:w-96 glass-panel z-40 flex flex-col pt-20 md:pt-32 transform transition-all duration-500 shadow-2xl animate-slide-in-right border-l border-white/20">
-
-        <div
-            class="p-4 md:p-6 border-b border-gray-200/50 dark:border-gray-700/50 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div
-                    class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 flex items-center justify-center shadow-lg animate-pulse-glow">
-                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="font-bold text-gray-900 dark:text-white">{{ 'CV_CREATE.CHAT.ASSISTANT_NAME' | translate
-                        }}</h3>
-                    <p class="text-xs text-gray-600 dark:text-gray-400">{{ 'CV_CREATE.CHAT.GET_HELP' | translate }}</p>
-                </div>
-            </div>
-            <span
-                class="text-xs text-indigo-600 dark:text-indigo-400 bg-indigo-100 dark:bg-indigo-900/50 px-3 py-1.5 rounded-full font-bold animate-pulse">AI</span>
+    <!-- ============ TOOLBAR ============ -->
+    <div class="studio-toolbar">
+        <!-- Left: Profile selector -->
+        <div class="flex items-center gap-3 min-w-0">
+            <app-profile-selector></app-profile-selector>
         </div>
 
-        <div class="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
-            <div *ngFor="let msg of chatMessages()"
-                [class]="msg.role === 'user' ? 'ml-auto bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 text-white' : 'mr-auto bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-white backdrop-blur-sm'"
-                class="max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in-up">
-                <p>{{ msg.content }}</p>
-                <div *ngIf="msg.actions"
-                    class="mt-2 pt-2 border-t border-white/20 dark:border-gray-600/20 text-xs opacity-90">
-                    <span class="font-bold">✨ {{ 'CV_CREATE.COMMON.UPDATED_AI' | translate }}:</span> {{
-                    msg.actions.path }}
-                </div>
-            </div>
-
-            <div *ngIf="isChatThinking"
-                class="mr-auto bg-white/80 dark:bg-gray-800/80 text-gray-900 dark:text-white rounded-2xl px-4 py-3 text-sm shadow-lg flex items-center gap-2 animate-fade-in-up backdrop-blur-sm">
-                <div class="w-2 h-2 bg-indigo-400 dark:bg-indigo-500 rounded-full animate-bounce"></div>
-                <div class="w-2 h-2 bg-indigo-400 dark:bg-indigo-500 rounded-full animate-bounce delay-75"></div>
-                <div class="w-2 h-2 bg-indigo-400 dark:bg-indigo-500 rounded-full animate-bounce delay-150"></div>
-            </div>
-        </div>
-
-        <div
-            class="p-4 md:p-6 border-t border-gray-200/50 dark:border-gray-700/50 bg-white/50 dark:bg-gray-900/50 backdrop-blur-sm">
-            <div class="flex gap-3">
-                <input [(ngModel)]="currentChatInput" (keyup.enter)="sendMessage()"
-                    [placeholder]="'CV_CREATE.CHAT.ASK_AI' | translate"
-                    class="flex-1 rounded-xl bg-white/80 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-600 px-4 py-3 text-sm focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 focus:border-transparent outline-none transition-all backdrop-blur-sm text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400">
-                <button (click)="sendMessage()" [disabled]="!currentChatInput.trim() || isChatThinking"
-                    class="px-4 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 text-white rounded-xl hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                    </svg>
+        <!-- Center: Template quick-picker pills -->
+        <div class="hidden md:flex flex-1 justify-center max-w-xl mx-4">
+            <div class="template-pills">
+                <button *ngFor="let temp of templatesData | slice:0:8"
+                    (click)="selectedTemplate.set(temp.id)"
+                    class="template-pill"
+                    [class.active]="selectedTemplate() === temp.id">
+                    <span class="template-dot" [style.background]="temp.primaryColor"></span>
+                    {{ temp.name.split(' ')[0] }}
+                </button>
+                <button (click)="openTemplatePicker()"
+                    class="template-pill !text-indigo-600 dark:!text-indigo-400 !border-indigo-200 dark:!border-indigo-800">
+                    {{ 'CV_CREATE.BROWSE_ALL' | translate }}
                 </button>
             </div>
         </div>
-    </div>
 
-    <!-- Mobile Preview Modal (Fullscreen) -->
-    <div *ngIf="isMobilePreviewOpen()"
-        class="fixed inset-0 z-50 bg-slate-900/95 backdrop-blur-sm flex flex-col animate-fade-in">
-
-        <!-- Modal Header -->
-        <div class="flex items-center justify-between p-4 border-b border-white/10 bg-slate-900/50">
-            <h2 class="text-white font-bold text-lg">{{ 'CV_CREATE.PREVIEW_CV' | translate }}</h2>
-            <button (click)="toggleMobilePreview()" class="p-2 rounded-full hover:bg-white/10 transition-colors">
-                <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        <!-- Right: Actions -->
+        <div class="flex items-center gap-2">
+            <!-- Dark Mode Toggle -->
+            <button (click)="darkMode.set(!darkMode())" class="studio-icon-btn"
+                title="Toggle Dark Mode">
+                <svg *ngIf="!darkMode()" class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+                <svg *ngIf="darkMode()" class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
             </button>
+
+            <!-- More Actions Dropdown -->
+            <div class="relative">
+                <button (click)="showActionsDropdown.set(!showActionsDropdown()); $event.stopPropagation()"
+                    class="studio-icon-btn" title="More actions">
+                    <svg class="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v.01M12 12v.01M12 19v.01" />
+                    </svg>
+                </button>
+                <div *ngIf="showActionsDropdown()" class="actions-dropdown" (click)="$event.stopPropagation()">
+                    <button class="dropdown-item" (click)="fileInput.click(); showActionsDropdown.set(false)">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+                        {{ 'ATS_FORM.INJECT_FILE' | translate }}
+                    </button>
+                    <button class="dropdown-item" (click)="exportToWord(); showActionsDropdown.set(false)">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        {{ 'CV_CREATE.NAV.SAVE_AS' | translate }}
+                    </button>
+                    <button class="dropdown-item" (click)="importFromMaster(); showActionsDropdown.set(false)">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                        {{ 'CV_CREATE.SYNC_FROM_PROFILE' | translate }}
+                    </button>
+                    <button class="dropdown-item" (click)="toggleReorderModal(); showActionsDropdown.set(false)">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        {{ 'CV_CREATE.REORDER_SECTIONS' | translate }}
+                    </button>
+                    <div class="my-1 border-t border-neutral-100 dark:border-neutral-800"></div>
+                    <button class="dropdown-item !text-red-500" (click)="resetForm(); showActionsDropdown.set(false)">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        {{ 'ATS_FORM.RESET' | translate }}
+                    </button>
+                </div>
+            </div>
+
+            <!-- Download PDF -->
+            <button (click)="downloadPDF()" [disabled]="isDownloading()" class="studio-btn-primary !py-2 !px-4 !text-xs">
+                <svg *ngIf="!isDownloading()" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <svg *ngIf="isDownloading()" class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                <span class="hidden sm:inline">{{ (isDownloading() ? 'CV_CREATE.GENERATING_PDF' : 'CV_CREATE.DOWNLOAD_PDF') | translate }}</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ============ SIDEBAR (Section Nav) ============ -->
+    <nav class="studio-sidebar studio-scrollbar">
+        <button *ngFor="let section of sections"
+            (click)="setSection(section.id)"
+            class="sidebar-btn"
+            [class.active]="activeSection() === section.id"
+            [title]="section.labelKey | translate">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" [attr.d]="section.icon" />
+            </svg>
+        </button>
+
+        <div style="margin-top: 50px"></div>
+
+        <!-- AI Button -->
+        <button (click)="toggleCommandPalette()" class="sidebar-btn" title="AI Assistant">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z" />
+            </svg>
+        </button>
+
+        <!-- Mobile: Preview toggle -->
+        <button class="sidebar-btn lg:hidden"
+            (click)="mobileView.set(mobileView() === 'form' ? 'preview' : 'form')"
+            [title]="'CV_CREATE.PREVIEW_CV' | translate">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+        </button>
+    </nav>
+
+    <!-- ============ FORM PANEL ============ -->
+    <div class="studio-form-panel studio-scrollbar"
+        [class.mobile-hidden]="mobileView() === 'preview'">
+
+        <!-- Section Header -->
+        <div class="mb-6">
+            <h2 class="studio-section-title">
+                {{ sections[getSectionIndex()].labelKey | translate }}
+            </h2>
+            <p class="studio-section-desc">{{ 'CV_CREATE.DESCRIPTION' | translate }}</p>
         </div>
 
-        <!-- Preview Content (Scrollable) -->
-        <div class="flex-1 overflow-auto p-4">
-            <div class="max-w-4xl mx-auto">
+        <!-- Section Content -->
+        <div class="animate-fade-in">
+            <app-personal-info-step *ngIf="activeSection() === 'personal'"></app-personal-info-step>
+            <app-summary-step *ngIf="activeSection() === 'summary'"></app-summary-step>
+            <app-experience-step *ngIf="activeSection() === 'experience'"></app-experience-step>
+            <app-projects-step *ngIf="activeSection() === 'projects'"></app-projects-step>
+            <app-education-step *ngIf="activeSection() === 'education'"></app-education-step>
+            <app-skills-step *ngIf="activeSection() === 'skills'"></app-skills-step>
+            <app-custom-section-step *ngIf="activeSection() === 'custom'"></app-custom-section-step>
+        </div>
+    </div>
+
+    <!-- ============ PREVIEW PANEL ============ -->
+    <div class="studio-preview-panel studio-scrollbar"
+        [class.mobile-active]="mobileView() === 'preview'">
+
+        <!-- Preview -->
+        <div class="preview-wrapper">
+            <div class="relative">
+                <!-- Live badge -->
+                <div class="absolute -top-2 -right-2 z-10">
+                    <span class="studio-badge-accent">{{ 'CV_CREATE.LIVE_PREVIEW' | translate }}</span>
+                </div>
                 <app-cv-preview [templateId]="selectedTemplate()" [darkMode]="darkMode()"></app-cv-preview>
             </div>
         </div>
-    </div>
 
-    <!-- Modern Progress & Header -->
-    <div class="max-w-7xl mx-auto mb-8 md:mb-12 animate-fade-in-up relative z-10">
-        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 md:gap-8">
-            <div class="text-center lg:text-left w-full">
-                <h1
-                    class="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400 text-transparent bg-clip-text animate-scale-in">
-                    {{ 'CV_CREATE.TITLE_MAIN' | translate }} <span class="relative inline-block">{{
-                        'CV_CREATE.TITLE_SUB' | translate }}
-                        <span
-                            class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 rounded-full"></span>
-                    </span>
-                </h1>
-                <p class="text-gray-600 dark:text-gray-400 text-lg mb-6">{{ 'CV_CREATE.DESCRIPTION' | translate }}</p>
-
-                <!-- Enhanced Progress Steps -->
-                <div class="glass-panel p-1 md:p-2 rounded-2xl flex flex-col md:flex-row items-center gap-4 mt-6">
-                    <div class="flex items-center gap-2">
-                        <div
-                            class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 text-white flex items-center justify-center text-sm font-bold shadow-lg animate-pulse-glow">
-                            {{ currentStep() }}
-                        </div>
-                        <span class="text-xs md:text-sm font-semibold text-gray-900 dark:text-white">{{
-                            steps[currentStep() - 1] |
-                            translate
-                            }}</span>
-                    </div>
-                    <div
-                        class="w-full md:flex-1 h-1.5 md:h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                        <div class="h-full bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 transition-all duration-500 ease-out"
-                            [style.width.%]="(currentStep() / steps.length) * 100"></div>
-                    </div>
-                    <span class="text-xs md:text-sm font-medium text-gray-600 dark:text-gray-400">{{ steps.length }} {{
-                        'CV_CREATE.STEPS_COUNT' | translate }}</span>
-                </div>
-            </div>
-
-            <!-- Actions -->
-            <div class="flex flex-wrap justify-center items-center gap-2 md:gap-3 w-full lg:w-auto">
-                <!-- Reorder Sections Button -->
-                <button (click)="toggleReorderModal()"
-                    class="p-2 rounded-lg transition-colors bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400"
-                    [title]="'CV_CREATE.REORDER_SECTIONS' | translate">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
+        <!-- Tools Tab Bar (desktop only) -->
+        <div class="hidden lg:block">
+            <div class="tools-tab-bar">
+                <button class="tools-tab"
+                    [class.active]="activeToolTab() === 'ats'"
+                    (click)="setToolTab('ats')">
+                    {{ 'CV_CREATE.ATS.TITLE' | translate }}
                 </button>
-
-                <!-- Import/Export Menu (Simple Buttons for now) -->
-                <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
-                    <button (click)="fileInput.click()"
-                        class="p-1.5 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 rounded transition-colors"
-                        [title]="'ATS_FORM.INJECT_FILE' | translate">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                        </svg>
-                    </button>
-                    <button (click)="exportToWord()"
-                        class="p-1.5 text-slate-500 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-400 rounded transition-colors"
-                        [title]="'CV_CREATE.NAV.SAVE_AS' | translate">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                    </button>
-                </div>
-                <!-- Hidden Input -->
-                <input #fileInput type="file" (change)="onFileSelected($event)" accept=".pdf,.docx,.txt" class="hidden">
-
-                <!-- Dark Mode Toggle -->
-                <button (click)="darkMode.set(!darkMode())" class="p-2 rounded-lg transition-colors"
-                    [class.bg-slate-100]="!darkMode()" [class.text-slate-600]="!darkMode()"
-                    [class.bg-slate-800]="darkMode()" [class.text-yellow-400]="darkMode()"
-                    title="Toggle Dark Mode Preview">
-                    <svg *ngIf="!darkMode()" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg>
-                    <svg *ngIf="darkMode()" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
+                <button class="tools-tab"
+                    [class.active]="activeToolTab() === 'matcher'"
+                    (click)="setToolTab('matcher')">
+                    {{ 'CV_CREATE.JOB_MATCHER.TITLE' | translate }}
                 </button>
-
-                <app-profile-selector></app-profile-selector>
-
-                <button (click)="importFromMaster()"
-                    class="group px-4 py-2 md:px-6 md:py-3 flex items-center gap-2 bg-indigo-50 dark:bg-indigo-900/40 backdrop-blur-md border border-indigo-200 dark:border-indigo-500/40 rounded-xl text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-800/60 hover:shadow-lg transition-all duration-300 font-bold text-sm md:text-base">
-                    <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-180 transition-transform duration-500"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                    <span class="hidden sm:inline">{{ 'CV_CREATE.SYNC_FROM_PROFILE' | translate }}</span>
-                    <span class="sm:hidden">Sync</span>
-                </button>
-                <button (click)="resetForm()"
-                    class="group px-4 py-2 md:px-6 md:py-3 flex items-center gap-2 bg-white/40 dark:bg-gray-800/40 backdrop-blur-md border border-white/40 dark:border-gray-600/40 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-white/60 dark:hover:bg-gray-800/60 hover:shadow-lg transition-all duration-300 font-medium text-sm md:text-base">
-                    <svg class="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-180 transition-transform duration-500"
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                    <span class="hidden sm:inline">{{ 'ATS_FORM.RESET' | translate }}</span>
-                </button>
-                <button (click)="downloadPDF()" [disabled]="isDownloading()"
-                    class="group px-4 py-2 md:px-8 md:py-3 flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 text-white rounded-xl hover:shadow-2xl hover:shadow-indigo-500/50 dark:hover:shadow-indigo-400/30 transition-all duration-300 font-semibold hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 text-sm md:text-base">
-                    <svg *ngIf="!isDownloading()"
-                        class="w-4 h-4 md:w-5 md:h-5 group-hover:translate-y-0.5 transition-transform" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
-                    <svg *ngIf="isDownloading()" class="animate-spin w-4 h-4 md:w-5 md:h-5" fill="none"
-                        viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
-                        </circle>
-                        <path class="opacity-75" fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                        </path>
-                    </svg>
-                    <span>{{ (isDownloading() ? 'CV_CREATE.GENERATING_PDF' : 'CV_CREATE.DOWNLOAD_PDF') | translate
-                        }}</span>
+                <button class="tools-tab"
+                    [class.active]="activeToolTab() === 'interview'"
+                    (click)="setToolTab('interview')">
+                    {{ 'CV_CREATE.INTERVIEW.TITLE' | translate }}
                 </button>
             </div>
-        </div>
-    </div>
 
-    <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-8">
-
-        <!-- LEFT: Form Builder -->
-        <div class="lg:col-span-5 w-full space-y-6">
-
-            <!-- Form Container -->
-            <div class="glass-card rounded-2xl overflow-hidden">
-                <div class="p-4 md:p-6 lg:p-8">
-
-                    <!-- STEP 1: PERSONAL INFO -->
-                    <div *ngIf="currentStep() === 1" class="animate-fade-in">
-                        <app-personal-info-step></app-personal-info-step>
-                    </div>
-
-                    <!-- STEP 2: SUMMARY & EXPERIENCE -->
-                    <div *ngIf="currentStep() === 2" class="space-y-8 animate-fade-in">
-                        <app-summary-step></app-summary-step>
-                        <hr class="border-slate-100">
-                        <app-experience-step></app-experience-step>
-                        <hr class="border-slate-100">
-                        <app-projects-step></app-projects-step>
-                    </div>
-
-                    <!-- STEP 3: EDUCATION & SKILLS -->
-                    <div *ngIf="currentStep() === 3" class="space-y-8 animate-fade-in">
-                        <app-skills-step></app-skills-step>
-                        <hr class="border-slate-100">
-                        <app-education-step></app-education-step>
-                        <hr class="border-slate-100">
-                        <app-custom-section-step></app-custom-section-step>
-                    </div>
-
-                    <!-- Navigation Buttons -->
-                    <div class="mt-10 pt-6 border-t border-slate-200 flex justify-between">
-                        <button type="button" *ngIf="currentStep() > 1" (click)="previousStep()"
-                            class="px-6 py-3 rounded-xl border border-slate-300/50 text-slate-700 dark:text-slate-300 font-semibold hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-all flex items-center gap-2">
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 19l-7-7 7-7" />
-                            </svg>
-                            {{ 'CV_CREATE.BACK' | translate }}
-                        </button>
-
-                        <div class="flex-1"></div>
-
-                        <button type="button" *ngIf="currentStep() < 3" (click)="nextStep()"
-                            class="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold hover:shadow-lg hover:shadow-indigo-500/30 transition-all hover:scale-105 active:scale-95 flex items-center gap-2">
-                            {{ 'CV_CREATE.CONTINUE' | translate }}
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
-
-                        <button type="button" *ngIf="currentStep() === 3" (click)="downloadPDF()"
-                            class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 text-white font-semibold hover:shadow-lg hover:shadow-emerald-500/30 transition-all hover:scale-105 active:scale-95 flex items-center gap-2">
-                            {{ 'CV_CREATE.DOWNLOAD_PDF' | translate }}
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- RIGHT: Live Preview & Templates -->
-        <div class="hidden lg:block lg:col-span-7 space-y-6">
-
-            <!-- ATS Score Panel -->
-            <app-ats-score class="block animate-fade-in"></app-ats-score>
-
-            <!-- Job Matcher Panel -->
-            <app-job-matcher class="block animate-fade-in"></app-job-matcher>
-
-            <!-- Interview Questions Panel -->
-            <app-interview-questions class="block animate-fade-in"></app-interview-questions>
-
-            <!-- Template Selection -->
-            <div class="glass-panel rounded-2xl p-4 md:p-6">
-                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
-                    <div>
-                        <h2 class="text-xl font-bold text-slate-800 mb-1">{{ 'CV_CREATE.TEMPLATE_PREVIEW' | translate }}
-                        </h2>
-                        <p class="text-slate-600 text-sm">{{ 'CV_CREATE.TEMPLATE_DESC' | translate }}</p>
-                    </div>
-
-                    <div
-                        class="flex flex-wrap gap-2 bg-slate-100/50 dark:bg-slate-800/50 backdrop-blur-sm p-1 rounded-xl border border-slate-200/50 dark:border-white/10">
-                        <ng-container *ngFor="let temp of templatesData; let i = index">
-                            <button *ngIf="i < 3" (click)="selectedTemplate.set(temp.id)" [class]="selectedTemplate() === temp.id 
-                                 ? 'bg-white dark:bg-slate-700 shadow text-slate-900 dark:text-white' 
-                                 : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'"
-                                class="px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 flex items-center gap-2">
-                                <div class="w-2 h-2 rounded-full" [style.background]="temp.primaryColor"></div>
-                                {{ temp.name.split(' ')[0] }}
-                            </button>
-                        </ng-container>
-                        <a routerLink="/templates"
-                            class="px-4 py-2 rounded-lg text-sm font-bold text-indigo-600 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 transition-all flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M4 6h16M4 12h16m-7 6h7" />
-                            </svg>
-                            {{ 'CV_CREATE.BROWSE_ALL' | translate }}
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Preview Component -->
-                <div class="relative">
-                    <div
-                        class="absolute -top-2 -right-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full z-10">
-                        {{ 'CV_CREATE.LIVE_PREVIEW' | translate }}
-                    </div>
-
-                    <app-cv-preview [templateId]="selectedTemplate()" [darkMode]="darkMode()"></app-cv-preview>
-                </div>
-
-                <!-- Template Info -->
-                <div class="mt-6 flex items-center justify-between text-sm text-slate-600">
-                    <div class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>{{ 'CV_CREATE.AUTO_SAVED' | translate }}</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>{{ 'CV_CREATE.A4_FORMAT' | translate }}</span>
-                    </div>
-                </div>
+            <!-- Tools Content -->
+            <div *ngIf="activeToolTab()" class="tools-content studio-scrollbar animate-fade-in">
+                <app-ats-score *ngIf="activeToolTab() === 'ats'"></app-ats-score>
+                <app-job-matcher *ngIf="activeToolTab() === 'matcher'"></app-job-matcher>
+                <app-interview-questions *ngIf="activeToolTab() === 'interview'"></app-interview-questions>
             </div>
         </div>
     </div>
 </div>
+
+<!-- ============ COMMAND PALETTE (AI Chat) ============ -->
+<div *ngIf="showCommandPalette()" class="command-palette-overlay" (click)="toggleCommandPalette()">
+    <div class="command-palette" (click)="$event.stopPropagation()">
+
+        <!-- Header -->
+        <div class="flex items-center gap-3 px-5 py-4 border-b border-neutral-200 dark:border-neutral-800">
+            <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                </svg>
+            </div>
+            <div class="flex-1 min-w-0">
+                <h3 class="text-sm font-bold text-neutral-900 dark:text-white">{{ 'CV_CREATE.CHAT.ASSISTANT_NAME' | translate }}</h3>
+                <p class="text-[11px] text-neutral-500 dark:text-neutral-400 font-mono">{{ 'CV_CREATE.CHAT.GET_HELP' | translate }}</p>
+            </div>
+            <button (click)="toggleCommandPalette()" class="studio-icon-btn">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Messages -->
+        <div class="flex-1 overflow-y-auto p-5 space-y-3 studio-scrollbar" style="max-height: 40vh;">
+            <div *ngFor="let msg of chatMessages()"
+                [class]="msg.role === 'user'
+                    ? 'ml-auto bg-indigo-600 text-white'
+                    : 'mr-auto bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100'"
+                class="max-w-[85%] rounded-xl px-4 py-2.5 text-sm leading-relaxed">
+                <p>{{ msg.content }}</p>
+                <div *ngIf="msg.actions"
+                    class="mt-1.5 pt-1.5 border-t border-white/20 dark:border-neutral-700 text-[11px] font-mono opacity-80">
+                    {{ msg.actions.path }}
+                </div>
+            </div>
+
+            <div *ngIf="isChatThinking"
+                class="mr-auto bg-neutral-100 dark:bg-neutral-800 rounded-xl px-4 py-2.5 text-sm flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce"></div>
+                <div class="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce" style="animation-delay: 75ms"></div>
+                <div class="w-1.5 h-1.5 bg-indigo-500 rounded-full animate-bounce" style="animation-delay: 150ms"></div>
+            </div>
+        </div>
+
+        <!-- Input -->
+        <div class="px-5 py-4 border-t border-neutral-200 dark:border-neutral-800">
+            <div class="flex gap-2">
+                <input [(ngModel)]="currentChatInput" (keyup.enter)="sendMessage()"
+                    [placeholder]="'CV_CREATE.CHAT.ASK_AI' | translate"
+                    class="studio-input flex-1">
+                <button (click)="sendMessage()" [disabled]="!currentChatInput.trim() || isChatThinking"
+                    class="studio-btn-primary !px-3">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ REORDER SECTIONS MODAL ============ -->
+<div *ngIf="isReorderModalOpen()" class="reorder-overlay" (click)="toggleReorderModal()">
+    <div class="reorder-modal" (click)="$event.stopPropagation()">
+        <div class="px-5 py-4 border-b border-neutral-200 dark:border-neutral-800 flex items-center justify-between">
+            <h3 class="text-sm font-bold text-neutral-900 dark:text-white">{{ 'CV_CREATE.REORDER_SECTIONS' | translate }}</h3>
+            <button (click)="toggleReorderModal()" class="studio-icon-btn">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+        <div class="p-5" cdkDropList (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let sectionId of cvState.resume().sectionOrder" cdkDrag
+                class="flex items-center gap-3 p-3 mb-2 rounded-lg bg-neutral-50 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 cursor-grab active:cursor-grabbing">
+                <svg class="w-4 h-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <span class="text-sm font-medium text-neutral-700 dark:text-neutral-300">{{ getFriendlyName(sectionId) }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============ TEMPLATE PICKER DIALOG ============ -->
+<app-template-picker-dialog
+    *ngIf="showTemplatePicker()"
+    [currentTemplateId]="selectedTemplate()"
+    (selectTemplate)="onTemplateSelected($event)"
+    (close)="closeTemplatePicker()">
+</app-template-picker-dialog>
