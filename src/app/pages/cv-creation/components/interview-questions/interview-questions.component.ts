@@ -26,7 +26,7 @@ import { InterviewGeneratorService, InterviewQuestion } from '../../services/int
       </div>
 
       <!-- Content -->
-      <div *ngIf="!isCollapsed()" class="p-6 animate-fade-in">
+      <div *ngIf="!isCollapsed()" class="p-4 md:p-6 animate-fade-in">
         
         <!-- Welcome / Input -->
         <div *ngIf="questions().length === 0 && !isLoading()" class="text-center space-y-4">

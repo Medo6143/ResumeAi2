@@ -27,7 +27,7 @@ import { JobMatcherService, JobMatchResult } from '../../services/job-matcher.se
       </div>
 
       <!-- Content -->
-      <div *ngIf="!isCollapsed()" class="p-6 animate-fade-in">
+      <div *ngIf="!isCollapsed()" class="p-4 md:p-6 animate-fade-in">
         
         <!-- Input Area -->
         <div *ngIf="!analysis() && !isLoading()" class="space-y-4">

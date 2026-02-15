@@ -1,8 +1,9 @@
-<div class="h-full shadow-2xl overflow-hidden rounded-lg border border-slate-300 dark:border-slate-700 transition-all duration-500"
-    [class.bg-white]="!darkMode()" [class.bg-slate-900]="darkMode()" [class.dark]="darkMode()"
-    [style.font-family]="config().fontFamily" [style.width]="'210mm'" [style.min-height]="'297mm'"
-    [style.margin]="'0 auto'">
+<div class="w-full flex justify-center">
+    <div class="shadow-2xl overflow-hidden rounded-lg border border-slate-300 dark:border-slate-700 transition-all duration-500"
+        [class.bg-white]="!darkMode()" [class.bg-slate-900]="darkMode()" [class.dark]="darkMode()"
+        [style.font-family]="config().fontFamily" [style.width]="'210mm'" [style.min-height]="'297mm'">
 
-    <ng-container *ngComponentOutlet="activeComponent(); inputs: componentInputs()"></ng-container>
+        <ng-container *ngComponentOutlet="activeComponent(); inputs: componentInputs()"></ng-container>
 
+    </div>
 </div>

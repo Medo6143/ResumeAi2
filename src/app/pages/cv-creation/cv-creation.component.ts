@@ -189,6 +189,10 @@ export class CvCreationComponent {
         this.showSideChat.update(v => !v);
     }
 
+    toggleMobilePreview() {
+        this.isMobilePreviewOpen.update(v => !v);
+    }
+
     sendMessage() {
         if (!this.currentChatInput.trim() || this.isChatThinking) return;
 

@@ -188,7 +188,8 @@
         "USE_TEMPLATE": "Use This Template",
         "PREV_PAGE": "Previous Page",
         "NEXT_PAGE": "Next Page",
-        "VIEW_ALL": "Browse All"
+        "VIEW_ALL": "Browse All",
+        "SEARCH_PLACEHOLDER": "Search by name or description..."
     },
     "ATS": {
         "AI_ACTIVE": "AI Engine Active",
@@ -439,6 +440,8 @@
         },
         "ADD_ITEM": "Add item",
         "ITEM_NAME": "Item Name",
+        "CREATING_RESUME": "Creating Your Professional Resume",
+        "PREVIEW_CV": "Preview CV",
         "DESCRIPTION": "Fill in the details and watch it come to life with AI assistance",
         "TITLE_MAIN": "Create Your",
         "TITLE_SUB": "Perfect Resume",

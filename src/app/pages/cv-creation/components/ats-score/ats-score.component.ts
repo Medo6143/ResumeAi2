@@ -29,7 +29,7 @@ import { AtsAnalyzerService, AtsAnalysisResult } from '../../services/ats-analyz
         </span>
       </div>
 
-      <div class="p-6">
+      <div class="p-4 md:p-6">
         <div class="flex items-center gap-6 mb-6">
             <!-- Circular Score -->
             <div class="relative w-24 h-24 flex-shrink-0 group cursor-help">

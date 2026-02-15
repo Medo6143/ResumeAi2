@@ -1,6 +1,7 @@
 import { Component, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { TemplateService } from '../../core/services/template.service';
 import { TemplateConfig } from '../../core/models/template.model';
 import { PreviewModalComponent } from './components/preview-modal/preview-modal';
@@ -11,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-templates',
   standalone: true,
-  imports: [CommonModule, PreviewModalComponent, CvPreviewComponent, TranslateModule],
+  imports: [CommonModule, RouterModule, FormsModule, PreviewModalComponent, CvPreviewComponent, TranslateModule],
   templateUrl: './templates.component.html',
   styles: [`
     .animate-gradient-x {
@@ -41,22 +42,52 @@ export class TemplatesComponent {
   allTemplates = this.templateService.getTemplates();
   mockResume = MOCK_RESUME;
 
+  // Filtering & Search
+  searchQuery = signal('');
+  selectedCategory = signal('All');
+
+  categories = [
+    { id: 'All', label: 'All Templates' },
+    { id: 'ats', label: 'ATS Friendly' },
+    { id: 'modern', label: 'Modern' },
+    { id: 'creative', label: 'Creative' },
+    { id: 'professional', label: 'Professional' },
+    { id: 'simple', label: 'Simple' }
+  ];
+
   // Pagination
   pageSize = 8;
   currentPage = signal(0);
 
-  paginatedTemplates = computed(() => {
-    const start = this.currentPage() * this.pageSize;
-    return this.allTemplates.slice(start, start + this.pageSize);
+  filteredTemplates = computed(() => {
+    const query = this.searchQuery().toLowerCase();
+    const category = this.selectedCategory().toLowerCase();
+
+    return this.allTemplates.filter((t: TemplateConfig) => {
+      const matchesSearch = t.name.toLowerCase().includes(query) || t.description.toLowerCase().includes(query);
+      const matchesCategory = category === 'all' ||
+        (category === 'ats' && t.isAtsOptimized) ||
+        (category === 'modern' && (t.layoutType === 'modern' || t.layoutType === 'grid')) ||
+        (category === 'creative' && t.layoutType === 'grid') ||
+        (category === 'professional' && (t.layoutType === 'standard' || t.layoutType === 'sidebar' || t.layoutType === 'executive')) ||
+        (category === 'simple' && (t.layoutType === 'minimal' || t.layoutType === 'standard'));
+
+      return matchesSearch && matchesCategory;
+    });
   });
 
-  totalPages = Math.ceil(this.allTemplates.length / this.pageSize);
+  paginatedTemplates = computed(() => {
+    const start = this.currentPage() * this.pageSize;
+    return this.filteredTemplates().slice(start, start + this.pageSize);
+  });
+
+  totalPages = computed(() => Math.ceil(this.filteredTemplates().length / this.pageSize));
 
   // Modal State
   selectedTemplateForPreview = signal<TemplateConfig | null>(null);
 
   nextPage() {
-    if (this.currentPage() < this.totalPages - 1) {
+    if (this.currentPage() < this.totalPages() - 1) {
       this.currentPage.update(p => p + 1);
     }
   }

@@ -36,7 +36,7 @@ import { CvStateService, Profile } from '../../services/cv-state.service';
 
         <!-- Dropdown Menu -->
         <div *ngIf="isOpen()"
-            class="absolute top-full left-0 mt-2 w-72 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50 animate-fade-in-down origin-top-left">
+            class="absolute top-full right-0 mt-2 w-72 max-w-[90vw] bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50 animate-fade-in-down origin-top-right">
             
             <!-- Header -->
             <div class="p-3 border-b border-slate-100 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-900/50 flex justify-between items-center">
