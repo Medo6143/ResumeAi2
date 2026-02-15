@@ -25,6 +25,7 @@ import { AtsScoreComponent } from './components/ats-score/ats-score.component';
 import { JobMatcherComponent } from './components/job-matcher/job-matcher.component';
 import { InterviewQuestionsComponent } from './components/interview-questions/interview-questions.component';
 import { CvPreviewComponent } from './components/cv-preview/cv-preview.component';
+import { TemplatePickerDialogComponent } from './components/template-picker-dialog/template-picker-dialog.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 export type SectionId = 'personal' | 'summary' | 'experience' | 'projects' | 'education' | 'skills' | 'custom';
@@ -56,6 +57,7 @@ export interface SidebarSection {
         AtsScoreComponent,
         JobMatcherComponent,
         InterviewQuestionsComponent,
+        TemplatePickerDialogComponent,
         TranslateModule
     ],
     templateUrl: './cv-creation.component.html',
@@ -103,6 +105,9 @@ export class CvCreationComponent {
     // Reorder modal
     isReorderModalOpen = signal(false);
 
+    // Template picker dialog
+    showTemplatePicker = signal(false);
+
     // Mobile view mode
     mobileView = signal<'form' | 'preview'>('form');
 
@@ -148,6 +153,20 @@ export class CvCreationComponent {
     // Reorder
     toggleReorderModal() {
         this.isReorderModalOpen.update(v => !v);
+    }
+
+    // Template picker
+    openTemplatePicker() {
+        this.showTemplatePicker.set(true);
+    }
+
+    closeTemplatePicker() {
+        this.showTemplatePicker.set(false);
+    }
+
+    onTemplateSelected(id: string) {
+        this.selectedTemplate.set(id);
+        this.showTemplatePicker.set(false);
     }
 
     importFromMaster() {

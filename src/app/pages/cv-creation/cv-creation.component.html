@@ -20,10 +20,10 @@
                     <span class="template-dot" [style.background]="temp.primaryColor"></span>
                     {{ temp.name.split(' ')[0] }}
                 </button>
-                <a routerLink="/templates"
+                <button (click)="openTemplatePicker()"
                     class="template-pill !text-indigo-600 dark:!text-indigo-400 !border-indigo-200 dark:!border-indigo-800">
                     {{ 'CV_CREATE.BROWSE_ALL' | translate }}
-                </a>
+                </button>
             </div>
         </div>
 
@@ -281,3 +281,11 @@
         </div>
     </div>
 </div>
+
+<!-- ============ TEMPLATE PICKER DIALOG ============ -->
+<app-template-picker-dialog
+    *ngIf="showTemplatePicker()"
+    [currentTemplateId]="selectedTemplate()"
+    (selectTemplate)="onTemplateSelected($event)"
+    (close)="closeTemplatePicker()">
+</app-template-picker-dialog>
