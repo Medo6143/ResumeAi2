@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID, signal, inject, HostListener } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, signal, inject, HostListener, effect } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -84,7 +84,7 @@ export class CvCreationComponent {
     activeSection = signal<SectionId>('personal');
     selectedTemplate = signal<string>('modern');
     activeTemplate = signal(this.templateService.getTemplates()[0]);
-    darkMode = signal(false);
+    darkMode = signal<boolean>(false);
     isDownloading = signal(false);
 
     // Tools tabs
@@ -121,6 +121,18 @@ export class CvCreationComponent {
         this.isBrowser = isPlatformBrowser(platformId);
 
         if (this.isBrowser) {
+            // Load dark mode preference from localStorage
+            const savedDarkMode = localStorage.getItem('cvDarkMode');
+            if (savedDarkMode !== null) {
+                this.darkMode.set(savedDarkMode === 'true');
+            }
+
+            // Save dark mode preference when it changes
+            effect(() => {
+                const isDark = this.darkMode();
+                localStorage.setItem('cvDarkMode', String(isDark));
+            });
+
             this.route.queryParams.subscribe(params => {
                 if (params['template']) {
                     this.selectedTemplate.set(params['template']);

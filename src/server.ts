@@ -35,12 +35,51 @@ app.use(
   }),
 );
 
+import { LANGUAGE } from './app/core/config/language.token';
+
+/**
+ * Helper function to parse cookies from request
+ */
+function parseCookies(cookieHeader?: string): Record<string, string> {
+  const cookies: Record<string, string> = {};
+  if (!cookieHeader) return cookies;
+  
+  cookieHeader.split(';').forEach(cookie => {
+    const [name, ...rest] = cookie.trim().split('=');
+    if (name) {
+      cookies[name] = decodeURIComponent(rest.join('='));
+    }
+  });
+  
+  return cookies;
+}
+
 /**
  * Handle all other requests by rendering the Angular application.
  */
 app.use((req, res, next) => {
+  // Priority: 1. x-lang header, 2. lang cookie, 3. accept-language header, 4. default 'en'
+  const cookies = parseCookies(req.headers.cookie);
+  const xLangHeader = req.headers['x-lang'];
+  const xLang = Array.isArray(xLangHeader) ? xLangHeader[0] : xLangHeader;
+  
+  const acceptLang = req.headers['accept-language'];
+  const acceptLangStr = typeof acceptLang === 'string' 
+    ? acceptLang.split(',')[0]?.split('-')[0]?.trim() 
+    : undefined;
+  
+  const langStr = xLang || cookies['lang'] || acceptLangStr || 'en';
+  const lang: string = typeof langStr === 'string' ? langStr : 'en';
+
+  // Normalize language (only 'en' or 'ar' supported)
+  const normalizedLang = (lang === 'ar' || lang.startsWith('ar')) ? 'ar' : 'en';
+
   angularApp
-    .handle(req)
+    .handle(req, {
+      providers: [
+        { provide: LANGUAGE, useValue: normalizedLang }
+      ]
+    })
     .then((response) =>
       response ? writeResponseToNodeResponse(response, res) : next(),
     )
