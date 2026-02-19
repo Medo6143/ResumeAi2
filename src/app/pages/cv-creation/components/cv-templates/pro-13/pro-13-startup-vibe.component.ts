@@ -15,7 +15,12 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
                     <p class="text-amber-600 font-black uppercase text-xs">{{ resume.personalInfo.jobTitle }}</p>
                 </div>
                 <div class="space-y-2 text-right">
-                    <span class="px-4 py-2 bg-slate-900 text-white rounded-full text-[10px] font-bold">{{ resume.personalInfo.email }}</span>
+                    <span class="px-4 py-2 bg-slate-900 text-white rounded-full text-[10px] font-bold"><!-- Email & Links --> 
+          <a [href]="'mailto:' + resume.personalInfo.email" class="hover:underline">{{ resume.personalInfo.email }}</a>
+          <span *ngIf="resume.personalInfo.linkedin"> | <a [href]="resume.personalInfo.linkedin" target="_blank" class="hover:underline">LinkedIn</a></span>
+          <span *ngIf="resume.personalInfo.github"> | <a [href]="resume.personalInfo.github" target="_blank" class="hover:underline">GitHub</a></span>
+          <span *ngIf="resume.personalInfo.portfolio"> | <a [href]="resume.personalInfo.portfolio" target="_blank" class="hover:underline">Portfolio</a></span>
+           <!-- End Links --></span>
                 </div>
             </header>
             <div class="grid grid-cols-12 gap-8 flex-1">

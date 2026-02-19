@@ -57,7 +57,12 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
                     <h4 class="text-[10px] font-black uppercase mb-4">Skills</h4>
                     <div class="text-[10px] space-y-2 opacity-60">
                         <p>M: {{ resume.personalInfo.phone }}</p>
-                        <p>E: {{ resume.personalInfo.email }}</p>
+                        <p><!-- Email & Links --> 
+          <a [href]="'mailto:' + resume.personalInfo.email" class="hover:underline">{{ resume.personalInfo.email }}</a>
+          <span *ngIf="resume.personalInfo.linkedin"> | <a [href]="resume.personalInfo.linkedin" target="_blank" class="hover:underline">LinkedIn</a></span>
+          <span *ngIf="resume.personalInfo.github"> | <a [href]="resume.personalInfo.github" target="_blank" class="hover:underline">GitHub</a></span>
+          <span *ngIf="resume.personalInfo.portfolio"> | <a [href]="resume.personalInfo.portfolio" target="_blank" class="hover:underline">Portfolio</a></span>
+           <!-- End Links --></p>
                     </div>
                 </div>
                 <div *ngIf="resume.education && resume.education.length" class="p-6 bg-indigo-50 rounded-3xl">

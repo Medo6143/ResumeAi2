@@ -12,6 +12,15 @@ import { CommonModule } from '@angular/common';
                 <h1 class="text-2xl font-medium tracking-widest uppercase mb-2">{{ resume.personalInfo.fullName }}</h1>
                 <div class="w-12 h-1 bg-emerald-500 mx-auto my-4"></div>
                 <p class="text-[10px] uppercase font-bold text-slate-400 tracking-[0.2em]">{{ resume.personalInfo.jobTitle }}</p>
+
+             <div class="flex flex-wrap justify-center gap-2 text-[10px] opacity-80 mt-2">
+                <a [href]="'mailto:' + resume.personalInfo.email" class="hover:underline">{{ resume.personalInfo.email }}</a>
+                <span *ngIf="resume.personalInfo.phone">| {{ resume.personalInfo.phone }}</span>
+                <span *ngIf="resume.personalInfo.location">| {{ resume.personalInfo.location }}</span>
+                <span *ngIf="resume.personalInfo.linkedin">| <a [href]="resume.personalInfo.linkedin" target="_blank" class="hover:underline">LinkedIn</a></span>
+                <span *ngIf="resume.personalInfo.github">| <a [href]="resume.personalInfo.github" target="_blank" class="hover:underline">GitHub</a></span>
+                <span *ngIf="resume.personalInfo.portfolio">| <a [href]="resume.personalInfo.portfolio" target="_blank" class="hover:underline">Portfolio</a></span>
+             </div>
             </header>
             <div *ngIf="resume.summary" class="text-xs text-center max-w-lg mx-auto leading-relaxed text-slate-600">
                 {{ resume.summary }}

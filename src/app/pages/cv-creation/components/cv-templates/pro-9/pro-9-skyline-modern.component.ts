@@ -12,7 +12,12 @@ import { CommonModule } from '@angular/common';
             <div class="flex justify-between items-center mt-2">
                 <p class="text-xs font-bold uppercase tracking-widest text-indigo-600">{{ resume.personalInfo.jobTitle }}</p>
                 <div class="flex gap-4 text-[9px] opacity-40 font-bold">
-                    <span>{{ resume.personalInfo.email }}</span>
+                    <span><!-- Email & Links --> 
+          <a [href]="'mailto:' + resume.personalInfo.email" class="hover:underline">{{ resume.personalInfo.email }}</a>
+          <span *ngIf="resume.personalInfo.linkedin"> | <a [href]="resume.personalInfo.linkedin" target="_blank" class="hover:underline">LinkedIn</a></span>
+          <span *ngIf="resume.personalInfo.github"> | <a [href]="resume.personalInfo.github" target="_blank" class="hover:underline">GitHub</a></span>
+          <span *ngIf="resume.personalInfo.portfolio"> | <a [href]="resume.personalInfo.portfolio" target="_blank" class="hover:underline">Portfolio</a></span>
+           <!-- End Links --></span>
                     <span>{{ resume.personalInfo.phone }}</span>
                 </div>
             </div>

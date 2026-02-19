@@ -1,8 +1,9 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyB0xgaq03Kqcpf88-80h0jpOoZXaP_RBaU",
-    authDomain: "chatme-fb77f.firebaseapp.com",
-    projectId: "chatme-fb77f",
-    storageBucket: "chatme-fb77f.appspot.com",
-    messagingSenderId: "1054583047143",
-    appId: "1:1054583047143:web:f6ede8057e9a27d53e3342"
+  apiKey: "AIzaSyDbG8zytOulNEriPVkUfcWN26urQsZXx5E",
+  authDomain: "chatnme-fb12d.firebaseapp.com",
+  projectId: "chatnme-fb12d",
+  storageBucket: "chatnme-fb12d.appspot.com",
+  messagingSenderId: "695405548300",
+  appId: "1:695405548300:web:e6fdb2ebd3711710b1af29",
+  measurementId: "G-H9TTRR1TF6"
 };

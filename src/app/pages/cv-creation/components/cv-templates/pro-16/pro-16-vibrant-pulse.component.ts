@@ -11,6 +11,15 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
         <div class="h-64 bg-slate-900 relative p-12 flex flex-col justify-end">
             <h1 class="text-6xl font-black text-white leading-none tracking-tighter mb-4">{{ resume.personalInfo.fullName }}</h1>
             <p class="text-slate-400 font-bold uppercase text-xs">{{ resume.personalInfo.jobTitle }}</p>
+
+             <div class="flex flex-wrap justify-center gap-2 text-[10px] opacity-80 mt-2">
+                <a [href]="'mailto:' + resume.personalInfo.email" class="hover:underline">{{ resume.personalInfo.email }}</a>
+                <span *ngIf="resume.personalInfo.phone">| {{ resume.personalInfo.phone }}</span>
+                <span *ngIf="resume.personalInfo.location">| {{ resume.personalInfo.location }}</span>
+                <span *ngIf="resume.personalInfo.linkedin">| <a [href]="resume.personalInfo.linkedin" target="_blank" class="hover:underline">LinkedIn</a></span>
+                <span *ngIf="resume.personalInfo.github">| <a [href]="resume.personalInfo.github" target="_blank" class="hover:underline">GitHub</a></span>
+                <span *ngIf="resume.personalInfo.portfolio">| <a [href]="resume.personalInfo.portfolio" target="_blank" class="hover:underline">Portfolio</a></span>
+             </div>
         </div>
         <div class="p-12 flex-1">
             <div *ngIf="resume.summary" class="mb-12 max-w-2xl">

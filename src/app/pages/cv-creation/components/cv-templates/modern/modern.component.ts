@@ -13,7 +13,12 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
             <h1 class="text-3xl font-bold mb-1">{{ resume.personalInfo.fullName }}</h1>
             <p class="text-lg opacity-80 mb-3">{{ resume.personalInfo.jobTitle }}</p>
             <div class="flex flex-wrap gap-3 text-xs opacity-70">
-                <span *ngIf="resume.personalInfo.email">📧 {{ resume.personalInfo.email }}</span>
+                <span *ngIf="resume.personalInfo.email">📧 <!-- Email & Links --> 
+          <a [href]="'mailto:' + resume.personalInfo.email" class="hover:underline">{{ resume.personalInfo.email }}</a>
+          <span *ngIf="resume.personalInfo.linkedin"> | <a [href]="resume.personalInfo.linkedin" target="_blank" class="hover:underline">LinkedIn</a></span>
+          <span *ngIf="resume.personalInfo.github"> | <a [href]="resume.personalInfo.github" target="_blank" class="hover:underline">GitHub</a></span>
+          <span *ngIf="resume.personalInfo.portfolio"> | <a [href]="resume.personalInfo.portfolio" target="_blank" class="hover:underline">Portfolio</a></span>
+           <!-- End Links --></span>
                 <span *ngIf="resume.personalInfo.phone">📱 {{ resume.personalInfo.phone }}</span>
                 <span *ngIf="resume.personalInfo.location">📍 {{ resume.personalInfo.location }}</span>
             </div>

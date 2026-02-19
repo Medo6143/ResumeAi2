@@ -60,7 +60,12 @@ import { CommonModule } from '@angular/common';
                     <div class="p-8 border-4 border-black flex-1">
                         <h4 class="text-xs uppercase mb-4">Direct Contact</h4>
                         <div class="text-xs space-y-2">
-                            <p>{{ resume.personalInfo.email }}</p>
+                            <p><!-- Email & Links --> 
+          <a [href]="'mailto:' + resume.personalInfo.email" class="hover:underline">{{ resume.personalInfo.email }}</a>
+          <span *ngIf="resume.personalInfo.linkedin"> | <a [href]="resume.personalInfo.linkedin" target="_blank" class="hover:underline">LinkedIn</a></span>
+          <span *ngIf="resume.personalInfo.github"> | <a [href]="resume.personalInfo.github" target="_blank" class="hover:underline">GitHub</a></span>
+          <span *ngIf="resume.personalInfo.portfolio"> | <a [href]="resume.personalInfo.portfolio" target="_blank" class="hover:underline">Portfolio</a></span>
+           <!-- End Links --></p>
                             <p>{{ resume.personalInfo.phone }}</p>
                         </div>
                     </div>

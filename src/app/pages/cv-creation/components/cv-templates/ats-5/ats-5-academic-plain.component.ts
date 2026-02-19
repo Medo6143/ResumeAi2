@@ -31,7 +31,12 @@ import { CommonModule } from '@angular/common';
             </div>
         </section>
 
-        <section *ngIf="resume.experience?.length" class="mb-8">
+        
+            <section *ngIf="resume.summary" class="mb-4">
+                <h3 class="font-bold uppercase text-center border-b border-black mb-4 pb-1">Profile</h3>
+                <p class="text-sm opacity-80 whitespace-pre-line">{{ resume.summary }}</p>
+            </section>
+<section *ngIf="resume.experience?.length" class="mb-8">
             <h3 class="font-bold uppercase text-center border-b border-black mb-4 pb-1">Experience</h3>
             <div class="space-y-6">
                 <div *ngFor="let job of resume.experience">

@@ -13,9 +13,7 @@ export class OpenRouterAiService {
 
     sendPrompt(prompt: string, attempt = 0): Observable<any> {
         const models = [
-            "anthropic/claude-3.5-haiku",
-            "google/gemini-flash-1.5",
-            "mistralai/mistral-7b-instruct:free",
+      
             "openrouter/auto"
         ];
 
@@ -23,7 +21,9 @@ export class OpenRouterAiService {
 
         const headers = new HttpHeaders({
             'Authorization': `Bearer ${environment.OPENROUTER_API_KEY}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'HTTP-Referer': 'https://resume-studio.ai', // Required by OpenRouter for free tier
+            'X-Title': 'Resume Studio'
         });
 
         const body = {
@@ -39,7 +39,8 @@ export class OpenRouterAiService {
             timeout(30000), // 30s timeout for faster fallback
             catchError(error => {
                 const isTimeout = error.name === 'TimeoutError';
-                const isRetryableStatus = [0, 404, 408, 429, 500, 502, 503, 504].includes(error.status);
+                // Add 402 (Payment Required) to retryable statuses to allow fallback to free models
+                const isRetryableStatus = [0, 402, 404, 408, 429, 500, 502, 503, 504].includes(error.status);
 
                 if (attempt < models.length - 1 && (isTimeout || isRetryableStatus)) {
                     console.warn(`[AI Fallback] ${selectedModel} failed. Trying next model...`);
