@@ -1,12 +1,7 @@
 <div #previewContainer class="w-full overflow-hidden">
-    <div class="origin-top-left transition-transform duration-200"
-        [style.transform]="'scale(' + scale() + ')'"
-        [style.width]="'210mm'"
-        [style.min-height]="'297mm'"
-        [class.bg-white]="!darkMode()"
-        [class.bg-slate-900]="darkMode()"
-        [class.dark]="darkMode()"
-        [style.font-family]="config().fontFamily">
+    <div class="origin-top-left transition-transform duration-200" [style.transform]="'scale(' + scale() + ')'"
+        [style.width]="'210mm'" [style.min-height]="'297mm'" [class.bg-white]="!darkMode()"
+        [class.bg-slate-900]="darkMode()" [class.dark]="darkMode()" [style.font-family]="config().fontFamily">
 
         <ng-container *ngComponentOutlet="activeComponent(); inputs: componentInputs()"></ng-container>
 
