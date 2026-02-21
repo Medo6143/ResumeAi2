@@ -47,13 +47,20 @@ import { CommonModule } from '@angular/common';
              <h3 class="font-bold border-b border-slate-300 mb-3 uppercase text-xs tracking-wider">Projects</h3>
              <div class="space-y-3">
                  <div *ngFor="let p of resume.projects">
-                     <div class="font-bold">{{ p.name }} <a *ngIf="p.link" [href]="p.link" target="_blank" class="font-normal text-xs text-blue-800">[Link]</a></div>
+                     <div class="flex justify-between items-baseline font-bold">
+                         <span>{{ p.name }}</span>
+                         <div class="flex gap-2 font-normal text-xs text-blue-800">
+                             <a *ngIf="p.link" [href]="p.link" target="_blank">[Link]</a>
+                             <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank">[GitHub]</a>
+                             <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank">[Demo]</a>
+                         </div>
+                     </div>
                      <p>{{ p.description }}</p>
                  </div>
              </div>
         </section>
 
-        <section *ngIf="resume.education?.length">
+        <section *ngIf="resume.education?.length" class="mb-5">
              <h3 class="font-bold border-b border-slate-300 mb-3 uppercase text-xs tracking-wider">Education</h3>
              <div *ngFor="let edu of resume.education" class="flex justify-between mb-1">
                  <div>
@@ -62,6 +69,11 @@ import { CommonModule } from '@angular/common';
                  </div>
                  <div class="font-bold text-xs">{{ edu.startDate }} – {{ edu.endDate }}</div>
              </div>
+        </section>
+
+        <section *ngIf="resume.languages?.length">
+             <h3 class="font-bold border-b border-slate-300 mb-2 uppercase text-xs tracking-wider">Languages</h3>
+             <p>{{ resume.languages.join(', ') }}</p>
         </section>
     </div>
     `

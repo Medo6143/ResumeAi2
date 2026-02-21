@@ -24,7 +24,7 @@ export class LanguageService {
 
         // Priority: Server-provided language > localStorage > default
         let initialLang: Language = 'en';
-        
+
         if (serverLang && ['en', 'ar'].includes(serverLang)) {
             // Use server-provided language (SSR)
             initialLang = serverLang as Language;

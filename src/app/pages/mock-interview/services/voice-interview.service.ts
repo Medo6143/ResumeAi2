@@ -57,20 +57,21 @@ export class VoiceInterviewService {
 
         this.recognition.onresult = (event: any) => {
             let interimTranscript = '';
-            let finalTranscript = '';
+            let newFinalizedTranscript = '';
 
-            for (let i = event.resultIndex; i < event.results.length; ++i) {
+            // Chrome/Safari on mobile often return the full transcript in every result event.
+            // Rebuilding from scratch is safer than appending which causes "hello hello" duplication.
+            for (let i = 0; i < event.results.length; ++i) {
+                const transcript = event.results[i][0].transcript;
                 if (event.results[i].isFinal) {
-                    finalTranscript += event.results[i][0].transcript;
+                    newFinalizedTranscript += (newFinalizedTranscript ? ' ' : '') + transcript;
                 } else {
-                    interimTranscript += event.results[i][0].transcript;
+                    interimTranscript += (interimTranscript ? ' ' : '') + transcript;
                 }
             }
 
-            // Fix Duplication: We keep a private string of ONLY final completed lines.
-            // On each result, we show finalized lines + the current pending interim line.
-            if (finalTranscript) {
-                this.finalizedTranscript = (this.finalizedTranscript + ' ' + finalTranscript).trim();
+            if (newFinalizedTranscript) {
+                this.finalizedTranscript = newFinalizedTranscript.trim();
             }
 
             const currentLiveText = (this.finalizedTranscript + ' ' + interimTranscript).trim();
@@ -191,13 +192,15 @@ Instructions:
     private stopListeningAndSubmit() {
         clearTimeout(this.silenceTimer);
         this.recognition.stop();
-        this.isListening.set(false);
 
         const userText = this.transcript().trim();
         if (userText) {
             this.messages.update(m => [...m, { role: 'user', content: userText }]);
             this.transcript.set('');
+            this.isListening.set(false); // Move this AFTER updating messages
             this.triggerAiTurn();
+        } else {
+            this.isListening.set(false);
         }
     }
 

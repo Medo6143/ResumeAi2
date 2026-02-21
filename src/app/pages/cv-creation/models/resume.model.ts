@@ -17,6 +17,7 @@ export interface Resume {
     skills: string[];
     languages: string[];
     projects: Project[];
+    certifications: Certification[];
     customSections: CustomSection[];
     sectionOrder: string[]; // e.g. ['summary', 'experience', 'education', 'skills', 'projects']
 }
@@ -44,11 +45,21 @@ export interface Project {
     name: string;
     description: string;
     link?: string;
+    githubLink?: string;
+    demoLink?: string;
+}
+
+export interface Certification {
+    id: string;
+    name: string;
+    issuer: string;
+    date: string;
 }
 
 export interface CustomSection {
     id: string;
     title: string;
+    description: string;
     items: { name: string; description: string }[];
 }
 
@@ -65,6 +76,7 @@ export const INITIAL_RESUME: Resume = {
     skills: [],
     languages: [],
     projects: [],
+    certifications: [],
     customSections: [],
-    sectionOrder: ['summary', 'experience', 'education', 'projects', 'skills', 'languages']
+    sectionOrder: ['summary', 'experience', 'education', 'projects', 'skills', 'languages', 'certifications']
 };

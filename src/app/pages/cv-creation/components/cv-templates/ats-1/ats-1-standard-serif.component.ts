@@ -53,7 +53,11 @@ import { CommonModule } from '@angular/common';
                  <div *ngFor="let p of resume.projects">
                      <div class="flex justify-between items-baseline font-bold">
                          <span>{{ p.name }}</span>
-                         <a *ngIf="p.link" [href]="p.link" target="_blank" class="text-xs uppercase">[Link]</a>
+                         <div class="flex gap-2 text-xs uppercase">
+                             <a *ngIf="p.link" [href]="p.link" target="_blank">[Link]</a>
+                             <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank">[GitHub]</a>
+                             <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank">[Demo]</a>
+                         </div>
                      </div>
                      <p class="text-sm">{{ p.description }}</p>
                  </div>
@@ -72,6 +76,12 @@ import { CommonModule } from '@angular/common';
                      <div class="italic text-sm">{{ edu.degree }}</div>
                 </div>
             </div>
+        </section>
+
+        <!-- Languages -->
+        <section *ngIf="resume.languages?.length" class="mb-6">
+            <h3 class="text-lg font-bold uppercase border-b border-black mb-2">Languages</h3>
+            <p class="text-sm">{{ resume.languages.join(', ') }}</p>
         </section>
 
         <!-- Skills -->

@@ -49,13 +49,20 @@ import { CommonModule } from '@angular/common';
              <h2 class="font-bold uppercase border-b border-gray-400 mb-3">Projects</h2>
              <div class="space-y-3">
                  <div *ngFor="let p of resume.projects">
-                     <div class="font-bold">{{ p.name }} <a *ngIf="p.link" [href]="p.link" target="_blank" class="font-normal underline ml-1">-> code</a></div>
+                     <div class="flex justify-between items-baseline font-bold">
+                         <span>{{ p.name }}</span>
+                         <div class="flex gap-2 font-normal">
+                             <a *ngIf="p.link" [href]="p.link" target="_blank" class="underline">-> code</a>
+                             <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="underline">-> github</a>
+                             <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="underline">-> demo</a>
+                         </div>
+                     </div>
                      <p>{{ p.description }}</p>
                  </div>
              </div>
         </section>
 
-        <section *ngIf="resume.education?.length">
+        <section *ngIf="resume.education?.length" class="mb-6">
             <h2 class="font-bold uppercase border-b border-gray-400 mb-3">Education</h2>
             <div *ngFor="let edu of resume.education" class="mb-2">
                 <div class="flex justify-between">
@@ -63,6 +70,13 @@ import { CommonModule } from '@angular/common';
                     <span>{{ edu.startDate }} - {{ edu.endDate }}</span>
                 </div>
                 <div>{{ edu.degree }}</div>
+            </div>
+        </section>
+
+        <section *ngIf="resume.languages?.length">
+            <h2 class="font-bold uppercase border-b border-gray-400 mb-2">Languages</h2>
+            <div class="flex gap-4">
+                <span *ngFor="let l of resume.languages">{{ l }}</span>
             </div>
         </section>
     </div>

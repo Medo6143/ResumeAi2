@@ -59,9 +59,13 @@ import { CommonModule } from '@angular/common';
                         <div *ngFor="let p of resume.projects" class="bg-indigo-50 p-4 rounded-lg">
                             <div class="flex justify-between items-center mb-1">
                                 <h4 class="font-bold text-indigo-900">{{ p.name }}</h4>
-                                <a *ngIf="p.link" [href]="p.link" target="_blank" class="text-xs text-indigo-600 font-bold hover:underline">View ↗</a>
+                                <div class="flex gap-2">
+                                    <a *ngIf="p.link" [href]="p.link" target="_blank" class="text-[10px] text-indigo-600 font-bold hover:underline">View ↗</a>
+                                    <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="text-[10px] text-indigo-600 font-bold hover:underline">GitHub</a>
+                                    <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="text-[10px] text-indigo-600 font-bold hover:underline">Demo</a>
+                                </div>
                             </div>
-                            <p class="text-xs text-slate-600">{{ p.description }}</p>
+                            <p class="text-xs text-slate-600 mt-1">{{ p.description }}</p>
                         </div>
                     </div>
                 </section>

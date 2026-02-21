@@ -24,11 +24,12 @@ import { CommonModule } from '@angular/common';
                 <section>
                     <h3 class="text-xs font-bold uppercase text-slate-500 mb-3 tracking-widest border-b border-slate-800 pb-1">Contact</h3>
                     <div class="space-y-2 text-slate-300">
-                        <p class="truncate text-xs" *ngIf="resume.personalInfo.email">📧 {{ resume.personalInfo.email }}</p>
+                        <p class="truncate text-xs" *ngIf="resume.personalInfo.email" title="{{ resume.personalInfo.email }}">📧 {{ resume.personalInfo.email }}</p>
                         <p class="text-xs" *ngIf="resume.personalInfo.phone">📱 {{ resume.personalInfo.phone }}</p>
                         <p class="text-xs" *ngIf="resume.personalInfo.location">📍 {{ resume.personalInfo.location }}</p>
-                        <p class="truncate text-xs" *ngIf="resume.personalInfo.linkedin">🔗 {{ resume.personalInfo.linkedin }}</p>
-                        <p class="truncate text-xs" *ngIf="resume.personalInfo.website">🌐 {{ resume.personalInfo.website }}</p>
+                        <p class="truncate text-xs" *ngIf="resume.personalInfo.linkedin">🔗 <a [href]="resume.personalInfo.linkedin" target="_blank" class="hover:underline">LinkedIn</a></p>
+                        <p class="truncate text-xs" *ngIf="resume.personalInfo.github">💻 <a [href]="resume.personalInfo.github" target="_blank" class="hover:underline">GitHub</a></p>
+                        <p class="truncate text-xs" *ngIf="resume.personalInfo.portfolio">🎨 <a [href]="resume.personalInfo.portfolio" target="_blank" class="hover:underline">Portfolio</a></p>
                     </div>
                 </section>
 
@@ -84,6 +85,11 @@ import { CommonModule } from '@angular/common';
                 <div class="grid grid-cols-2 gap-4">
                     <div *ngFor="let p of resume.projects" class="bg-white p-4 rounded-lg border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
                         <h4 class="text-sm font-bold text-slate-800 mb-1">{{ p.name }}</h4>
+                        <div class="flex gap-2 text-[9px] font-bold text-indigo-500 mb-1">
+                             <a *ngIf="p.link" [href]="p.link" target="_blank" class="hover:underline">Link</a>
+                             <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="hover:underline">GitHub</a>
+                             <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="hover:underline">Demo</a>
+                        </div>
                         <p class="text-xs text-slate-500 line-clamp-3">{{ p.description }}</p>
                     </div>
                 </div>

@@ -32,9 +32,14 @@ import { CommonModule } from '@angular/common';
                 <p class="text-[10px] font-bold">{{ job.company }}</p>
                 <div class="text-[10px] leading-relaxed opacity-60" [innerHTML]="job.description"></div>
             </div>
-            <div *ngFor="let p of resume.projects" class="p-8 rounded-[2rem] border-2 border-indigo-50 flex flex-col gap-4">
+            <div *ngFor="let p of resume.projects" class="p-8 rounded-[2rem] border-2 border-indigo-50 flex flex-col gap-2">
                 <p class="text-[9px] font-black text-indigo-600 uppercase">Projects</p>
                 <h4 class="text-lg font-black leading-tight">{{ p.name }}</h4>
+                <div class="flex gap-3 text-[10px] font-bold text-indigo-400">
+                     <a *ngIf="p.link" [href]="p.link" target="_blank" class="hover:underline">Link</a>
+                     <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="hover:underline">GitHub</a>
+                     <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="hover:underline">Demo</a>
+                </div>
                 <p class="text-[10px] font-medium opacity-60">{{ p.description }}</p>
             </div>
             <div *ngFor="let section of resume.customSections">

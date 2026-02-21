@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -64,14 +64,14 @@ import { TranslateModule } from '@ngx-translate/core';
                 </div>
             </div>
             
-            <button class="relative z-10 w-full mt-6 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-500/20 text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 rounded-xl transition-all border border-slate-200 dark:border-slate-700 hover:border-indigo-200 dark:hover:border-indigo-500/30 flex justify-center items-center gap-2 group/btn">
+            <button (click)="sync.emit()" class="relative z-10 w-full mt-6 py-4 bg-slate-50 dark:bg-slate-800 hover:bg-indigo-50 dark:hover:bg-indigo-500/20 text-xs font-black uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-300 rounded-xl transition-all border border-slate-200 dark:border-slate-700 hover:border-indigo-200 dark:hover:border-indigo-500/30 flex justify-center items-center gap-2 group/btn">
                 <svg class="w-4 h-4 group-hover/btn:animate-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-width="2"/></svg>
                 {{ 'PROFILE.STATS.SYNC_DATA' | translate }}
             </button>
         </div>
 
         <!-- AI Persona Card -->
-        <div class="relative bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 rounded-[2rem] p-8 md:p-10 text-white shadow-2xl shadow-indigo-500/20 overflow-hidden group/ai transform transition-transform duration-500 hover:-translate-y-1">
+        <div (click)="editPersona.emit()" class="relative bg-gradient-to-br from-indigo-600 via-indigo-700 to-purple-800 rounded-[2rem] p-8 md:p-10 text-white shadow-2xl shadow-indigo-500/20 overflow-hidden group/ai transform transition-transform duration-500 hover:-translate-y-1 cursor-pointer">
             <!-- Animated Radial & Noise -->
             <div class="absolute inset-0 bg-[url('/assets/noise.png')] opacity-20 mix-blend-overlay z-0"></div>
             <div class="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-[50px] animate-blob z-0 mix-blend-screen group-hover/ai:scale-150 transition-transform duration-1000"></div>
@@ -110,4 +110,7 @@ export class ProfileStatsComponent {
     @Input() strength: number = 0;
     @Input() expCount: number = 0;
     @Input() skillCount: number = 0;
+
+    @Output() sync = new EventEmitter<void>();
+    @Output() editPersona = new EventEmitter<void>();
 }

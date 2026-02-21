@@ -21,6 +21,17 @@ import { CommonModule } from '@angular/common';
              </div>
         <div class="w-full max-w-2xl space-y-12">
             <section class="text-center italic text-sm leading-relaxed opacity-70 px-10">"{{ resume.summary }}"</section>
+            <section *ngIf="resume.experience && resume.experience.length" class="space-y-8">
+                <h3 class="text-center flex items-center justify-center gap-4 text-xs font-bold uppercase tracking-[0.3em]">
+                    <span class="w-12 h-[1px] bg-slate-200"></span> Professional Trajectory <span class="w-12 h-[1px] bg-slate-200"></span>
+                </h3>
+                <div *ngFor="let exp of resume.experience" class="text-center">
+                    <h4 class="text-lg font-normal mb-1">{{ exp.jobTitle }}</h4>
+                    <p class="text-[11px] font-bold opacity-60 uppercase tracking-widest">{{ exp.company }}</p>
+                    <div class="text-[10px] text-[#d4af37] font-bold mt-1 mb-2">{{ exp.startDate }} — {{ exp.current ? 'Present' : exp.endDate }}</div>
+                    <p class="text-[10px] italic opacity-80 leading-relaxed max-w-lg mx-auto">{{ exp.description }}</p>
+                </div>
+            </section>
             <section *ngIf="resume.education && resume.education.length" class="space-y-8">
                 <h3 class="text-center flex items-center justify-center gap-4 text-xs font-bold uppercase tracking-[0.3em]">
                     <span class="w-12 h-[1px] bg-slate-200"></span> Academic Background <span class="w-12 h-[1px] bg-slate-200"></span>
@@ -56,6 +67,11 @@ import { CommonModule } from '@angular/common';
                 <div class="grid grid-cols-2 gap-8">
                     <div *ngFor="let p of resume.projects" class="text-center space-y-1">
                         <h4 class="text-sm font-bold uppercase tracking-widest text-[#d4af37]">{{ p.name }}</h4>
+                        <div class="flex flex-wrap justify-center gap-2 text-[9px] uppercase tracking-wider opacity-50 mb-1">
+                            <a *ngIf="p.link" [href]="p.link" target="_blank" class="hover:underline">Link</a>
+                            <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="hover:underline">GitHub</a>
+                            <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="hover:underline">Demo</a>
+                        </div>
                         <p class="text-[10px] italic opacity-60 leading-relaxed">{{ p.description }}</p>
                     </div>
                 </div>

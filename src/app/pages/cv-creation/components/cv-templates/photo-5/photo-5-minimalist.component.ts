@@ -18,13 +18,17 @@ import { CommonModule } from '@angular/common';
             <p class="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase mb-6">{{ resume.personalInfo.jobTitle }}</p>
             
             <div class="flex flex-wrap justify-center gap-4 text-[10px] text-gray-500 uppercase tracking-wider">
-                <span *ngIf="resume.personalInfo.email">{{ resume.personalInfo.email }}</span>
+                <a *ngIf="resume.personalInfo.email" [href]="'mailto:' + resume.personalInfo.email" class="hover:underline">{{ resume.personalInfo.email }}</a>
                 <span *ngIf="resume.personalInfo.location" class="text-gray-300">|</span>
                 <span *ngIf="resume.personalInfo.location">{{ resume.personalInfo.location }}</span>
                 <span *ngIf="resume.personalInfo.phone" class="text-gray-300">|</span>
                 <span *ngIf="resume.personalInfo.phone">{{ resume.personalInfo.phone }}</span>
                 <span *ngIf="resume.personalInfo.linkedin" class="text-gray-300">|</span>
-                <span *ngIf="resume.personalInfo.linkedin">LinkedIn</span>
+                <a *ngIf="resume.personalInfo.linkedin" [href]="resume.personalInfo.linkedin" target="_blank" class="hover:underline">LinkedIn</a>
+                <span *ngIf="resume.personalInfo.github" class="text-gray-300">|</span>
+                <a *ngIf="resume.personalInfo.github" [href]="resume.personalInfo.github" target="_blank" class="hover:underline">GitHub</a>
+                <span *ngIf="resume.personalInfo.portfolio" class="text-gray-300">|</span>
+                <a *ngIf="resume.personalInfo.portfolio" [href]="resume.personalInfo.portfolio" target="_blank" class="hover:underline">Portfolio</a>
             </div>
         </header>
 
@@ -88,6 +92,11 @@ import { CommonModule } from '@angular/common';
                     <div class="space-y-6">
                         <div *ngFor="let p of resume.projects">
                             <h4 class="text-sm font-semibold text-gray-800 mb-1">{{ p.name }}</h4>
+                            <div class="flex gap-2 mb-1">
+                                <a *ngIf="p.link" [href]="p.link" target="_blank" class="text-[10px] text-blue-600 font-bold hover:underline">View ↗</a>
+                                <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="text-[10px] text-blue-600 font-bold hover:underline">GitHub</a>
+                                <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="text-[10px] text-blue-600 font-bold hover:underline">Demo</a>
+                            </div>
                             <p class="text-xs text-gray-500">{{ p.description }}</p>
                         </div>
                     </div>

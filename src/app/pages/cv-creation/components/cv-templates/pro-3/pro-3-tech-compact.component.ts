@@ -60,20 +60,34 @@ import { CommonModule } from '@angular/common';
                 <section *ngIf="resume.projects && resume.projects.length">
                     <h2 class="text-xs font-bold text-slate-800 mb-2">enum Projects {{ '{' }}</h2>
                     <div class="pl-4 text-[9px] opacity-60">
-                        <div *ngFor="let p of resume.projects">
+                        <div *ngFor="let p of resume.projects" class="mb-2">
                             {{ p.name.toUpperCase().replace(' ', '_') }}, // {{ p.description }}
+                            <div class="text-[8px] mt-0.5">
+                                <a *ngIf="p.link" [href]="p.link" target="_blank" class="hover:underline text-blue-500 mr-2">Link</a>
+                                <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="hover:underline text-blue-500 mr-2">GitHub</a>
+                                <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="hover:underline text-blue-500 mr-2">Demo</a>
+                            </div>
                         </div>
                     </div>
-                    <h2 class="text-xs font-bold text-slate-800 mt-1">{{ '}' }}</h2>
                 </section>
-                <section *ngIf="resume.languages && resume.languages.length">
-                    <h2 class="text-xs font-bold text-slate-800 mb-2">const LANGUAGES = [</h2>
-                    <div class="pl-4 text-[9px] opacity-60">
-                        <div *ngFor="let lang of resume.languages">"{{ lang }}",</div>
+                <section>
+                    <div *ngIf="resume.skills && resume.skills.length" class="mb-4">
+                        <h2 class="text-xs font-bold text-slate-800 mb-2">const SKILLS = [</h2>
+                        <div class="pl-4 text-[9px] opacity-60">
+                            <div *ngFor="let skill of resume.skills">"{{ skill }}",</div>
+                        </div>
+                        <h2 class="text-xs font-bold text-slate-800 mt-1">];</h2>
                     </div>
-                    <h2 class="text-xs font-bold text-slate-800 mt-1">];</h2>
+                    <div *ngIf="resume.languages && resume.languages.length">
+                        <h2 class="text-xs font-bold text-slate-800 mb-2">const LANGUAGES = [</h2>
+                        <div class="pl-4 text-[9px] opacity-60">
+                            <div *ngFor="let lang of resume.languages">"{{ lang }}",</div>
+                        </div>
+                        <h2 class="text-xs font-bold text-slate-800 mt-1">];</h2>
+                    </div>
                 </section>
             </div>
+
 
             <div *ngFor="let section of resume.customSections">
                 <section *ngIf="section.items && section.items.length" class="mb-6">

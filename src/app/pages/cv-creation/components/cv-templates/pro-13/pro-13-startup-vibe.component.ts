@@ -39,7 +39,12 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
                             <div class="space-y-6">
                                 <div *ngFor="let p of resume.projects">
                                     <h4 class="text-[11px] font-black italic underline">{{ p.name }}</h4>
-                                    <p class="text-[10px] font-medium opacity-60 mt-1">{{ p.description }}</p>
+                                    <div class="flex gap-2 text-[9px] font-black text-amber-600 mt-0.5 mb-1">
+                                         <a *ngIf="p.link" [href]="p.link" target="_blank" class="hover:underline italic">Link</a>
+                                         <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="hover:underline italic">GitHub</a>
+                                         <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="hover:underline italic">Demo</a>
+                                    </div>
+                                    <p class="text-[10px] font-medium opacity-60">{{ p.description }}</p>
                                 </div>
                             </div>
                         </section>

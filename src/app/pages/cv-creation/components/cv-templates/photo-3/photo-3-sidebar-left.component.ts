@@ -18,10 +18,12 @@ import { CommonModule } from '@angular/common';
             <!-- Contact -->
              <section class="text-center space-y-3">
                 <div class="w-10 h-1 bg-indigo-500 mx-auto rounded"></div>
-                <div *ngIf="resume.personalInfo.email" class="text-xs text-slate-600 break-words font-medium">{{ resume.personalInfo.email }}</div>
-                <div *ngIf="resume.personalInfo.phone" class="text-xs text-slate-600">{{ resume.personalInfo.phone }}</div>
-                <div *ngIf="resume.personalInfo.location" class="text-xs text-slate-600">{{ resume.personalInfo.location }}</div>
-                <div *ngIf="resume.personalInfo.linkedin" class="text-xs text-indigo-600 break-words hover:underline cursor-pointer">{{ resume.personalInfo.linkedin }}</div>
+                 <div *ngIf="resume.personalInfo.email" class="text-xs text-slate-600 break-words font-medium"><a [href]="'mailto:' + resume.personalInfo.email" class="hover:underline">{{ resume.personalInfo.email }}</a></div>
+                 <div *ngIf="resume.personalInfo.phone" class="text-xs text-slate-600">{{ resume.personalInfo.phone }}</div>
+                 <div *ngIf="resume.personalInfo.location" class="text-xs text-slate-600">{{ resume.personalInfo.location }}</div>
+                 <div *ngIf="resume.personalInfo.linkedin" class="text-xs text-indigo-600 break-words hover:underline"><a [href]="resume.personalInfo.linkedin" target="_blank">LinkedIn</a></div>
+                 <div *ngIf="resume.personalInfo.github" class="text-xs text-indigo-600 break-words hover:underline"><a [href]="resume.personalInfo.github" target="_blank">GitHub</a></div>
+                 <div *ngIf="resume.personalInfo.portfolio" class="text-xs text-indigo-600 break-words hover:underline"><a [href]="resume.personalInfo.portfolio" target="_blank">Portfolio</a></div>
              </section>
 
              <!-- Education -->
@@ -100,6 +102,11 @@ import { CommonModule } from '@angular/common';
                 <div class="grid grid-cols-2 gap-4">
                     <div *ngFor="let p of resume.projects" class="group p-4 rounded-xl bg-slate-50 hover:bg-indigo-50 transition-colors border border-transparent hover:border-indigo-100">
                         <h4 class="font-bold text-slate-900 mb-1 group-hover:text-indigo-700">{{ p.name }}</h4>
+                        <div class="flex gap-2 text-[10px] font-bold text-indigo-500 mb-1">
+                             <a *ngIf="p.link" [href]="p.link" target="_blank" class="hover:underline">Link</a>
+                             <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="hover:underline">GitHub</a>
+                             <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="hover:underline">Demo</a>
+                        </div>
                         <p class="text-xs text-slate-500 leading-normal">{{ p.description }}</p>
                     </div>
                 </div>

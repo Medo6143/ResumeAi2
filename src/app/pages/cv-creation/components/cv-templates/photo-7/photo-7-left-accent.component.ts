@@ -21,13 +21,14 @@ import { CommonModule } from '@angular/common';
                     <h1 class="text-5xl font-black text-slate-900 tracking-tighter mb-2">{{ resume.personalInfo.fullName }}</h1>
                     <p class="text-rose-500 font-bold uppercase tracking-widest text-sm mb-6">{{ resume.personalInfo.jobTitle }}</p>
                     
-                    <div class="flex flex-wrap gap-x-6 gap-y-2 text-xs font-bold text-slate-500">
-                         <a *ngIf="resume.personalInfo.email" [href]="'mailto:' + resume.personalInfo.email" class="hover:text-rose-500 transition">{{ resume.personalInfo.email }}</a>
-                         <span *ngIf="resume.personalInfo.phone">{{ resume.personalInfo.phone }}</span>
-                         <span *ngIf="resume.personalInfo.location">{{ resume.personalInfo.location }}</span>
-                         <a *ngIf="resume.personalInfo.linkedin" [href]="resume.personalInfo.linkedin" target="_blank" class="text-rose-600 hover:text-rose-800">LinkedIn</a>
-                         <a *ngIf="resume.personalInfo.portfolio" [href]="resume.personalInfo.portfolio" target="_blank" class="text-rose-600 hover:text-rose-800">Portfolio</a>
-                    </div>
+                     <div class="flex flex-wrap gap-x-6 gap-y-2 text-xs font-bold text-slate-500">
+                          <a *ngIf="resume.personalInfo.email" [href]="'mailto:' + resume.personalInfo.email" class="hover:text-rose-500 transition">{{ resume.personalInfo.email }}</a>
+                          <span *ngIf="resume.personalInfo.phone">{{ resume.personalInfo.phone }}</span>
+                          <span *ngIf="resume.personalInfo.location">{{ resume.personalInfo.location }}</span>
+                          <a *ngIf="resume.personalInfo.linkedin" [href]="resume.personalInfo.linkedin" target="_blank" class="text-rose-600 hover:text-rose-800">LinkedIn</a>
+                          <a *ngIf="resume.personalInfo.github" [href]="resume.personalInfo.github" target="_blank" class="text-rose-600 hover:text-rose-800">GitHub</a>
+                          <a *ngIf="resume.personalInfo.portfolio" [href]="resume.personalInfo.portfolio" target="_blank" class="text-rose-600 hover:text-rose-800">Portfolio</a>
+                     </div>
                 </div>
             </header>
 
@@ -58,8 +59,12 @@ import { CommonModule } from '@angular/common';
                          <div class="space-y-6">
                             <div *ngFor="let p of resume.projects">
                                 <h4 class="font-bold text-lg text-slate-800">{{ p.name }}</h4>
-                                <p class="text-sm text-slate-600 mt-1">{{ p.description }}</p>
-                                <a *ngIf="p.link" [href]="p.link" target="_blank" class="text-xs font-bold text-rose-500 mt-1 inline-block hover:underline">View Project -></a>
+                                <div class="flex flex-wrap gap-3 mt-1 text-xs font-bold text-rose-500">
+                                    <a *ngIf="p.link" [href]="p.link" target="_blank" class="hover:underline">View Project -></a>
+                                    <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="hover:underline">GitHub</a>
+                                    <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="hover:underline">Demo</a>
+                                </div>
+                                <p class="text-sm text-slate-600 mt-2">{{ p.description }}</p>
                             </div>
                          </div>
                     </section>
@@ -83,6 +88,15 @@ import { CommonModule } from '@angular/common';
                                 <div class="font-bold text-slate-900 leading-tight mb-1">{{ edu.degree }}</div>
                                 <div class="text-xs font-bold text-rose-500 uppercase">{{ edu.school }}</div>
                                 <div class="text-[10px] text-slate-400 mt-1">{{ edu.startDate }} - {{ edu.endDate }}</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section *ngIf="resume.languages?.length">
+                        <h3 class="text-sm font-black uppercase text-slate-400 tracking-widest mb-4">Languages</h3>
+                        <div class="flex flex-col gap-2">
+                            <div *ngFor="let l of resume.languages" class="text-sm font-bold text-slate-700 border-b border-slate-100 pb-2">
+                                {{ l }}
                             </div>
                         </div>
                     </section>

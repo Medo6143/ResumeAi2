@@ -35,10 +35,15 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
                         <h4 class="text-[10px] font-black uppercase text-slate-300 mb-8 tracking-widest">Projects</h4>
                         <div class="grid grid-cols-2 gap-8">
                             <div *ngFor="let p of resume.projects" class="group">
-                                <h5 class="text-sm font-black mb-2 flex items-center gap-2">
+                                <h5 class="text-sm font-black mb-1 flex items-center gap-2">
                                     <span class="w-1.5 h-1.5 bg-slate-900"></span> {{ p.name }}
                                 </h5>
-                                <p class="text-[10px] leading-relaxed opacity-60">{{ p.description }}</p>
+                                <div class="flex gap-2 text-[9px] font-bold text-slate-400 mb-2 pl-3.5 italic">
+                                     <a *ngIf="p.link" [href]="p.link" target="_blank" class="hover:text-slate-900 transition underline">Link</a>
+                                     <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="hover:text-slate-900 transition underline">GitHub</a>
+                                     <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="hover:text-slate-900 transition underline">Demo</a>
+                                </div>
+                                <p class="text-[10px] leading-relaxed opacity-60 pl-3.5">{{ p.description }}</p>
                             </div>
                         </div>
                     </section>

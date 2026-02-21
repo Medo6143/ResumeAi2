@@ -78,8 +78,13 @@ import { CommonModule } from '@angular/common';
                 </h3>
                 <div class="grid grid-cols-2 gap-8">
                     <div *ngFor="let p of resume.projects">
-                        <h4 class="text-sm font-bold border-l-4 border-slate-900 pl-3">{{ p.name }}</h4>
-                        <p class="text-[10px] opacity-60 pl-4 mt-1">{{ p.description }}</p>
+                        <h4 class="text-sm font-bold border-l-4 border-slate-900 pl-3 leading-none">{{ p.name }}</h4>
+                        <div class="flex gap-2 text-[9px] font-bold mt-1 mb-1 pl-4 text-indigo-600">
+                             <a *ngIf="p.link" [href]="p.link" target="_blank" class="hover:underline italic">Link</a>
+                             <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="hover:underline italic">GitHub</a>
+                             <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="hover:underline italic">Demo</a>
+                        </div>
+                        <p class="text-[10px] opacity-60 pl-4">{{ p.description }}</p>
                     </div>
                 </div>
             </section>

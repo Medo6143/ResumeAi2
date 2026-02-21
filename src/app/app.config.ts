@@ -7,6 +7,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { firebaseConfig } from './core/config/firebase.config';
 import { provideTranslation } from './core/config/translation.config';
 import { TranslateService } from '@ngx-translate/core';
@@ -23,6 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideTranslation(),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
     { provide: LANGUAGE, useValue: 'en' }, // Default fallback (will be overridden by server)
     {
       provide: APP_INITIALIZER,
@@ -30,7 +32,7 @@ export const appConfig: ApplicationConfig = {
         return () => {
           // Determine language: server-provided > localStorage (client only) > default
           let finalLang = lang;
-          
+
           if (isPlatformBrowser(platformId)) {
             // On client, check localStorage as fallback
             const saved = localStorage.getItem('lang');
@@ -38,11 +40,11 @@ export const appConfig: ApplicationConfig = {
               finalLang = saved;
             }
           }
-          
+
           // Initialize translation synchronously before app renders
           translate.setDefaultLang(finalLang);
           translate.addLangs(['en', 'ar']);
-          
+
           // Use the language (returns promise, but we need sync initialization)
           return translate.use(finalLang).toPromise().catch(() => {
             // Fallback if translation files fail to load

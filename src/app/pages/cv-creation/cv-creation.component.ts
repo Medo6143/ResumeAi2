@@ -148,7 +148,7 @@ export class CvCreationComponent {
     }
 
     @HostListener('document:click', ['$event'])
-    onDocumentClick() {
+    onDocumentClick(event: MouseEvent) {
         this.showActionsDropdown.set(false);
     }
 
@@ -284,17 +284,19 @@ export class CvCreationComponent {
     // PDF Download
     async downloadPDF() {
         if (!this.isBrowser) return;
-
         this.isDownloading.set(true);
 
         try {
+            // Import html2pdf dynamically to avoid SSR issues
+            const html2pdf = (await import('html2pdf.js')).default;
+
             const previewElement = document.querySelector('app-cv-preview') as HTMLElement;
             if (!previewElement) throw new Error('Preview element not found');
 
             const pdfContainer = previewElement.cloneNode(true) as HTMLElement;
             pdfContainer.classList.add('pdf-export');
+            // Remove the hardcoded 297mm minHeight so it flows naturally
             pdfContainer.style.width = '210mm';
-            pdfContainer.style.minHeight = '297mm';
             pdfContainer.style.padding = '0';
             pdfContainer.style.margin = '0';
             pdfContainer.style.transform = 'none';
@@ -306,6 +308,7 @@ export class CvCreationComponent {
             tempWrapper.appendChild(pdfContainer);
             document.body.appendChild(tempWrapper);
 
+            // Wait for images
             const images = Array.from(pdfContainer.querySelectorAll('img'));
             await Promise.all(images.map(img => {
                 if (img.complete) return Promise.resolve();
@@ -315,49 +318,23 @@ export class CvCreationComponent {
                 });
             }));
 
-            const canvas = await html2canvas(pdfContainer, {
-                scale: 2,
-                useCORS: true,
-                backgroundColor: '#ffffff'
-            });
-
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-
-            const imgWidth = 210;
-            const pageHeight = 297;
-            const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-            let heightLeft = imgHeight;
-            let position = 0;
-
-            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-
-            const scale = imgWidth / pdfContainer.offsetWidth;
-            const links = pdfContainer.querySelectorAll('a');
-            links.forEach((link: HTMLAnchorElement) => {
-                const rect = link.getBoundingClientRect();
-                const parentRect = pdfContainer.getBoundingClientRect();
-                const x = (rect.left - parentRect.left) * scale;
-                const y = (rect.top - parentRect.top) * scale;
-                const w = rect.width * scale;
-                const h = rect.height * scale;
-                let linkPage = 1;
-                let linkY = y;
-                while (linkY > pageHeight) { linkY -= pageHeight; linkPage++; }
-                if (linkPage === 1) { pdf.link(x, linkY, w, h, { url: link.href }); }
-            });
-
-            heightLeft -= pageHeight;
-            while (heightLeft > 0) {
-                position -= pageHeight;
-                pdf.addPage();
-                pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                heightLeft -= pageHeight;
-            }
-
             const fileName = `${this.cvState.resume().personalInfo.fullName.replace(/\s+/g, '_') || 'resume'}.pdf`;
-            pdf.save(fileName);
+
+            const opt = {
+                margin: [0, 0] as [number, number], // Adjusted to 0 to remove top margin as requested
+                filename: fileName,
+                image: { type: 'jpeg' as const, quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    backgroundColor: '#ffffff'
+                },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' as const },
+                pagebreak: { mode: 'css', avoid: 'tr, img, .project-item, .exp-item, .skill-item, .cert-item, p' } // Helps avoid cutting elements
+            };
+
+            await html2pdf().set(opt).from(pdfContainer).save();
+
             document.body.removeChild(tempWrapper);
         } catch (e) {
             console.error(e);

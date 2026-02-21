@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
                 <div>{{ resume.personalInfo.location }}</div>
                 <div class="flex gap-3 justify-end mt-1 text-blue-800 font-bold">
                      <a *ngIf="resume.personalInfo.linkedin" [href]="resume.personalInfo.linkedin" target="_blank">LinkedIn</a>
+                     <a *ngIf="resume.personalInfo.github" [href]="resume.personalInfo.github" target="_blank">GitHub</a>
                      <a *ngIf="resume.personalInfo.portfolio" [href]="resume.personalInfo.portfolio" target="_blank">Portfolio</a>
                 </div>
             </div>
@@ -42,7 +43,24 @@ import { CommonModule } from '@angular/common';
             </div>
         </section>
 
-        <div class="grid grid-cols-2 gap-8">
+        <section *ngIf="resume.projects?.length" class="mb-8">
+            <h3 class="font-bold text-slate-900 uppercase tracking-widest text-xs mb-6">Projects</h3>
+            <div class="space-y-6">
+                <div *ngFor="let p of resume.projects">
+                    <div class="flex justify-between items-baseline mb-1">
+                        <h4 class="font-bold text-lg text-slate-800">{{ p.name }}</h4>
+                        <div class="flex gap-3 text-xs font-bold text-blue-600">
+                             <a *ngIf="p.link" [href]="p.link" target="_blank">Link</a>
+                             <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank">GitHub</a>
+                             <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank">Demo</a>
+                        </div>
+                    </div>
+                    <p class="text-slate-700 leading-relaxed">{{ p.description }}</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-2 gap-8 mb-8">
             <section *ngIf="resume.education?.length">
                 <h3 class="font-bold text-slate-900 uppercase tracking-widest text-xs mb-4">Education</h3>
                 <div *ngFor="let edu of resume.education" class="mb-4">
@@ -61,6 +79,13 @@ import { CommonModule } from '@angular/common';
                 </div>
             </section>
         </div>
+
+        <section *ngIf="resume.languages?.length">
+            <h3 class="font-bold text-slate-900 uppercase tracking-widest text-xs mb-4">Languages</h3>
+            <div class="flex flex-wrap gap-4 text-slate-700 font-medium">
+                <span *ngFor="let l of resume.languages">• {{ l }}</span>
+            </div>
+        </section>
     </div>
     `
 })

@@ -79,15 +79,20 @@ import { CommonModule } from '@angular/common';
                         </div>
                     </div>
                 </section>
-                <section *ngIf="resume.projects && resume.projects.length" class="relative">
+        <section *ngIf="resume.projects && resume.projects.length" class="relative">
                     <div class="absolute -left-[56px] top-1 w-2 h-2 rounded-full bg-white border-2 border-slate-900 z-10"></div>
                     <div class="flex gap-8">
                         <div class="w-32 shrink-0">
-                            <h4 class="text-[10px] font-black uppercase opacity-20">Experience</h4>
+                            <h4 class="text-[10px] font-black uppercase opacity-20">Projects</h4>
                         </div>
                         <div class="flex-1 space-y-6">
                             <div *ngFor="let p of resume.projects">
                                 <h4 class="text-xl font-black mb-1 uppercase italic tracking-tighter">{{ p.name }}</h4>
+                                <div class="flex gap-2 text-[10px] font-bold text-indigo-600 mb-2">
+                                     <a *ngIf="p.link" [href]="p.link" target="_blank" class="hover:underline hover:text-indigo-800">Link</a>
+                                     <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="hover:underline hover:text-indigo-800">GitHub</a>
+                                     <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="hover:underline hover:text-indigo-800">Demo</a>
+                                </div>
                                 <p class="text-xs leading-relaxed text-slate-500">{{ p.description }}</p>
                             </div>
                         </div>

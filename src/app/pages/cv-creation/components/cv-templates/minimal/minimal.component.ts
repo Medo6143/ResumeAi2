@@ -20,7 +20,25 @@ import { CommonModule } from '@angular/common';
                 <span *ngIf="resume.personalInfo.portfolio">| <a [href]="resume.personalInfo.portfolio" target="_blank" class="hover:underline">Portfolio</a></span>
              </div>
         </header>
-            <section *ngIf="resume.education && resume.education.length">
+            <section *ngIf="resume.summary" class="mb-8">
+                <h3 class="text-xs font-bold uppercase border-b pb-1 mb-2">Summary</h3>
+                <p class="text-[10px] italic leading-relaxed opacity-70">{{ resume.summary }}</p>
+            </section>
+            
+            <section *ngIf="resume.experience && resume.experience.length" class="mb-6">
+                <h3 class="text-xs font-bold uppercase border-b pb-1 mb-4">Experience</h3>
+                <div class="space-y-4">
+                    <div *ngFor="let job of resume.experience">
+                        <div class="flex justify-between text-[10px] font-bold">
+                            <span>{{ job.jobTitle }} <span class="opacity-60 font-normal">at {{ job.company }}</span></span>
+                            <span class="opacity-40">{{ job.startDate }} - {{ job.current ? 'Present' : job.endDate }}</span>
+                        </div>
+                        <p class="text-[10px] mt-1 opacity-70 leading-relaxed">{{ job.description }}</p>
+                    </div>
+                </div>
+            </section>
+
+            <section *ngIf="resume.education && resume.education.length" class="mb-6">
                 <h3 class="text-xs font-bold uppercase border-b pb-1 mb-4">Education</h3>
                 <div class="space-y-4">
                     <div *ngFor="let edu of resume.education">
@@ -32,7 +50,7 @@ import { CommonModule } from '@angular/common';
                     </div>
                 </div>
             </section>
-            <div class="grid grid-cols-2 gap-8">
+            <div class="grid grid-cols-2 gap-8 mb-6">
                 <section *ngIf="resume.skills && resume.skills.length">
                     <h3 class="text-xs font-bold uppercase border-b pb-1 mb-2">Skills</h3>
                     <div class="text-[10px] leading-relaxed opacity-60">
@@ -46,11 +64,16 @@ import { CommonModule } from '@angular/common';
                     </div>
                 </section>
             </div>
-            <section *ngIf="resume.projects && resume.projects.length">
+            <section *ngIf="resume.projects && resume.projects.length" class="mb-6">
                 <h3 class="text-xs font-bold uppercase border-b pb-1 mb-4">Projects</h3>
                 <div class="space-y-4">
                     <div *ngFor="let project of resume.projects">
                         <h4 class="text-[11px] font-bold">{{ project.name }}</h4>
+                        <div class="flex gap-2 text-[9px] font-bold text-blue-600 mb-1">
+                             <a *ngIf="project.link" [href]="project.link" target="_blank" class="hover:underline">Link</a>
+                             <a *ngIf="project.githubLink" [href]="project.githubLink" target="_blank" class="hover:underline">GitHub</a>
+                             <a *ngIf="project.demoLink" [href]="project.demoLink" target="_blank" class="hover:underline">Demo</a>
+                        </div>
                         <p class="text-[10px] opacity-60">{{ project.description }}</p>
                     </div>
                 </div>

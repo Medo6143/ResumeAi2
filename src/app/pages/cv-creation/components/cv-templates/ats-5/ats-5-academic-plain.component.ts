@@ -61,16 +61,23 @@ import { CommonModule } from '@angular/common';
                 <div *ngFor="let p of resume.projects">
                     <div class="font-bold">{{ p.name }}</div>
                     <p>{{ p.description }}</p>
-                    <a *ngIf="p.link" [href]="p.link" target="_blank" class="text-xs underline block mt-1">Project Link</a>
+                    <div class="flex gap-3 text-xs mt-1 underline">
+                        <a *ngIf="p.link" [href]="p.link" target="_blank">Project Link</a>
+                        <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank">GitHub</a>
+                        <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank">Demo</a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section *ngIf="resume.skills?.length">
+        <section *ngIf="resume.skills?.length" class="mb-8">
             <h3 class="font-bold uppercase text-center border-b border-black mb-4 pb-1">Skills</h3>
-            <div class="text-center">
-                {{ resume.skills.join(' • ') }}
-            </div>
+            <div class="text-center">{{ resume.skills.join(' • ') }}</div>
+        </section>
+
+        <section *ngIf="resume.languages?.length">
+            <h3 class="font-bold uppercase text-center border-b border-black mb-4 pb-1">Languages</h3>
+            <div class="text-center">{{ resume.languages.join(' • ') }}</div>
         </section>
     </div>
     `

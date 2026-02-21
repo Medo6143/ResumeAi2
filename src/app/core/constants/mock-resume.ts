@@ -60,14 +60,23 @@ export const MOCK_RESUME: Resume = {
             description: 'Intelligent tool helping applicants boost ATS scores using NLP.'
         }
     ],
+    certifications: [
+        {
+            id: '1',
+            name: 'Google Professional Data Engineer',
+            issuer: 'Google Cloud',
+            date: '2023'
+        }
+    ],
     customSections: [
         {
             id: '1',
-            title: 'Certifications',
+            title: 'Volunteer Work',
+            description: 'Contributing to local community projects.',
             items: [
-                { name: 'Google Professional Data Engineer', description: 'Advanced data processing certification.' }
+                { name: 'Code for America', description: 'Developing civic tech solutions.' }
             ]
         }
     ],
-    sectionOrder: ['summary', 'experience', 'education', 'skills', 'languages', 'projects', 'custom']
+    sectionOrder: ['summary', 'experience', 'education', 'skills', 'languages', 'projects', 'certifications', 'custom']
 };

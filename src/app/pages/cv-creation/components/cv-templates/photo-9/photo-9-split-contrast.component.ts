@@ -75,9 +75,13 @@ import { CommonModule } from '@angular/common';
                 </h3>
                 <div class="grid gap-6">
                     <div *ngFor="let p of resume.projects" class="border p-4 bg-white rounded shadow-sm">
-                        <div class="flex justify-between items-center mb-2">
+                        <div class="flex flex-wrap justify-between items-center gap-2 mb-2">
                             <h4 class="font-bold text-lg">{{ p.name }}</h4>
-                            <a *ngIf="p.link" [href]="p.link" target="_blank" class="text-xs bg-slate-900 text-white px-2 py-1 rounded font-bold hover:bg-indigo-600 transition">VIEW</a>
+                            <div class="flex gap-2">
+                                <a *ngIf="p.link" [href]="p.link" target="_blank" class="text-xs bg-slate-900 text-white px-2 py-1 rounded font-bold hover:bg-indigo-600 transition">VIEW</a>
+                                <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="text-xs bg-slate-700 text-white px-2 py-1 rounded font-bold hover:bg-indigo-600 transition">GITHUB</a>
+                                <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="text-xs bg-indigo-600 text-white px-2 py-1 rounded font-bold hover:bg-indigo-500 transition">DEMO</a>
+                            </div>
                         </div>
                         <p class="text-sm text-slate-600">{{ p.description }}</p>
                     </div>

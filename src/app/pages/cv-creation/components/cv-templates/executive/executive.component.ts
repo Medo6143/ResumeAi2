@@ -37,6 +37,12 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
                         <span *ngFor="let lang of resume.languages" class="text-[10px] font-medium opacity-60">{{ lang }}</span>
                     </div>
                 </div>
+                <div>
+                    <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4">Skills</h3>
+                    <div class="flex flex-wrap gap-1">
+                        <span *ngFor="let s of resume.skills" class="text-[10px] bg-slate-200 px-2 py-0.5 rounded font-medium opacity-70">{{ s }}</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="w-2/3 p-10">
@@ -53,7 +59,12 @@ import { ExperienceComponent } from '../shared/experience/experience.component';
                 <h2 class="text-[10px] font-black uppercase mb-6 tracking-widest" [style.color]="config.primaryColor">Featured Projects</h2>
                 <div class="space-y-6">
                     <div *ngFor="let p of resume.projects">
-                        <h4 class="text-sm font-bold mb-1">{{ p.name }}</h4>
+                        <h4 class="text-sm font-bold mb-0.5">{{ p.name }}</h4>
+                        <div class="flex gap-2 text-[9px] font-bold text-blue-600 mb-1">
+                             <a *ngIf="p.link" [href]="p.link" target="_blank" class="hover:underline">Link</a>
+                             <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="hover:underline">GitHub</a>
+                             <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="hover:underline">Demo</a>
+                        </div>
                         <p class="text-[11px] opacity-60">{{ p.description }}</p>
                     </div>
                 </div>

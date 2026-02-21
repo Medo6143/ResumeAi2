@@ -32,10 +32,12 @@ import { CommonModule } from '@angular/common';
             
             <!-- Contact Grid (compact) -->
             <div class="text-right text-xs font-medium text-slate-500 space-y-1">
-                 <p *ngIf="resume.personalInfo.email">{{ resume.personalInfo.email }} ✉️</p>
+                 <p *ngIf="resume.personalInfo.email"><a [href]="'mailto:' + resume.personalInfo.email" class="hover:underline">{{ resume.personalInfo.email }}</a> ✉️</p>
                  <p *ngIf="resume.personalInfo.phone">{{ resume.personalInfo.phone }} 📞</p>
                  <p *ngIf="resume.personalInfo.location">{{ resume.personalInfo.location }} 📍</p>
-                 <p *ngIf="resume.personalInfo.linkedin" class="text-blue-600">{{ resume.personalInfo.linkedin }} 🔗</p>
+                 <p *ngIf="resume.personalInfo.linkedin"><a [href]="resume.personalInfo.linkedin" target="_blank" class="text-blue-600 hover:underline">LinkedIn</a> 🔗</p>
+                 <p *ngIf="resume.personalInfo.github"><a [href]="resume.personalInfo.github" target="_blank" class="text-blue-600 hover:underline">GitHub</a> 💻</p>
+                 <p *ngIf="resume.personalInfo.portfolio"><a [href]="resume.personalInfo.portfolio" target="_blank" class="text-blue-600 hover:underline">Portfolio</a> 🎨</p>
             </div>
         </div>
 
@@ -70,6 +72,11 @@ import { CommonModule } from '@angular/common';
                     <div class="grid grid-cols-2 gap-4">
                         <div *ngFor="let p of resume.projects" class="bg-slate-50 p-4 border-l-4 border-slate-300 hover:border-blue-500 transition-colors">
                             <h4 class="font-bold text-slate-800 mb-1 text-sm">{{ p.name }}</h4>
+                            <div class="flex gap-3 text-[10px] font-bold text-blue-600 mb-1">
+                                 <a *ngIf="p.link" [href]="p.link" target="_blank" class="hover:underline">Link</a>
+                                 <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="hover:underline">GitHub</a>
+                                 <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="hover:underline">Demo</a>
+                            </div>
                             <p class="text-xs text-slate-500 line-clamp-3">{{ p.description }}</p>
                         </div>
                     </div>

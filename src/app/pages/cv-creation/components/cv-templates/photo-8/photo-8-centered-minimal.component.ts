@@ -57,9 +57,13 @@ import { CommonModule } from '@angular/common';
                     <h3 class="text-xs font-bold uppercase tracking-[0.15em] text-slate-900 mb-6 border-b border-black pb-1 inline-block">Projects</h3>
                     <div class="space-y-6">
                         <div *ngFor="let p of resume.projects">
-                            <div class="flex justify-between items-baseline">
+                            <div class="flex justify-between items-baseline mb-1">
                                 <h4 class="font-bold text-slate-800 text-sm">{{ p.name }}</h4>
-                                <a *ngIf="p.link" [href]="p.link" target="_blank" class="text-[10px] uppercase font-bold text-slate-400 hover:text-black">Link</a>
+                                <div class="flex gap-2">
+                                     <a *ngIf="p.link" [href]="p.link" target="_blank" class="text-[10px] uppercase font-bold text-slate-400 hover:text-black">Link</a>
+                                     <a *ngIf="p.githubLink" [href]="p.githubLink" target="_blank" class="text-[10px] uppercase font-bold text-slate-400 hover:text-black">GitHub</a>
+                                     <a *ngIf="p.demoLink" [href]="p.demoLink" target="_blank" class="text-[10px] uppercase font-bold text-slate-400 hover:text-black">Demo</a>
+                                </div>
                             </div>
                             <p class="text-xs text-slate-600 mt-1">{{ p.description }}</p>
                         </div>
