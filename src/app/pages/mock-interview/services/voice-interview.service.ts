@@ -26,6 +26,7 @@ export class VoiceInterviewService {
     difficulty = signal<'junior' | 'mid' | 'senior'>('mid');
     private audioContextPrimed = false;
     private isManualStop = false;
+    private isProcessingResult = false;
 
     // Private state for STT accumulation
     private finalizedTranscript = '';
@@ -59,32 +60,38 @@ export class VoiceInterviewService {
         this.recognition.onresult = (event: any) => {
             let interimTranscript = '';
             let newFinalizedTranscript = '';
+            const segments: string[] = [];
 
-            // Chrome/Safari on mobile often return the full transcript in every result event.
-            // Rebuilding from scratch is safer than appending which causes "hello hello" duplication.
+            // Chrome/Safari on mobile often return overlapping results.
+            // We'll collect all final segments and filter out duplicates.
             for (let i = 0; i < event.results.length; ++i) {
-                const transcript = event.results[i][0].transcript;
+                const transcript = event.results[i][0].transcript.trim();
+                if (!transcript) continue;
+
                 if (event.results[i].isFinal) {
-                    newFinalizedTranscript += (newFinalizedTranscript ? ' ' : '') + transcript;
+                    // Avoid adding the same segment multiple times if browser repeats it in the results array
+                    if (!segments.includes(transcript)) {
+                        segments.push(transcript);
+                    }
                 } else {
                     interimTranscript += (interimTranscript ? ' ' : '') + transcript;
                 }
             }
 
-            if (newFinalizedTranscript) {
-                this.finalizedTranscript = newFinalizedTranscript.trim();
+            if (segments.length > 0) {
+                this.finalizedTranscript = segments.join(' ').trim();
             }
 
             const currentLiveText = (this.finalizedTranscript + ' ' + interimTranscript).trim();
             this.transcript.set(currentLiveText);
 
-            // Auto-stop logic: if user stops speaking for 5 seconds, auto-submit
+            // Auto-submit after silence
             clearTimeout(this.silenceTimer);
             this.silenceTimer = setTimeout(() => {
                 if (this.isListening() && this.transcript().trim()) {
                     this.stopListeningAndSubmit();
                 }
-            }, 5000); // 5 seconds of silence
+            }, 3000); // Back to 3s, but more robust submission
         };
 
         this.recognition.onerror = (event: any) => {
@@ -200,19 +207,26 @@ Instructions:
     }
 
     private stopListeningAndSubmit() {
+        if (this.isProcessingResult) return;
+        this.isProcessingResult = true;
+
         clearTimeout(this.silenceTimer);
         this.recognition.stop();
 
         const userText = this.transcript().trim();
+        // Clear state immediately to prevent double processing
+        this.transcript.set('');
+        this.finalizedTranscript = '';
+        this.isListening.set(false);
+
         if (userText) {
             this.messages.update(m => [...m, { role: 'user', content: userText }]);
-            this.isThinking.set(true); // Set thinking first
-            this.transcript.set('');
-            this.isListening.set(false);
+            this.isThinking.set(true);
             this.triggerAiTurn();
-        } else {
-            this.isListening.set(false);
-        }
+        } 
+        
+        // Timeout to release guard after browser events settle
+        setTimeout(() => this.isProcessingResult = false, 500);
     }
 
     private triggerAiTurn() {

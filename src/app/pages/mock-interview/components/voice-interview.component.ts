@@ -115,10 +115,10 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
         <div class="p-6 border-t border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-md flex flex-col items-center justify-center relative">
             
             <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6 h-4">
-              <span *ngIf="voiceService.isListening()" class="text-emerald-500 animate-pulse">Go ahead, I'm listening...</span>
               <span *ngIf="voiceService.isThinking()" class="text-purple-500">Wait, AI is thinking...</span>
               <span *ngIf="voiceService.isSpeaking()" class="text-blue-500">AI is speaking...🎙️</span>
-              <span *ngIf="!voiceService.isListening() && !voiceService.isThinking() && !voiceService.isSpeaking()">Tap mic to speak or interrupt</span>
+              <span *ngIf="voiceService.isListening()" class="text-emerald-500 animate-pulse">Go ahead, I'm listening...</span>
+              <span *ngIf="!voiceService.isListening() && !voiceService.isThinking() && !voiceService.isSpeaking()">Tap mic to speak</span>
             </p>
 
             <div class="flex items-center gap-10">
