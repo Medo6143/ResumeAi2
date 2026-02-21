@@ -88,9 +88,9 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
           </ng-container>
 
           <!-- Live Transcript (User speaking right now) -->
-          <div *ngIf="voiceService.isListening() && voiceService.transcript()" class="flex flex-col items-end opacity-70">
-              <span class="text-[10px] uppercase font-bold text-emerald-500 mb-1 px-2">Listening...</span>
-              <div class="max-w-[85%] p-4 rounded-2xl bg-indigo-600/50 text-white rounded-tr-sm border border-indigo-400 border-dashed"
+          <div *ngIf="(voiceService.isListening() || voiceService.isThinking()) && voiceService.transcript()" class="flex flex-col items-end opacity-70 animate-fade-in">
+              <span class="text-[10px] uppercase font-bold text-emerald-500 mb-1 px-2">Transcript...</span>
+              <div class="max-w-[85%] p-4 rounded-2xl bg-indigo-600/50 text-white rounded-tr-sm border border-indigo-400 border-dashed break-words whitespace-pre-wrap"
                    dir="auto">
                 {{ voiceService.transcript() }}
               </div>

@@ -25,6 +25,7 @@ export class VoiceInterviewService {
     analysisResult = signal<string | null>(null);
     difficulty = signal<'junior' | 'mid' | 'senior'>('mid');
     private audioContextPrimed = false;
+    private isManualStop = false;
 
     // Private state for STT accumulation
     private finalizedTranscript = '';
@@ -77,13 +78,13 @@ export class VoiceInterviewService {
             const currentLiveText = (this.finalizedTranscript + ' ' + interimTranscript).trim();
             this.transcript.set(currentLiveText);
 
-            // Auto-stop logic: if user stops speaking for 3 seconds, auto-submit
+            // Auto-stop logic: if user stops speaking for 5 seconds, auto-submit
             clearTimeout(this.silenceTimer);
             this.silenceTimer = setTimeout(() => {
                 if (this.isListening() && this.transcript().trim()) {
                     this.stopListeningAndSubmit();
                 }
-            }, 3000); // 3 seconds of silence
+            }, 5000); // 5 seconds of silence
         };
 
         this.recognition.onerror = (event: any) => {
@@ -95,7 +96,14 @@ export class VoiceInterviewService {
         };
 
         this.recognition.onend = () => {
-            this.isListening.set(false);
+            // If the browser stopped the session unexpectedly and we have text, submit it!
+            if (!this.isManualStop && this.transcript().trim()) {
+                console.log('[STT] Session ended by browser, submitting remaining text.');
+                this.stopListeningAndSubmit();
+            } else {
+                this.isListening.set(false);
+            }
+            this.isManualStop = false;
         };
     }
 
@@ -144,8 +152,10 @@ Instructions:
     toggleMicrophone() {
         this.primeAudioContext();
         if (this.isListening()) {
+            this.isManualStop = true;
             this.stopListeningAndSubmit();
         } else {
+            this.isManualStop = false;
             this.startListening();
         }
     }
@@ -196,8 +206,9 @@ Instructions:
         const userText = this.transcript().trim();
         if (userText) {
             this.messages.update(m => [...m, { role: 'user', content: userText }]);
+            this.isThinking.set(true); // Set thinking first
             this.transcript.set('');
-            this.isListening.set(false); // Move this AFTER updating messages
+            this.isListening.set(false);
             this.triggerAiTurn();
         } else {
             this.isListening.set(false);
