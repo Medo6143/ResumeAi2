@@ -1,15 +1,9 @@
 {
   "version": 2,
-  "builds": [
+  "rewrites": [
     {
-      "src": "dist/resume-ai/server/main.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "dist/resume-ai/server/main.js"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
