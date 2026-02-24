@@ -7,10 +7,12 @@ import { UserDataService } from '../../../core/services/user-data.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs/operators';
 import { User } from '@angular/fire/auth';
+import { ActivityLogService } from '../../../core/services/activity-log.service';
 
 export interface Profile {
     id: string;
     name: string;
+    templateId: string;
     data: Resume;
     updatedAt: number;
 }
@@ -30,6 +32,7 @@ export class CvStateService {
     private authService = inject(AuthService);
     private userDataService = inject(UserDataService);
     private profileStateService = inject(ProfileStateService);
+    private activityLog = inject(ActivityLogService);
     // The single source of truth for the Profile data
     private state = signal<ProfileState>(INITIAL_STATE);
     private isInitialized = signal(false);
@@ -60,6 +63,7 @@ export class CvStateService {
                         const profiles = firestoreProfiles.map(p => ({
                             id: p.id,
                             name: p.name,
+                            templateId: p.templateId || 'modern',
                             data: p.data,
                             updatedAt: p.updatedAt
                         }));
@@ -107,7 +111,7 @@ export class CvStateService {
         if (oldResume) {
             try {
                 const data = JSON.parse(oldResume);
-                this.createProfile('Default Profile', data);
+                this.createProfile('Default Profile', 'modern', data);
                 // Optional: clear old state
                 // sessionStorage.removeItem('resumeState'); 
                 return;
@@ -117,15 +121,16 @@ export class CvStateService {
         }
 
         // Initialize with default if nothing exists
-        this.createProfile('My Resume');
+        this.createProfile('My Resume', 'modern');
     }
 
     // --- Profile Management ---
 
-    createProfile(name: string, initialData: Resume = INITIAL_RESUME) {
+    createProfile(name: string, templateId: string = 'modern', initialData: Resume = INITIAL_RESUME) {
         const newProfile: Profile = {
             id: crypto.randomUUID(),
             name,
+            templateId,
             data: JSON.parse(JSON.stringify(initialData)), // Deep copy
             updatedAt: Date.now()
         };
@@ -134,6 +139,18 @@ export class CvStateService {
             profiles: [...current.profiles, newProfile],
             activeProfileId: newProfile.id
         }));
+
+        // Log profile creation
+        const user = this.authService.currentUser();
+        if (user) {
+            this.activityLog.logEvent({
+                type: 'cv_created',
+                userId: user.uid,
+                userName: user.displayName || 'User',
+                description: `New CV profile created: ${name}`,
+                metadata: { profileId: newProfile.id, templateId }
+            });
+        }
     }
 
     deleteProfile(id: string) {
@@ -162,7 +179,7 @@ export class CvStateService {
 
         // If all profiles deleted, create a default one
         if (this.state().profiles.length === 0) {
-            this.createProfile('My Resume');
+            this.createProfile('My Resume', 'modern');
         }
     }
 
@@ -175,7 +192,7 @@ export class CvStateService {
     duplicateProfile(id: string) {
         const profileToClone = this.state().profiles.find(p => p.id === id);
         if (profileToClone) {
-            this.createProfile(`${profileToClone.name} (Copy)`, profileToClone.data);
+            this.createProfile(`${profileToClone.name} (Copy)`, profileToClone.templateId, profileToClone.data);
         }
     }
 
@@ -186,6 +203,20 @@ export class CvStateService {
                 p.id === id ? { ...p, name: newName, updatedAt: Date.now() } : p
             )
         }));
+    }
+
+    updateTemplate(templateId: string) {
+        this.state.update(current => {
+            const activeId = current.activeProfileId;
+            return {
+                ...current,
+                profiles: current.profiles.map(p =>
+                    p.id === activeId
+                        ? { ...p, templateId, updatedAt: Date.now() }
+                        : p
+                )
+            };
+        });
     }
 
     // --- Resume Updates (Targets Active Profile) ---

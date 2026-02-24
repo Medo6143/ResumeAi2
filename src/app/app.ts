@@ -27,6 +27,10 @@ export class App {
   }
 
   private updateLayoutVisibility(url: string) {
-    this.hideLayout.set(url.includes('/login') || url.includes('/register'));
+    this.hideLayout.set(
+      url.includes('/login') ||
+      url.includes('/register') ||
+      url.startsWith('/admin')
+    );
   }
 }

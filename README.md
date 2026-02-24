@@ -11,6 +11,11 @@ ResumeAI is a cutting-edge, AI-powered platform designed to analyze, optimize, a
 - **Multi-language Support (i18n):** Fully available in English and Arabic, with complete Right-to-Left (RTL) layout support.
 - **Dark Mode:** A sleek, premium dark mode using the 'Slate' color palette for reduced eye strain and a modern aesthetic.
 - **Responsive Design:** Optimized for desktop, tablet, and mobile devices.
+- **Admin Dashboard & Control Panel:** A comprehensive administrative suite for platform monitoring and management:
+    - **Real-time Analytics:** Visualized KPIs for total users, CVs created, and active user trends (DAU/MAU).
+    - **Activity Logging:** Searchable audit trail of system events (signups, logins, template changes).
+    - **User Management:** Advanced tools for role assignment and account status control.
+    - **Template Popularity Tracking:** Accurate data on template adoption and usage statistics.
 
 ## Tech Stack
 
@@ -22,8 +27,8 @@ This project is built with a modern, robust technology stack:
 - **Authentication & Backend:** Firebase / AngularFire (Authentication, Firestore Database, Storage)
 - **Internationalization:** `@ngx-translate/core`
 - **AI Integrations:** OpenRouter AI (used for LLM capabilities in resume building and analysis)
+- **Charts & Visualization:** `ng2-charts` & `chart.js` for data representation.
 - **PDF Generation & Document Parsing:** `jspdf`, `html2pdf.js`, `mammoth` (DOCX parsing), `tesseract.js` (OCR), `pdfjs-dist`
-- **Charts:** `ng2-charts` & `chart.js` (for visual data representation)
 
 ## Getting Started
 
@@ -98,15 +103,19 @@ npm run serve:ssr:resume-ai
 - `src/app/core/`: Application-wide singleton services (Auth, Theme, Language, AI Integration, Parsing), guards, and interceptors.
 - `src/app/shared/`: Reusable components (Header, Footer, UI elements), directives, and pipes.
 - `src/app/pages/`: Feature modules and route components (Home, CV Creation, ATS Analysis, Mock Interview, Profile, Auth).
+- `src/app/pages/admin/`: Administrative dashboard, analytics, and management features.
 - `public/assets/i18n/`: Translation files for internationalization (`en.json`, `ar.json`).
 - `src/styles.css` / `src/styles.scss`: Global styles, Tailwind directives, and core theme definitions.
 
 ## Key Services
 
-- `ThemeService`: Manages global Light/Dark mode state and persistence via `localStorage`.
-- `LanguageService`: Handles English/Arabic switching, RTL layout application, and translation synchronization.
-- `AuthService`: Integrates with Firebase Authentication for user sessions.
-- `AtsService` / `OpenRouterAiService`: Manages the communication with AI models for resume analysis and content generation.
+- **ThemeService**: Manages global Light/Dark mode state and persistence via `localStorage`.
+- **LanguageService**: Handles English/Arabic switching, RTL layout application, and translation synchronization.
+- **AuthService**: Integrates with Firebase Authentication for user sessions.
+- **AtsService / OpenRouterAiService**: Manages the communication with AI models for resume analysis and content generation.
+- **AnalyticsService**: Aggregates Firestore data for dashboard KPIs and charts.
+- **ActivityLogService**: Records and retrieves system events for administrative audit trails.
+- **AdminUserService**: Provides administrative controls for managing users and their profiles.
 
 ## License
 

@@ -3,12 +3,14 @@ import { FirestoreService } from './firestore.service';
 import { Observable, of } from 'rxjs';
 import { Resume } from '../../pages/cv-creation/models/resume.model';
 import { UserProfile } from '../../pages/profile/models/user-profile.model';
+import { ActivityLogService } from './activity-log.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserDataService {
     private firestoreService = inject(FirestoreService);
+    private activityLog = inject(ActivityLogService);
 
     // --- Master Profile ---
 
@@ -30,8 +32,8 @@ export class UserDataService {
         return this.firestoreService.set(`users/${userId}/profile/master`, profile);
     }
 
-    saveResume(userId: string, resumeId: string, resume: any): Promise<void> {
-        return this.firestoreService.set(`users/${userId}/resumes/${resumeId}`, resume);
+    async saveResume(userId: string, resumeId: string, resume: any): Promise<void> {
+        await this.firestoreService.set(`users/${userId}/resumes/${resumeId}`, resume);
     }
 
     deleteResume(userId: string, resumeId: string): Promise<void> {

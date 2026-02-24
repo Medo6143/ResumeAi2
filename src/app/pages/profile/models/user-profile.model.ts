@@ -2,6 +2,8 @@ import { Resume } from '../../cv-creation/models/resume.model';
 
 export interface UserProfile extends Omit<Resume, 'id'> {
     id: string;
+    role?: 'user' | 'admin';
+    status?: 'active' | 'blocked';
     avatarUrl?: string;
     professionalMotto?: string;
     socialLinks: {
@@ -39,6 +41,8 @@ export interface UserProfile extends Omit<Resume, 'id'> {
 
 export const INITIAL_USER_PROFILE: UserProfile = {
     id: 'master-profile',
+    role: 'user',
+    status: 'active',
     personalInfo: {
         fullName: '',
         email: '',

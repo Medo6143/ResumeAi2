@@ -1,7 +1,8 @@
 import { Component, Inject, PLATFORM_ID, signal, inject, HostListener } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule, Router } from '@angular/router';
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -28,6 +29,7 @@ import { InterviewQuestionsComponent } from './components/interview-questions/in
 import { CvPreviewComponent } from './components/cv-preview/cv-preview.component';
 import { TemplatePickerDialogComponent } from './components/template-picker-dialog/template-picker-dialog.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ActivityLogService } from '../../core/services/activity-log.service';
 
 export type SectionId = 'personal' | 'summary' | 'experience' | 'projects' | 'education' | 'skills' | 'custom';
 export type ToolTab = 'ats' | 'matcher' | 'interview' | null;
@@ -71,6 +73,7 @@ export class CvCreationComponent {
     private fileParser = inject(FileParserService);
     private wordExport = inject(WordExportService);
     private translate = inject(TranslateService);
+    private activityLog = inject(ActivityLogService);
 
     // Section navigation (replaces step wizard)
     sections: SidebarSection[] = [
@@ -114,6 +117,9 @@ export class CvCreationComponent {
 
     private isBrowser: boolean;
 
+    private auth = inject(Auth);
+    private router = inject(Router);
+
     constructor(
         private openRouterService: OpenRouterAiService,
         public cvState: CvStateService,
@@ -122,6 +128,12 @@ export class CvCreationComponent {
         this.isBrowser = isPlatformBrowser(platformId);
 
         if (this.isBrowser) {
+            onAuthStateChanged(this.auth, (user) => {
+                if (!user) {
+                    this.router.navigate(['/login']);
+                }
+            });
+
             this.route.queryParams.subscribe(params => {
                 if (params['template']) {
                     this.selectedTemplate.set(params['template']);
@@ -167,7 +179,17 @@ export class CvCreationComponent {
 
     onTemplateSelected(id: string) {
         this.selectedTemplate.set(id);
+        this.cvState.updateTemplate(id);
         this.showTemplatePicker.set(false);
+
+        // Log template selection
+        this.activityLog.logEvent({
+            type: 'cv_created',
+            userId: this.auth.currentUser?.uid,
+            userName: this.cvState.resume().personalInfo.fullName || 'User',
+            description: `Template changed to: ${id}`,
+            metadata: { templateId: id }
+        });
     }
 
     importFromMaster() {
@@ -323,6 +345,15 @@ export class CvCreationComponent {
             };
 
             await html2pdf().set(opt).from(pdfContainer).save();
+
+            // Log PDF generation
+            this.activityLog.logEvent({
+                type: 'cv_created',
+                userId: this.auth.currentUser?.uid,
+                userName: this.cvState.resume().personalInfo.fullName || 'User',
+                description: `CV downloaded as PDF (Template: ${this.selectedTemplate()})`,
+                metadata: { templateId: this.selectedTemplate(), action: 'download_pdf' }
+            });
 
             document.body.removeChild(tempWrapper);
         } catch (e) {

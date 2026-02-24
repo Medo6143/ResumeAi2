@@ -13,6 +13,7 @@ import { provideTranslation } from './core/config/translation.config';
 import { TranslateService } from '@ngx-translate/core';
 import { LANGUAGE } from './core/config/language.token';
 import { isPlatformBrowser } from '@angular/common';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -25,6 +26,7 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    provideCharts(withDefaultRegisterables()),
     { provide: LANGUAGE, useValue: 'en' }, // Default fallback (will be overridden by server)
     {
       provide: APP_INITIALIZER,

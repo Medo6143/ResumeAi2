@@ -1,5 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, signal, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Router } from '@angular/router';
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { ProfileStateService } from './services/profile-state.service';
 import { ProfileHeroComponent } from './components/profile-hero.component';
 import { ProfileStatsComponent } from './components/profile-stats.component';
@@ -204,9 +206,22 @@ import { firstValueFrom } from 'rxjs';
     </section>
     `
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
     private profileStateService = inject(ProfileStateService);
     private translate = inject(TranslateService);
+    private auth = inject(Auth);
+    private router = inject(Router);
+    private platformId = inject(PLATFORM_ID);
+
+    ngOnInit() {
+        if (isPlatformBrowser(this.platformId)) {
+            onAuthStateChanged(this.auth, (user) => {
+                if (!user) {
+                    this.router.navigate(['/login']);
+                }
+            });
+        }
+    }
 
     profile = this.profileStateService.profile;
     strength = this.profileStateService.strengthScore;
