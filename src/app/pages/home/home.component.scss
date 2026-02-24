@@ -202,7 +202,23 @@
   }
 }
 
+@keyframes glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 30px rgba(79, 70, 229, 0.6);
+  }
+}
+
 /* Animation Classes */
+.animate-glow {
+  animation: glow 3s ease-in-out infinite;
+}
+
 .animate-float-complex {
   animation: float-complex 8s ease-in-out infinite;
 }

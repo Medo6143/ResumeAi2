@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID, signal, inject, HostListener, effect } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, signal, inject, HostListener } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -9,6 +9,7 @@ import { OpenRouterAiService } from '../../core/services/openrouter-ai.service';
 import { CvStateService } from './services/cv-state.service';
 import { INITIAL_RESUME } from './models/resume.model';
 import { TemplateService } from '../../core/services/template.service';
+import { ThemeService } from '../../core/services/theme.service';
 
 import { FileParserService } from '../../core/services/file-parser.service';
 import { WordExportService } from '../../core/services/word-export.service';
@@ -66,6 +67,7 @@ export interface SidebarSection {
 export class CvCreationComponent {
     private templateService = inject(TemplateService);
     private route = inject(ActivatedRoute);
+    themeService = inject(ThemeService);
     private fileParser = inject(FileParserService);
     private wordExport = inject(WordExportService);
     private translate = inject(TranslateService);
@@ -84,7 +86,6 @@ export class CvCreationComponent {
     activeSection = signal<SectionId>('personal');
     selectedTemplate = signal<string>('modern');
     activeTemplate = signal(this.templateService.getTemplates()[0]);
-    darkMode = signal<boolean>(false);
     isDownloading = signal(false);
 
     // Tools tabs
@@ -121,18 +122,6 @@ export class CvCreationComponent {
         this.isBrowser = isPlatformBrowser(platformId);
 
         if (this.isBrowser) {
-            // Load dark mode preference from localStorage
-            const savedDarkMode = localStorage.getItem('cvDarkMode');
-            if (savedDarkMode !== null) {
-                this.darkMode.set(savedDarkMode === 'true');
-            }
-
-            // Save dark mode preference when it changes
-            effect(() => {
-                const isDark = this.darkMode();
-                localStorage.setItem('cvDarkMode', String(isDark));
-            });
-
             this.route.queryParams.subscribe(params => {
                 if (params['template']) {
                     this.selectedTemplate.set(params['template']);

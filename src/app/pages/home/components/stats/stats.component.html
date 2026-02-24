@@ -14,15 +14,17 @@
             </p>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             <div *ngFor="let stat of stats; trackBy: trackByIndex"
-                class="text-center group hover:scale-105 transition-transform">
+                class="relative group p-8 rounded-[2.5rem] bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500">
                 <div
-                    class="text-5xl md:text-6xl font-black bg-gradient-to-br from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
+                    class="text-4xl md:text-5xl lg:text-6xl font-black bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent mb-4 tracking-tighter">
                     {{ stat.value }}
                 </div>
-                <div class="text-lg font-bold text-slate-800 dark:text-white">{{ stat.labelKey | translate }}</div>
-                <div class="text-sm text-slate-500 dark:text-slate-400">{{ stat.descKey | translate }}</div>
+                <div class="text-sm font-black text-slate-800 dark:text-slate-200 uppercase tracking-widest mb-1">{{
+                    stat.labelKey | translate }}</div>
+                <div class="text-xs text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{{ stat.descKey |
+                    translate }}</div>
             </div>
         </div>
     </div>

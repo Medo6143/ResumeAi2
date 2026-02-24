@@ -2,23 +2,25 @@
     <!-- Section Header -->
     <div class="text-center mb-20 animate-fade-slide-up">
         <div
-            class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gradient-to-r from-indigo-100 via-purple-100 to-pink-100 dark:from-indigo-900/40 dark:via-purple-900/40 dark:to-pink-900/40 border border-indigo-200/50 dark:border-indigo-700/50 mb-6">
+            class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 mb-6 shadow-sm">
             <svg class="w-5 h-5 text-indigo-600 dark:text-indigo-400 animate-spin-slow" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
             </svg>
-            <span class="text-sm font-bold text-indigo-700 dark:text-indigo-300">{{ 'FEATURES.BADGE' | translate
+            <span class="text-sm font-black tracking-widest text-slate-600 dark:text-slate-400 uppercase">{{
+                'FEATURES.BADGE' | translate
                 }}</span>
         </div>
-        <h2 class="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 dark:text-white mb-6">
+        <h2
+            class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-slate-900 dark:text-white mb-6 tracking-tight">
             {{ 'FEATURES.TITLE_1' | translate }}
             <span
                 class="block mt-2 bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400">
                 {{ 'FEATURES.TITLE_2' | translate }}
             </span>
         </h2>
-        <p class="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
+        <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed font-medium">
             {{ 'FEATURES.SUBTITLE' | translate }}
         </p>
     </div>
@@ -90,28 +92,29 @@
 
         <!-- Card 2: CV Builder -->
         <div
-            class="lg:col-span-1 lg:row-span-1 group relative bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-8 border-2 border-slate-200 dark:border-slate-700 overflow-hidden cursor-pointer hover:scale-[1.02] hover:border-indigo-300 dark:hover:border-indigo-500 transition-all duration-500 shadow-xl hover:shadow-2xl">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-orange-200/20 to-amber-200/20 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-700"
+            class="lg:col-span-1 lg:row-span-1 group relative bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 overflow-hidden cursor-pointer hover:scale-[1.02] hover:border-blue-500/30 dark:hover:border-blue-500/30 transition-all duration-500 shadow-sm hover:shadow-xl">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-700"
                 aria-hidden="true">
             </div>
 
             <div class="relative z-10">
-                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-amber-500 text-white flex items-center justify-center mb-4 group-hover:rotate-12 transition-transform shadow-lg"
+                <div class="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform shadow-sm"
                     aria-hidden="true">
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2.5 2.5 0 113.536 3.536L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
                 </div>
-                <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-3">{{ 'FEATURES.BUILDER.TITLE' |
+                <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-3 tracking-tight">{{
+                    'FEATURES.BUILDER.TITLE' |
                     translate }}</h3>
-                <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6 font-medium text-sm">
                     {{ 'FEATURES.BUILDER.DESC' | translate }}
                 </p>
                 <div
-                    class="inline-flex items-center gap-2 text-orange-600 dark:text-orange-400 font-bold group-hover:gap-3 transition-all">
+                    class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-bold group-hover:gap-3 transition-all text-sm">
                     <span>{{ 'FEATURES.BUILDER.CTA' | translate }}</span>
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                             d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
@@ -173,17 +176,19 @@
 
         <!-- Card 5: Templates -->
         <div
-            class="lg:col-span-1 lg:row-span-1 group relative bg-white dark:bg-slate-800 rounded-3xl p-8 border-2 border-slate-200 dark:border-slate-700 overflow-hidden cursor-pointer hover:scale-[1.02] hover:border-purple-300 dark:hover:border-purple-500 transition-all duration-500 shadow-xl">
-            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 text-white flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform shadow-lg"
+            class="lg:col-span-1 lg:row-span-1 group relative bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 overflow-hidden cursor-pointer hover:scale-[1.02] hover:border-purple-500/30 dark:hover:border-purple-500/30 transition-all duration-500 shadow-sm hover:shadow-xl">
+            <div class="w-14 h-14 rounded-2xl bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-6 group-hover:rotate-6 transition-transform shadow-sm"
                 aria-hidden="true">
                 <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 5a1 1 0 011-1h4a1 1 0 011-1v7a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v7a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-3zM14 16a1 1 0 011-1h4a1 1 0 011 1v3a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3z" />
                 </svg>
             </div>
-            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2">{{ 'FEATURES.TEMPLATES.TITLE' | translate
+            <h3 class="text-xl font-black text-slate-900 dark:text-white mb-2 tracking-tight">{{
+                'FEATURES.TEMPLATES.TITLE' | translate
                 }}</h3>
-            <p class="text-slate-600 dark:text-slate-300 text-sm">{{ 'FEATURES.TEMPLATES.DESC' | translate }}</p>
+            <p class="text-slate-600 dark:text-slate-400 text-sm font-medium">{{ 'FEATURES.TEMPLATES.DESC' | translate
+                }}</p>
         </div>
 
         <!-- Card 6: PDF Export -->
