@@ -1,7 +1,8 @@
-<div #previewContainer class="w-full overflow-hidden" dir="ltr">
-    <div class="origin-top-left transition-transform duration-200" [style.transform]="'scale(' + scale() + ')'"
-        [style.width]="'210mm'" [style.min-height]="'297mm'" [class.bg-white]="!darkMode()"
-        [class.bg-slate-900]="darkMode()" [class.dark]="darkMode()" [style.font-family]="config().fontFamily">
+<div #previewContainer class="w-full" dir="ltr" [style.height.px]="containerHeight()" style="overflow: visible;">
+    <div class="transition-transform duration-200" [style.transform]="'scale(' + scale() + ')'"
+        [style.transform-origin]="'top center'" [style.width]="'210mm'" [style.min-height]="'297mm'"
+        [class.bg-white]="!darkMode()" [class.bg-slate-900]="darkMode()" [class.dark]="darkMode()"
+        [style.font-family]="config().fontFamily" style="margin: 0 auto;">
 
         <ng-container *ngComponentOutlet="activeComponent(); inputs: componentInputs()"></ng-container>
 

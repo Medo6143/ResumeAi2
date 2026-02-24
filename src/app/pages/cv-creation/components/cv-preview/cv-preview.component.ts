@@ -42,6 +42,7 @@ import { Ats4ExecutiveSimpleComponent } from '../cv-templates/ats-4/ats-4-execut
 import { Ats5AcademicPlainComponent } from '../cv-templates/ats-5/ats-5-academic-plain.component';
 
 const A4_WIDTH_PX = 793; // 210mm in pixels at 96dpi
+const A4_HEIGHT_PX = 1122; // 297mm in pixels at 96dpi
 
 @Component({
     selector: 'app-cv-preview',
@@ -59,7 +60,12 @@ export class CvPreviewComponent implements AfterViewInit, OnDestroy {
     @ViewChild('previewContainer', { static: false }) previewContainer!: ElementRef<HTMLElement>;
 
     resume = computed(() => this.resumeOverride() || this.cvState.resume());
-    scale = signal(0.5);
+    private autoScale = signal(0.5);
+    private manualZoom = signal<number | null>(null);
+    scale = computed(() => this.manualZoom() ?? this.autoScale());
+    containerHeight = computed(() => A4_HEIGHT_PX * this.scale());
+    zoomPercent = computed(() => Math.round(this.scale() * 100));
+    isManualZoom = computed(() => this.manualZoom() !== null);
 
     private templateMap: Record<string, Type<any>> = {
         'modern': ModernComponent,
@@ -162,7 +168,23 @@ export class CvPreviewComponent implements AfterViewInit, OnDestroy {
         const containerWidth = this.previewContainer.nativeElement.clientWidth;
         if (containerWidth > 0) {
             const newScale = Math.min(containerWidth / A4_WIDTH_PX, 1);
-            this.scale.set(newScale);
+            this.autoScale.set(newScale);
         }
+    }
+
+    zoomIn() {
+        const current = this.scale();
+        const newZoom = Math.min(current + 0.1, 1.5);
+        this.manualZoom.set(newZoom);
+    }
+
+    zoomOut() {
+        const current = this.scale();
+        const newZoom = Math.max(current - 0.1, 0.2);
+        this.manualZoom.set(newZoom);
+    }
+
+    fitToWidth() {
+        this.manualZoom.set(null);
     }
 }

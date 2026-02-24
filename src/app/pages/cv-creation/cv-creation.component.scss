@@ -178,8 +178,13 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    scrollbar-width: none;
     border-left: 1px solid #e5e5e5;
     background: #f5f5f5;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     /* Subtle dotted canvas pattern */
     background-image: radial-gradient(circle, #d4d4d4 1px, transparent 1px);
@@ -216,6 +221,95 @@
     justify-content: center;
     padding: 24px;
     overflow: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* ----- Zoom Controls ----- */
+.zoom-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 4px;
+    margin: 0 auto 12px;
+    width: fit-content;
+    background: white;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+    .dark & {
+        background: #0f172a;
+        border-color: #1e293b;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.zoom-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #525252;
+    cursor: pointer;
+    transition: all 150ms ease-out;
+
+    &:hover {
+        background: #f5f5f5;
+        color: #171717;
+    }
+
+    &.active {
+        background: #eef2ff;
+        color: #4f46e5;
+    }
+
+    .dark & {
+        color: #94a3b8;
+
+        &:hover {
+            background: #1e293b;
+            color: #f8fafc;
+        }
+
+        &.active {
+            background: rgba(79, 70, 229, 0.15);
+            color: #818cf8;
+        }
+    }
+}
+
+.zoom-label {
+    min-width: 42px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #525252;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+    user-select: none;
+
+    .dark & {
+        color: #94a3b8;
+    }
+}
+
+.zoom-divider {
+    width: 1px;
+    height: 20px;
+    background: #e5e5e5;
+    margin: 0 4px;
+
+    .dark & {
+        background: #1e293b;
+    }
 }
 
 /* ----- Tools Tabs (below preview) ----- */
@@ -317,6 +411,7 @@
         opacity: 0;
         transform: scale(0.96) translateY(-8px);
     }
+
     to {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -410,6 +505,7 @@
         opacity: 0;
         transform: translateY(-4px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -453,8 +549,15 @@
 }
 
 @keyframes fade-in {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ----- Reorder Modal ----- */
