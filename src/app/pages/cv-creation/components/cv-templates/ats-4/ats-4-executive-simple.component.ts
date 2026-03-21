@@ -80,12 +80,25 @@ import { CommonModule } from '@angular/common';
             </section>
         </div>
 
-        <section *ngIf="resume.languages?.length">
+        <section *ngIf="resume.languages?.length" class="mb-8">
             <h3 class="font-bold text-slate-900 uppercase tracking-widest text-xs mb-4">Languages</h3>
             <div class="flex flex-wrap gap-4 text-slate-700 font-medium">
                 <span *ngFor="let l of resume.languages">• {{ l }}</span>
             </div>
         </section>
+
+        <!-- Custom Sections -->
+        <div *ngFor="let section of resume.customSections">
+            <section *ngIf="section.items && section.items.length" class="mb-8">
+                <h3 class="font-bold text-slate-900 uppercase tracking-widest text-xs mb-6">{{ section.title }}</h3>
+                <div class="space-y-6">
+                    <div *ngFor="let item of section.items">
+                        <h4 class="font-bold text-lg text-slate-800 mb-1">{{ item.name }}</h4>
+                        <p class="text-slate-700 leading-relaxed">{{ item.description }}</p>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
     `
 })

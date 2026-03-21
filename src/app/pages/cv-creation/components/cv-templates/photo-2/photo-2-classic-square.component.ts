@@ -71,6 +71,21 @@ import { CommonModule } from '@angular/common';
                         </div>
                     </div>
                 </section>
+
+                 <!-- Custom Sections -->
+                 <div *ngFor="let section of resume.customSections">
+                     <section *ngIf="section.items && section.items.length" class="mt-8">
+                        <h3 class="text-xs font-sans font-bold uppercase text-slate-400 mb-4 tracking-widest flex items-center gap-2">
+                            {{ section.title }} <div class="flex-1 h-px bg-slate-200"></div>
+                        </h3>
+                        <div class="space-y-4">
+                            <div *ngFor="let item of section.items">
+                                <h4 class="font-bold text-slate-800 text-sm mb-1">{{ item.name }}</h4>
+                                <p class="text-sm text-slate-600 leading-relaxed">{{ item.description }}</p>
+                            </div>
+                        </div>
+                    </section>
+                 </div>
             </div>
 
             <!-- Right Column: Sidebar -->

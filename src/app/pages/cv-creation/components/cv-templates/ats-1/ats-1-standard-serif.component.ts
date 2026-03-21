@@ -9,7 +9,8 @@ import { CommonModule } from '@angular/common';
     <div class="h-full bg-white text-black font-serif min-h-[297mm] p-16 leading-relaxed">
         <!-- Header -->
         <header class="text-center mb-8 border-b-2 border-black pb-4">
-            <h1 class="text-3xl font-bold uppercase mb-2">{{ resume.personalInfo.fullName }}</h1>
+            <h1 class="text-3xl font-bold uppercase mb-1">{{ resume.personalInfo.fullName }}</h1>
+            <p class="text-lg font-bold text-slate-700 mb-2 uppercase" *ngIf="resume.personalInfo.jobTitle">{{ resume.personalInfo.jobTitle }}</p>
             <div class="flex flex-wrap justify-center gap-3 text-sm">
                 <span *ngIf="resume.personalInfo.location">{{ resume.personalInfo.location }}</span>
                 <span *ngIf="resume.personalInfo.phone">• {{ resume.personalInfo.phone }}</span>
@@ -85,7 +86,7 @@ import { CommonModule } from '@angular/common';
         </section>
 
         <!-- Skills -->
-        <section *ngIf="resume.skills?.length">
+        <section *ngIf="resume.skills?.length" class="mb-6">
             <h3 class="text-lg font-bold uppercase border-b border-black mb-2">Skills</h3>
             <p class="text-sm">
                 <ng-container *ngFor="let s of resume.skills; let last = last">
@@ -93,6 +94,19 @@ import { CommonModule } from '@angular/common';
                 </ng-container>
             </p>
         </section>
+
+        <!-- Custom Sections -->
+        <div *ngFor="let section of resume.customSections">
+            <section *ngIf="section.items && section.items.length" class="mb-6">
+                <h3 class="text-lg font-bold uppercase border-b border-black mb-4">{{ section.title }}</h3>
+                <div class="space-y-3">
+                    <div *ngFor="let item of section.items">
+                        <div class="font-bold text-sm">{{ item.name }}</div>
+                        <p class="text-sm mt-1 text-justify">{{ item.description }}</p>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
     `
 })

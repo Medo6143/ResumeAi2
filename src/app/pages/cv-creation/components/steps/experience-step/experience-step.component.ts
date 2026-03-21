@@ -26,7 +26,16 @@ export class ExperienceStepComponent implements OnInit {
 
         // Auto-save
         this.form.valueChanges.subscribe(val => {
-            this.cvState.updateExperience(val.experience);
+            const mappedExperience = val.experience.map((exp: any) => ({
+                id: exp.id,
+                jobTitle: exp.role || exp.jobTitle || '',
+                company: exp.company || '',
+                startDate: exp.startDate || '',
+                endDate: exp.endDate || '',
+                current: exp.isCurrent || exp.current || false,
+                description: exp.description || ''
+            }));
+            this.cvState.updateExperience(mappedExperience);
         });
     }
 
@@ -46,6 +55,7 @@ export class ExperienceStepComponent implements OnInit {
 
     addExperience(data?: any) {
         const expGroup = this.fb.group({
+            id: [data?.id || crypto.randomUUID()],
             role: [data?.role || data?.jobTitle || ''],
             company: [data?.company || ''],
             startDate: [data?.startDate || ''],

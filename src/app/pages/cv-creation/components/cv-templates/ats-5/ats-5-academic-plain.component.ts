@@ -8,7 +8,8 @@ import { CommonModule } from '@angular/common';
     template: `
     <div class="h-full bg-white text-black font-serif min-h-[297mm] p-16 text-sm">
         <header class="text-center mb-10">
-            <h1 class="text-2xl font-bold uppercase mb-4">{{ resume.personalInfo.fullName }}</h1>
+            <h1 class="text-2xl font-bold uppercase mb-1">{{ resume.personalInfo.fullName }}</h1>
+            <p class="font-bold text-slate-700 mb-3 uppercase" *ngIf="resume.personalInfo.jobTitle">{{ resume.personalInfo.jobTitle }}</p>
             <p>{{ resume.personalInfo.location }}</p>
             <p>{{ resume.personalInfo.phone }} • {{ resume.personalInfo.email }}</p>
             <div class="mt-2 text-xs">
@@ -75,10 +76,23 @@ import { CommonModule } from '@angular/common';
             <div class="text-center">{{ resume.skills.join(' • ') }}</div>
         </section>
 
-        <section *ngIf="resume.languages?.length">
+        <section *ngIf="resume.languages?.length" class="mb-8">
             <h3 class="font-bold uppercase text-center border-b border-black mb-4 pb-1">Languages</h3>
             <div class="text-center">{{ resume.languages.join(' • ') }}</div>
         </section>
+
+        <!-- Custom Sections -->
+        <div *ngFor="let section of resume.customSections">
+            <section *ngIf="section.items && section.items.length" class="mb-8">
+                <h3 class="font-bold uppercase text-center border-b border-black mb-4 pb-1">{{ section.title }}</h3>
+                <div class="space-y-4">
+                    <div *ngFor="let item of section.items">
+                        <div class="font-bold text-center">{{ item.name }}</div>
+                        <p class="text-justify">{{ item.description }}</p>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
     `
 })
