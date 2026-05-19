@@ -4,7 +4,7 @@ const fs = require('fs');
 const content = `export const environment = {
     production: false,
     OPENROUTER_API_KEY: '${process.env.OPENROUTER_API_KEY}',
-    GOOGLE_VISION_API_KEY: '${process.env.GOOGLE_VISION_KEY}'
+    GOOGLE_VISION_API_KEY: '${process.env.GOOGLE_VISION_API_KEY}'
 };
 `;
 
