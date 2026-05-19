@@ -42,5 +42,13 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Keep .env.example in version control
+!.env.example
+
 src/environments/environment.ts
 src/environments/environment.prod.ts

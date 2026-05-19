@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "set-env": "node scripts/set-env.js",
+    "start": "npm run set-env && ng serve",
+    "build": "npm run set-env && ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:resume-ai": "node dist/resume-ai/server/server.mjs"
@@ -65,6 +66,7 @@
     "@types/node": "^20.17.19",
     "@types/node-fetch": "^2.6.13",
     "autoprefixer": "^10.4.23",
+    "dotenv": "^17.4.2",
     "jsdom": "^27.1.0",
     "node-fetch": "^3.3.2",
     "postcss": "^8.5.6",
