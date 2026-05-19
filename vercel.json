@@ -1,15 +1,11 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
+  "outputDirectory": "dist/resume-ai/browser",
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/api"
+      "destination": "/index.html"
     }
-  ],
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "dist/resume-ai/**"
-    }
-  }
+  ]
 }
